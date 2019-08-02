@@ -1,16 +1,21 @@
 package org.sglba.trainman.util;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.os.Build;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateUtils {
-    //Classe di utilità che si occupa di convertire il formato data string della response in un formato adatto alla UI.
+
     public static String formatDate(String dateString){
         String dateFormatted="";
         try {
-            String pattern = "yyyy-MM-dd'T'HH:mm:ss";
+            String pattern = "dd-MM-yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             Date date = simpleDateFormat.parse(dateString);
             DateFormat dateFormat = new SimpleDateFormat("HH:mm");
