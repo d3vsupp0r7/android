@@ -38,8 +38,8 @@ This is a simple project to simulate a train journey related operations within a
 #### Rest client libary
 
 * **retrofit2**
-  **core:** '2.4.0'
-  **json-parser:** converter-gson
+  * **core:** '2.4.0'
+  * **json-parser:** converter-gson
 
 #### Util libraries
 
