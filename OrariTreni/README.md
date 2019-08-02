@@ -16,6 +16,9 @@
 
 This is a simple project to simulate a train journey related operations within an Android application.
 
+**NOTE:**  
+This application is intented as example/educational scope. 
+
 ## Getting started
 *TO_DO*
 
