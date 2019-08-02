@@ -11,11 +11,12 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface StationService {
-    @GET("/your/rest/api/{region}")
+    @GET("/viaggiatrenonew/resteasy/viaggiatreno/elencoStazioni/{region}")
     Call <List<Station>> getStationByRegion(@Path("region") String region);
 
-    @GET("/your/rest/api/{departureStation}/{arrivalStation}/{date}T00:00:00")
+    @GET("/viaggiatrenonew/resteasy/viaggiatreno/soluzioniViaggioNew/{departureStation}/{arrivalStation}/{date}T00:00:00")
     Call <RailRoute> getTrainsByTwoStations(@Path("departureStation") String departureStation, @Path("arrivalStation") String arrivalStation, @Path("date") String date);
+
 
 
 }

@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkStationClient {
 
-    public static final String BASE_URL = "http://www.yourbaseurl.it";
+    public static final String BASE_URL = "http://www.viaggiatreno.it";
     public static Retrofit retrofit;
     /*
     This public static method will return Retrofit client
