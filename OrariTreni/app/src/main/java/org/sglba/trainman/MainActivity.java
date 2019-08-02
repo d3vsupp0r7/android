@@ -17,13 +17,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.example.oraritreni.DateUtils;
 import com.example.oraritreni.R;
-import com.example.oraritreni.model.RailRoute;
-import com.example.oraritreni.model.Soluzioni;
-import com.example.oraritreni.model.Vehicle;
 
-
+import org.sglba.trainman.model.RailRoute;
+import org.sglba.trainman.model.Soluzioni;
+import org.sglba.trainman.model.Station;
+import org.sglba.trainman.model.Vehicle;
+import org.sglba.trainman.retrofitclient.NetworkStationClient;
+import org.sglba.trainman.service.StationService;
+import org.sglba.trainman.util.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -117,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     String departureStationCode = stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "");
                     String arrivalStationCode = stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()).replace("S0", "");
                     tableLayoutPrincipal.removeAllViews();
-                    getTrainByStations(departureStationCode, arrivalStationCode,DateUtils.formatDateForRequest(selectedDate!=null?selectedDate:""));
+                    getTrainByStations(departureStationCode, arrivalStationCode,DateUtils.formatDate(selectedDate!=null?selectedDate:""));
                 }
             }
         });

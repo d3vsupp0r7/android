@@ -1,4 +1,4 @@
-package com.example.oraritreni;
+package org.sglba.trainman.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;

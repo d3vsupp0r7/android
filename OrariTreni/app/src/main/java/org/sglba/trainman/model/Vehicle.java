@@ -1,5 +1,5 @@
 
-package com.example.oraritreni.model;
+package org.sglba.trainman.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
