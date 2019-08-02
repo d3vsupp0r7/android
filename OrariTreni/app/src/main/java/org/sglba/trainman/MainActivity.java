@@ -1,4 +1,4 @@
-package com.example.oraritreni;
+package org.sglba.trainman;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,12 +17,13 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.oraritreni.DateUtils;
+import com.example.oraritreni.R;
 import com.example.oraritreni.model.RailRoute;
 import com.example.oraritreni.model.Soluzioni;
-import com.example.oraritreni.model.Station;
 import com.example.oraritreni.model.Vehicle;
-import com.example.oraritreni.retrofitclient.NetworkStationClient;
-import com.example.oraritreni.service.StationService;
+
+
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                     String departureStationCode = stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "");
                     String arrivalStationCode = stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()).replace("S0", "");
                     tableLayoutPrincipal.removeAllViews();
-                    getTrainByStations(departureStationCode, arrivalStationCode,DateUtils.formatDate(selectedDate!=null?selectedDate:""));
+                    getTrainByStations(departureStationCode, arrivalStationCode,DateUtils.formatDateForRequest(selectedDate!=null?selectedDate:""));
                 }
             }
         });
@@ -132,31 +133,31 @@ public class MainActivity extends AppCompatActivity {
                         calendarView.setDate(calendar.getTimeInMillis());
                     }
 
-                // Add Listener in calendar
-                calendarView
-                        .setOnDateChangeListener(
-                                new CalendarView
-                                        .OnDateChangeListener() {
-                                    @Override
-                                    public void onSelectedDayChange(
-                                            @NonNull CalendarView view,
-                                            int year,
-                                            int month,
-                                            int dayOfMonth) {
-                                        yearToSet = year;
-                                        monthToSet = month;
-                                        dayToSet = dayOfMonth;
-                                        String Date
-                                                = dayOfMonth + "-"
-                                                + (month + 1) + "-" + year;
-                                        selectedDate = Date;
-                                        tableLayoutPrincipal.removeView(calendarView);
-                                        isCalendarButtonPressed=true;
-                                    }
-                                });
-                tableLayoutPrincipal.addView(calendarView);
-                isCalendarButtonPressed=false;
-            }
+                    // Add Listener in calendar
+                    calendarView
+                            .setOnDateChangeListener(
+                                    new CalendarView
+                                            .OnDateChangeListener() {
+                                        @Override
+                                        public void onSelectedDayChange(
+                                                @NonNull CalendarView view,
+                                                int year,
+                                                int month,
+                                                int dayOfMonth) {
+                                            yearToSet = year;
+                                            monthToSet = month;
+                                            dayToSet = dayOfMonth;
+                                            String Date
+                                                    = dayOfMonth + "-"
+                                                    + (month + 1) + "-" + year;
+                                            selectedDate = Date;
+                                            tableLayoutPrincipal.removeView(calendarView);
+                                            isCalendarButtonPressed=true;
+                                        }
+                                    });
+                    tableLayoutPrincipal.addView(calendarView);
+                    isCalendarButtonPressed=false;
+                }
             }
 
         });
@@ -329,10 +330,14 @@ public class MainActivity extends AppCompatActivity {
     private void createSolutionsLayoutTable(Soluzioni solution) {
         //TableRow/Layout creation
         TableRow tableRowSolution = new TableRow(this);
+        tableRowSolution.setBackgroundResource(R.drawable.rowborder);
+
         TableLayout tableLayoutVehicle = new TableLayout(this);
+        //row1
         TableRow tableRowVehicleDeparture = new TableRow(this);
         TableRow tableRowVehicleArrival = new TableRow(this);
         TableRow tableRowVehicleStatus = new TableRow(this);
+
         //TextViewsSection
         TextView textViewDepartureTime = new TextView(this);
         TextView textViewArrivalTime = new TextView(this);
@@ -342,6 +347,10 @@ public class MainActivity extends AppCompatActivity {
         spaceBetweenTimeArrivalStation.setMinimumWidth(20);
         TextView textViewDepartureStation = new TextView(this);
         TextView textViewArrivalStation = new TextView(this);
+        Space spaceBetweenArrivalStationDurationTime= new Space(this);
+        spaceBetweenArrivalStationDurationTime.setMinimumWidth(250);
+        TextView textViewDurationTime= new TextView(this);
+
         //TextViewsSettings
         Vehicle firstVehicle = solution.getVehicles().get(0);
         Vehicle lastVehicle = solution.getVehicles().get(solution.getVehicles().size() - 1);
@@ -349,16 +358,32 @@ public class MainActivity extends AppCompatActivity {
         textViewArrivalTime.setText(DateUtils.formatDate(lastVehicle.getOrarioArrivo()));
         textViewDepartureStation.setText(autoCompleteDepartures.getText().toString().replace("S0", ""));
         textViewArrivalStation.setText(autoCompleteArrivals.getText().toString().replace("S0", ""));
+        textViewDurationTime.setText(solution.getDurata());
 
+        //row1 render
         tableRowVehicleDeparture.addView(textViewDepartureTime);
         tableRowVehicleDeparture.addView(spaceBetweenTimeDepartureStation);
         tableRowVehicleDeparture.addView(textViewDepartureStation);
+        //row2 render
         tableRowVehicleArrival.addView(textViewArrivalTime);
         tableRowVehicleArrival.addView(spaceBetweenTimeArrivalStation);
         tableRowVehicleArrival.addView(textViewArrivalStation);
+        tableRowVehicleArrival.addView(spaceBetweenArrivalStationDurationTime);
+        tableRowVehicleArrival.addView(textViewDurationTime);
+        //row3 render
+        TextView textViewVehicleNumber=new TextView(this);
+        StringBuilder stringBuilder= new StringBuilder();
+        for (Vehicle vehicle:solution.getVehicles()){
+            stringBuilder.append(vehicle.getNumeroTreno()+"   ");
+        }
+        String result=stringBuilder.toString();
+        textViewVehicleNumber.setText(result);
+        tableRowVehicleStatus.addView(textViewVehicleNumber);
+
+        //
         tableLayoutVehicle.addView(tableRowVehicleDeparture);
         tableLayoutVehicle.addView(tableRowVehicleArrival);
-        tableLayoutVehicle.addView(tableRowVehicleStatus);
+        //tableLayoutVehicle.addView(tableRowVehicleStatus);
         tableRowSolution.addView(tableLayoutVehicle);
         tableLayoutPrincipal.addView(tableRowSolution);
     }
