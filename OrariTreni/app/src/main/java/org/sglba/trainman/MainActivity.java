@@ -5,8 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -16,9 +14,9 @@ import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.util.Log;
 
-import com.example.oraritreni.R;
-
+import org.sglba.trainman.costraints.ApplicationCostraintsEnum;
 import org.sglba.trainman.model.RailRoute;
 import org.sglba.trainman.model.Soluzioni;
 import org.sglba.trainman.model.Station;
@@ -80,16 +78,18 @@ public class MainActivity extends AppCompatActivity {
         autoCompleteDepartures.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.addTextChangedListener - executed");
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
                 getStationByRegionForDepartures(CAMPANIA_REGION, s.toString());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.afterTextChanged - executed");
 
             }
         });
@@ -97,16 +97,19 @@ public class MainActivity extends AppCompatActivity {
         autoCompleteArrivals.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.addTextChangedListener - executed");
 
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 getStationByRegionForArrivals(CAMPANIA_REGION, s.toString());
+                Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.afterTextChanged - executed");
 
             }
         });
@@ -127,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "calendarButton.onClick - executed");
                 CalendarView calendarView = new CalendarView(MainActivity.this);
                 if (isCalendarButtonPressed){
                     if (selectedDate != null) {
@@ -149,10 +153,21 @@ public class MainActivity extends AppCompatActivity {
                                             yearToSet = year;
                                             monthToSet = month;
                                             dayToSet = dayOfMonth;
-                                            String Date
-                                                    = dayOfMonth + "-"
-                                                    + (month + 1) + "-" + year;
-                                            selectedDate = Date;
+
+                                            String sMonth = String.valueOf((monthToSet + 1));
+                                            String sDay = String.valueOf(dayToSet);
+
+                                            if (sDay.length() == 1)
+                                                sDay = "0" + sDay;
+
+                                            if (sMonth.length() == 1)
+                                                sMonth = "0" + sMonth;
+
+                                            String date
+                                                    = sDay + "-"
+                                                    + sMonth + "-" + year;
+                                            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "calendarButton.onClick - selectedDate: " + selectedDate);
+                                            selectedDate = date;
                                             tableLayoutPrincipal.removeView(calendarView);
                                             isCalendarButtonPressed=true;
                                         }
@@ -165,28 +180,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void getStationByRegionForDepartures(String region, String charSequence) {
@@ -208,31 +201,40 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
                 /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
                  */
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - started");
+
                 Map<String, String> stationMapFiltered = new HashMap<>();
                 List<String> stationNamesList = new ArrayList<>();
+
                 if (response.body() != null) {
+                    Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - response processing");
+
                     List<Station> station = response.body();
                     stationMapFiltered.clear();
                     stationNamesList.clear();
+
                     for (Station singleStation : station) {
+
                         if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence)) {
                             stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(), singleStation.getCodStazione());
                             stationNamesList.add(singleStation.getLocalita().getNomeLungo());
                         }
                     }
+
                     stationMapFilteredForDepartures.putAll(stationMapFiltered);
                     adapterForDepartures = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
                     autoCompleteDepartures.setAdapter(adapterForDepartures);
 
                 } else {
-                    //aggiungere exception error on response
-                    System.out.println("Error");
+                    //TODO: Manage application exception on comunication error
+                    Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - failed");
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                System.out.println("Error");
+                //TODO: Manage application exception on comunication error
+                Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - onFailure");
             }
         });
     }
@@ -256,9 +258,14 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
                 /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
                  */
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForArrivals - started");
                 Map<String, String> stationMapFiltered = new HashMap<>();
                 List<String> stationNamesList = new ArrayList<>();
+
                 if (response.body() != null) {
+
+                    Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - response processing");
+
                     List<Station> station = response.body();
                     stationMapFiltered.clear();
                     stationNamesList.clear();
@@ -274,14 +281,15 @@ public class MainActivity extends AppCompatActivity {
                     autoCompleteArrivals.setAdapter(adapterForArrivals);
 
                 } else {
-                    //aggiungere exception error on response
-                    System.out.println("Error");
+                    //TODO: Manage application exception on comunication error
+                    Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForArrivals - failed");
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                System.out.println("Error");
+                //TODO: Manage application exception on comunication error
+                Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForArrivals  - onFailure");
             }
         });
     }
@@ -307,24 +315,27 @@ public class MainActivity extends AppCompatActivity {
                 /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
                  */
                 if (response.body() != null) {
+                    Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getTravelSolutionsFromStations - started");
+
                     RailRoute railRoute = response.body();
                     List<Soluzioni> solutionsList = railRoute.getSoluzioni();
+                    Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** START generate dynamic tableLayout");
                     for (Soluzioni singleSolution : solutionsList) {
                         createSolutionsLayoutTable(singleSolution);
                     }
-
-                    System.out.println("TuttoOk");
+                    Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** END generate dynamic tableLayout");
 
                 } else {
-                    //aggiungere exception error on response
-                    System.out.println(ERROR);
+                    //TODO: Manage application exception on comunication error
+                    Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getTravelSolutionsFromStations - failed");
                 }
+
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                //aggiungere exception error on request
-                System.out.println(ERROR);
+                //TODO: Manage application exception on comunication error
+                Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getTravelSolutionsFromStations  - onFailure");
             }
         });
     }
@@ -373,7 +384,7 @@ public class MainActivity extends AppCompatActivity {
         tableRowVehicleArrival.addView(spaceBetweenArrivalStationDurationTime);
         tableRowVehicleArrival.addView(textViewDurationTime);
         //row3 render
-        TextView textViewVehicleNumber=new TextView(this);
+       TextView textViewVehicleNumber=new TextView(this);
         StringBuilder stringBuilder= new StringBuilder();
         for (Vehicle vehicle:solution.getVehicles()){
             stringBuilder.append(vehicle.getNumeroTreno()+"   ");
