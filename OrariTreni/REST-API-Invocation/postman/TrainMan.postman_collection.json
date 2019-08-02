@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "4bea5a18-366a-49b6-a48e-17da67e5f8f1",
+		"name": "TrainMan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET - getStationListByRegion",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.yourbaseurl.it/rest/api/restservice/elencoStazioni/1",
+					"protocol": "http",
+					"host": [
+						"www",
+						"restservice",
+						"it"
+					],
+					"path": [
+						"rest",
+						"api",
+						"restservice",
+						"elencoStazioni",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - getTravelSolutionsFromStations",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.yourbaseurl.it/rest/api/restservice/soluzioniViaggioNew/IDStationDeparture/IDStationArrival/YYYY-MM-DDT00:00:00",
+					"protocol": "http",
+					"host": [
+						"www",
+						"restservice",
+						"it"
+					],
+					"path": [
+						"rest",
+						"api",
+						"restservice",
+						"soluzioniViaggioNew",
+						"IDStationDeparture",
+						"IDStationArrival",
+						"YYYY-MM-DDT00:00:00"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - getStationByNameAutocomplete",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.yourbaseurl.it/rest/api/restservice/autocompletaStazione/A",
+					"protocol": "http",
+					"host": [
+						"www",
+						"restservice",
+						"it"
+					],
+					"path": [
+						"rest",
+						"api",
+						"restservice",
+						"autocompletaStazione",
+						"A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - getStationByName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.yourbaseurl.it/rest/api/restservice/cercaStazione/A",
+					"protocol": "http",
+					"host": [
+						"www",
+						"restservice",
+						"it"
+					],
+					"path": [
+						"rest",
+						"api",
+						"restservice",
+						"cercaStazione",
+						"A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - getRegionIdByStationCode",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.yourbaseurl.it/rest/api/restservice/regione/IDStation",
+					"protocol": "http",
+					"host": [
+						"www",
+						"restservice",
+						"it"
+					],
+					"path": [
+						"rest",
+						"api",
+						"restservice",
+						"regione",
+						"IDStation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - getStationDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.yourbaseurl.it/rest/api/restservice/dettaglioStazione/IDStation/IDRegion",
+					"protocol": "http",
+					"host": [
+						"www",
+						"restservice",
+						"it"
+					],
+					"path": [
+						"rest",
+						"api",
+						"restservice",
+						"dettaglioStazione",
+						"IDStation",
+						"IDRegion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - getTrainDetail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.yourbaseurl.it/rest/api/restservice/andamentoTreno/IDStation/IDTrain",
+					"protocol": "http",
+					"host": [
+						"www",
+						"restservice",
+						"it"
+					],
+					"path": [
+						"rest",
+						"api",
+						"restservice",
+						"andamentoTreno",
+						"IDStation",
+						"IDTrain"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
