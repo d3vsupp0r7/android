@@ -1,6 +1,7 @@
 package com.example.oraritreni;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -22,9 +24,9 @@ import com.example.oraritreni.model.Vehicle;
 import com.example.oraritreni.retrofitclient.NetworkStationClient;
 import com.example.oraritreni.service.StationService;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
     Map<String, String> stationMapFilteredForDepartures = new HashMap<>();
     Map<String, String> stationMapFilteredForArrivals = new HashMap<>();
 
+    Boolean isCalendarButtonPressed=true;
+
+    //To Add on Date Utils
+    String   selectedDate;
+    int yearToSet;
+    int monthToSet;
+    int dayToSet;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button findButton = findViewById(R.id.findButton);
+        Button calendarButton= findViewById(R.id.calendarButton);
         autoCompleteArrivals = findViewById(R.id.autoCompleteArrivals);
         autoCompleteDepartures = findViewById(R.id.autoCompleteDepartures);
         tableLayoutPrincipal = findViewById(R.id.TableLayoutPrincipal);
@@ -104,10 +115,53 @@ public class MainActivity extends AppCompatActivity {
                         && autoCompleteArrivals.getText() != null & !autoCompleteArrivals.getText().toString().isEmpty()) {
                     String departureStationCode = stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "");
                     String arrivalStationCode = stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()).replace("S0", "");
-                    getTrainByStations(departureStationCode, arrivalStationCode, "2019-08-01");
+                    tableLayoutPrincipal.removeAllViews();
+                    getTrainByStations(departureStationCode, arrivalStationCode,DateUtils.formatDate(selectedDate!=null?selectedDate:""));
                 }
             }
         });
+
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CalendarView calendarView = new CalendarView(MainActivity.this);
+                if (isCalendarButtonPressed){
+                    if (selectedDate != null) {
+                        Calendar calendar = new GregorianCalendar();
+                        calendar.set(yearToSet, monthToSet, dayToSet, 0, 0);
+                        calendarView.setDate(calendar.getTimeInMillis());
+                    }
+
+                // Add Listener in calendar
+                calendarView
+                        .setOnDateChangeListener(
+                                new CalendarView
+                                        .OnDateChangeListener() {
+                                    @Override
+                                    public void onSelectedDayChange(
+                                            @NonNull CalendarView view,
+                                            int year,
+                                            int month,
+                                            int dayOfMonth) {
+                                        yearToSet = year;
+                                        monthToSet = month;
+                                        dayToSet = dayOfMonth;
+                                        String Date
+                                                = dayOfMonth + "-"
+                                                + (month + 1) + "-" + year;
+                                        selectedDate = Date;
+                                        tableLayoutPrincipal.removeView(calendarView);
+                                        isCalendarButtonPressed=true;
+                                    }
+                                });
+                tableLayoutPrincipal.addView(calendarView);
+                isCalendarButtonPressed=false;
+            }
+            }
+
+        });
+
+
     }
 
     @Override
@@ -308,6 +362,5 @@ public class MainActivity extends AppCompatActivity {
         tableRowSolution.addView(tableLayoutVehicle);
         tableLayoutPrincipal.addView(tableRowSolution);
     }
-
 
 }
