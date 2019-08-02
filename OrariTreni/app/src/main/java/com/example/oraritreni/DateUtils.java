@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtils {
+    //Classe di utilità che si occupa di convertire il formato data string della response in un formato adatto alla UI.
     public static String formatDate(String dateString){
         String dateFormatted="";
         try {
