@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         Invoke the method corresponding to the HTTP request which will return a Call object. This Call object will used to send the actual network request with the specified parameters
         */
-        Call call = stationService.getTrainsByTwoStations(departureStation, arrivalStation, date);
+        Call call = stationService.getTravelSolutionsFromStations(departureStation, arrivalStation, date);
         /*
         This is the line which actually sends a network request. Calling enqueue() executes a call asynchronously. It has two callback listeners which will invoked on the main thread
         */
