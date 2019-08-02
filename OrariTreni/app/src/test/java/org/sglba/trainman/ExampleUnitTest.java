@@ -1,4 +1,4 @@
-package com.example.oraritreni;
+package org.sglba.trainman;
 
 import org.junit.Test;
 

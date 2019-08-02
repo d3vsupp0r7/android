@@ -1,4 +1,4 @@
-package com.example.oraritreni;
+package org.sglba.trainman;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.oraritreni", appContext.getPackageName());
+        assertEquals("org.sglba.trainman", appContext.getPackageName());
     }
 }
