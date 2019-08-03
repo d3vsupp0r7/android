@@ -38,7 +38,9 @@ To run a Wiremock you need to:
 
 2) Run Wiremock standalone application on your chosen http port as example:  
 
-java -jar wiremock-standalone-*version*.jar --port *your_http_port* 
+```console
+java -jar wiremock-standalone-*<version>*.jar --port *<your_http_port>* 
+```
 
 To run Wiremock on 9091 hhtp port:
 
