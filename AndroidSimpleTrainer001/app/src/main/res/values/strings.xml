@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AndroidSimpleTrainer001</string>
+
+    <!-- SplashScreen config -->
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="welcome">Welcome to\nTraining App</string>
+
 </resources>
