@@ -34,7 +34,6 @@ public class SecondActivity extends Activity {
     Context mContext;
     ConstraintLayout mConstraintLayout;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -55,24 +54,24 @@ public class SecondActivity extends Activity {
                 startActivity(intent);
             }
         });
-        /** Get Shared data**/
+
+        /** Get Shared data across activity and put it into a textView component**/
         Intent intent = getIntent();
         Employee sharedEmployee = (Employee)intent.getExtras().get("employeeShared");
         printSharedDataTextView = (TextView)findViewById(R.id.printSharedDataTextView);
         printSharedDataTextView.setMovementMethod(new ScrollingMovementMethod());
         printSharedDataTextView.setText(sharedEmployee.toString());
 
-        /*Manage popou section*/
+        /*Manage popup section*/
         mContext = this;
         showPopupButton = (Button)findViewById(R.id.showPopupButton);
         showPopupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                //Obtain layout for popup
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
                 View customView = inflater.inflate(R.layout.simple_popup_layout,null);
-                //
-
+                // Define background color for layout
                 Drawable d = new ColorDrawable(Color.BLUE);
                 //
                 mPopupWindow = new PopupWindow(
@@ -93,10 +92,10 @@ public class SecondActivity extends Activity {
                 });
 
                 mPopupWindow.setBackgroundDrawable(d);
+                //Center popup
                 mPopupWindow.showAtLocation(mConstraintLayout, Gravity.CENTER,0,0);
             }
         });
     }
-
 
 }

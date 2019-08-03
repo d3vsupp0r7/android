@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         /*Demo Data Builder*/
         myEmployeeList = new ArrayList<>();
         factory = new PodamFactoryImpl();
