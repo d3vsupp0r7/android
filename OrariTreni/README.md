@@ -45,8 +45,11 @@ To run Wiremock on 9091 hhtp port:
 java -jar wiremock-standalone-2.24.0.jar --port 9091
 ```
 
-* **List all mappins avaiable on wiremock**
+* **List all mappins avaiable on wiremock**  
+
+```
 http://localhost:<wiremock_port>/__admin/
+```
 
 ## Running Test
 *TO_DO*
