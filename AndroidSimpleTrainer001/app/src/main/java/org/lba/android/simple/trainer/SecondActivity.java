@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +16,20 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.content.Context;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.TextView;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
+import org.lba.android.simple.trainer.model.Employee;
 
 public class SecondActivity extends Activity {
 
     Button backToFirstActivityButton;
     Button showPopupButton;
     PopupWindow mPopupWindow;
+    //
+    TextView printSharedDataTextView;
     //
     Context mContext;
     ConstraintLayout mConstraintLayout;
@@ -39,7 +45,7 @@ public class SecondActivity extends Activity {
 
         mConstraintLayout = (ConstraintLayout) findViewById(R.id.secondActivityLayout);
 
-        /*Activity Navigation*/
+        /* Activity Navigation - goBack Button */
         backToFirstActivityButton =(Button)findViewById(R.id.backToFirstActivityButton);
         backToFirstActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,8 +55,14 @@ public class SecondActivity extends Activity {
                 startActivity(intent);
             }
         });
+        /** Get Shared data**/
+        Intent intent = getIntent();
+        Employee sharedEmployee = (Employee)intent.getExtras().get("employeeShared");
+        printSharedDataTextView = (TextView)findViewById(R.id.printSharedDataTextView);
+        printSharedDataTextView.setMovementMethod(new ScrollingMovementMethod());
+        printSharedDataTextView.setText(sharedEmployee.toString());
 
-        /**/
+        /*Manage popou section*/
         mContext = this;
         showPopupButton = (Button)findViewById(R.id.showPopupButton);
         showPopupButton.setOnClickListener(new View.OnClickListener() {

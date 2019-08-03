@@ -17,12 +17,14 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     PodamFactory factory;
     List<Employee> myEmployeeList;
     Button nextActivityButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"** MainActivity - goto second activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                /* Sample data to pass to second activity*/
+                Employee employeeDataBetweenActivity = factory.manufacturePojoWithFullData(Employee.class);
+                intent.putExtra("employeeShared",employeeDataBetweenActivity);
+                /*Call target (second) activity*/
                 startActivity(intent);
             }
         });
@@ -54,5 +61,9 @@ public class MainActivity extends AppCompatActivity {
         for (Employee currentEmployee: myEmployeeList) {
 
         }
+
+
+
+
     }
 }
