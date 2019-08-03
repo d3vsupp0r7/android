@@ -4,6 +4,7 @@
   * [Getting started](#getting-started)
   * [Prerequisite](#prerequisite)
     * [Installing](#installing)
+      * [REST API Mocking](#rest-api-mocking)
   * [Running Test](#running-test)
   * [Built with](#built-with)
     * [Default library dependency](#default-library-dependency)
