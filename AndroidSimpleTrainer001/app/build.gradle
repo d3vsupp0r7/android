@@ -32,4 +32,5 @@ dependencies {
     //Podam for dynamic pojo building
     implementation 'uk.co.jemos.podam:podam:7.2.3.RELEASE'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation 'org.jetbrains:annotations-java5:15.0'
 }
