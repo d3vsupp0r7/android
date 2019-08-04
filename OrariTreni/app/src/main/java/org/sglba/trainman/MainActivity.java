@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -80,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
     ConstraintLayout mConstraintLayout;
     Context mContext;
 
+    //Buttons
+    ImageButton swapButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +92,9 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
         /* UI Components */
         //Buttons reference from UI
-        Button findButton = findViewById(R.id.findButton);
-        Button calendarButton= findViewById(R.id.calendarButton);
+        ImageButton findButton = findViewById(R.id.findButton);
+        ImageButton calendarButton= findViewById(R.id.calendarButton);
+        swapButton =  findViewById(R.id.swapButton);
         //Autocomplete configurations
         autoCompleteArrivals = findViewById(R.id.autoCompleteArrivals);
         autoCompleteDepartures = findViewById(R.id.autoCompleteDepartures);
@@ -138,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        /*findButton  : OnClickListener*/
         findButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,7 +155,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        /*swapButton : OnClickListener*/
+        swapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tmpDeparture = autoCompleteDepartures.getText().toString();
+                String tmpArrivals = autoCompleteArrivals.getText().toString();
+                autoCompleteDepartures.setText(tmpArrivals);
+                autoCompleteArrivals.setText(tmpDeparture);
 
+            }
+        });
+
+        /*calendarButton : OnClickListener*/
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
