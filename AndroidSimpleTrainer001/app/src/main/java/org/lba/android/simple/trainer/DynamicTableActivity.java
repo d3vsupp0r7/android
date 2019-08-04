@@ -109,7 +109,7 @@ public class DynamicTableActivity  extends AppCompatActivity {
         //Row iteration
         for(int i = 0; i < rows; i ++) {
             Employee curEmployee = myEmployeeList.get(i);
-            //
+            //tv
             final TextView tv = new TextView(this);
             tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
@@ -118,6 +118,15 @@ public class DynamicTableActivity  extends AppCompatActivity {
             tv.setBackgroundColor(Color.parseColor("#f8f8f8"));
             tv.setText(String.valueOf(curEmployee.getId()));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            //tv2
+            final TextView tv2 = new TextView(this);
+            tv2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT));
+            tv2.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            tv2.setGravity(Gravity.LEFT);
+            tv2.setPadding(5, 15, 0, 15);
+            tv2.setBackgroundColor(Color.parseColor("#ffffff"));
+            tv2.setTextColor(Color.parseColor("#000000"));
+            tv2.setText(curEmployee.getName());
             // TableRow
             final TableRow tr = new TableRow(this);
             TableLayout.LayoutParams trParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
@@ -129,6 +138,7 @@ public class DynamicTableActivity  extends AppCompatActivity {
 
             /**/
             tr.addView(tv);
+            tr.addView(tv2);
             mTableLayout.addView(tr, trParams);
             /*Separator*/
             final TableRow trSep = new TableRow(this);
