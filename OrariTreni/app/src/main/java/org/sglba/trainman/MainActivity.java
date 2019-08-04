@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Buttons
     ImageButton swapButton;
+    //TextView
+    TextView dateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         autoCompleteDepartures = findViewById(R.id.autoCompleteDepartures);
         autoCompleteDepartures.setThreshold(2);
         autoCompleteArrivals.setThreshold(2);
+        //
+        dateTextView = findViewById(R.id.dateTextView);
 
         //trainSolutions - TableLayout confifuration
         trainSolutionsTableLayout = findViewById(R.id.trainSolutionsTableLayout);
@@ -208,11 +212,14 @@ public class MainActivity extends AppCompatActivity {
                                                     = year + "-" + sMonth + "-" + sDay;
                                             Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "calendarButton.onClick - selectedDate: " + selectedDate);
                                             selectedDate = date;
+                                            dateTextView.setText(DateUtils.formatDateToUE(selectedDate));
                                             trainSolutionsTableLayout.removeView(calendarView);
                                             isCalendarButtonPressed=true;
                                         }
                                     });
                     trainSolutionsTableLayout.addView(calendarView,0);
+
+
                     isCalendarButtonPressed=false;
                 }
             }
@@ -502,15 +509,7 @@ public class MainActivity extends AppCompatActivity {
                 trSep.addView(tvSep);
                 trainSolutionsTableLayout.addView(trSep, trParamsSep);
             }
-           /* final TextView tv = new TextView(this);
-            tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
-                    TableRow.LayoutParams.WRAP_CONTENT));
-            tv.setGravity(Gravity.LEFT);
-            tv.setPadding(5, 15, 0, 15);
-            tv.setBackgroundColor(Color.parseColor("#f8f8f8"));
-            tv.setText(String.valueOf(currentSolution.get));
-            tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);*/
-            //
+
         }
 
     }
