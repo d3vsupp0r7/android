@@ -1,4 +1,8 @@
 <resources>
+    <!-- App messages labels -->
+    <!-- Generals -->
     <string name="app_name">OrariTreni</string>
+    <string name="welcome">Welcome to\nTrainMan</string>
+    <!-- -->
     <string name="action_settings">Settings</string>
 </resources>

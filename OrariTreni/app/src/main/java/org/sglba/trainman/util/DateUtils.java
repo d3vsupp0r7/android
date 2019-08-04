@@ -25,4 +25,20 @@ public class DateUtils {
         }
         return dateFormatted;
     }
+
+    public static String formatDateToUE(String dateString){
+        String dateFormatted="";
+        try {
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse(dateString);
+            //
+            String pattern = "dd-MM-yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            //
+            dateFormatted=simpleDateFormat.format(date);
+        }catch(ParseException e){
+            e.printStackTrace();
+        }
+        return dateFormatted;
+    }
 }
