@@ -24,6 +24,10 @@
         <activity android:name=".SecondActivity"
             android:label="@string/app_name"/>
 
+        <!-- DynamicTable Activity -->
+        <activity android:name=".DynamicTableActivity"
+            android:label="@string/app_name"/>
+
         <!-- SplashScreen activity -->
         <activity android:name=".SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
     PodamFactory factory;
     List<Employee> myEmployeeList;
+    //
     Button nextActivityButton;
+    Button dynamicTableActivityButton;
 
 
     @Override
@@ -49,6 +51,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        /*Dynamic table*/
+        dynamicTableActivityButton  =(Button)findViewById(R.id.dynamicTableActivityButton);
+        dynamicTableActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto dynamicTable activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
+                Intent intent = new Intent(MainActivity.this, DynamicTableActivity.class);
+                /*Call target (second) activity*/
+                startActivity(intent);
+            }
+            });
 
         /*Demo Data Builder*/
         myEmployeeList = new ArrayList<>();
