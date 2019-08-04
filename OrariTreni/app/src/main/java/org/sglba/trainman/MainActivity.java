@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     String departureStationCode = stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "");
                     String arrivalStationCode = stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()).replace("S0", "");
                     tableLayoutPrincipal.removeAllViews();
-                    getTrainByStations(departureStationCode, arrivalStationCode,DateUtils.formatDate(selectedDate!=null?selectedDate:""));
+                    getTrainByStations(departureStationCode, arrivalStationCode,selectedDate!=null?selectedDate:"");
                 }
             }
         });
@@ -164,15 +164,14 @@ public class MainActivity extends AppCompatActivity {
                                                 sMonth = "0" + sMonth;
 
                                             String date
-                                                    = sDay + "-"
-                                                    + sMonth + "-" + year;
+                                                    = year + "-" + sMonth + "-" + sDay;
                                             Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "calendarButton.onClick - selectedDate: " + selectedDate);
                                             selectedDate = date;
                                             tableLayoutPrincipal.removeView(calendarView);
                                             isCalendarButtonPressed=true;
                                         }
                                     });
-                    tableLayoutPrincipal.addView(calendarView);
+                    tableLayoutPrincipal.addView(calendarView,0);
                     isCalendarButtonPressed=false;
                 }
             }
