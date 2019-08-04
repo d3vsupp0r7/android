@@ -410,14 +410,17 @@ public class MainActivity extends AppCompatActivity {
 
             Soluzioni currentSolution = solutionsList.get(i);
             List<Vehicle> vehicleForSolution = currentSolution.getVehicles();
+            Vehicle firstVehicle=vehicleForSolution.get(0);
+            Vehicle lastVehicle=vehicleForSolution.get(vehicleForSolution.size()-1);
+
+
             //Solution data
             String duration = currentSolution.getDurata();
             //Veichle management
-            for (Vehicle currentVeichle: vehicleForSolution) {
                 //Define layout for row
                 final LinearLayout layAmounts = new LinearLayout(this);
                 layAmounts.setOrientation(LinearLayout.VERTICAL);
-                layAmounts.setGravity(Gravity.RIGHT);
+                layAmounts.setGravity(Gravity.LEFT);
                 layAmounts.setPadding(0, 10, 0, 10);
                 layAmounts.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT));
@@ -426,20 +429,20 @@ public class MainActivity extends AppCompatActivity {
                 final TextView tv = new TextView(this);
                 tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                 tv.setPadding(5, 0, 1, 5);
-                tv.setGravity(Gravity.RIGHT);
+                tv.setGravity(Gravity.LEFT);
                 tv.setBackgroundColor(Color.parseColor("#ffffff"));
                 tv.setTextColor(Color.parseColor("#000000"));
-                tv.setText(DateUtils.formatDate(currentVeichle.getOrarioPartenza()));
+                tv.setText(DateUtils.formatDate(firstVehicle.getOrarioPartenza()));
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
                 layAmounts.addView(tv);
                 //////
                 final TextView tv2 = new TextView(this);
                 tv2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                 tv2.setPadding(5, 0, 1, 5);
-                tv2.setGravity(Gravity.RIGHT);
+                tv2.setGravity(Gravity.LEFT);
                 tv2.setBackgroundColor(Color.parseColor("#ffffff"));
                 tv2.setTextColor(Color.parseColor("#000000"));
-                tv2.setText(currentVeichle.getOrigine());
+                tv2.setText(firstVehicle.getOrigine());
                 tv2.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
                 layAmounts.addView(tv2);
                 //////
@@ -508,7 +511,6 @@ public class MainActivity extends AppCompatActivity {
                 tvSep.setHeight(1);
                 trSep.addView(tvSep);
                 trainSolutionsTableLayout.addView(trSep, trParamsSep);
-            }
 
         }
 
