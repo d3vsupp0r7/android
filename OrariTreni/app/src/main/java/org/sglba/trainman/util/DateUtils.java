@@ -15,7 +15,7 @@ public class DateUtils {
     public static String formatDate(String dateString){
         String dateFormatted="";
         try {
-            String pattern = "dd-MM-yyyy";
+            String pattern = "yyyy-MM-dd'T'HH:mm:ss";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             Date date = simpleDateFormat.parse(dateString);
             DateFormat dateFormat = new SimpleDateFormat("HH:mm");
