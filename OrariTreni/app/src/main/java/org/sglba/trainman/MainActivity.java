@@ -1,6 +1,7 @@
 package org.sglba.trainman;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -557,39 +558,11 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     TableRow tr = (TableRow) v;
-                    //do whatever action is needed
-                    //Obtain layout for popup
-                    LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-                    View customView = inflater.inflate(R.layout.simple_popup_layout,null);
-                    // Define background color for layout
-                    Drawable d = new ColorDrawable(Color.BLUE);
-                    //
-                    LinearLayout l = (LinearLayout)tr.getChildAt(0);
-                    TextView rowDetail = (TextView)l.getChildAt(0);
-
-                    String result = (String)rowDetail.getText();
-                    Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "Value on rowclick: " + result);
-
-                    mPopupWindow = new PopupWindow(
-                            customView,
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                    );
-
-                    // Get a reference for the custom view close button
-                    ImageButton closeButton = (ImageButton) customView.findViewById(R.id.ib_close);
-                    closeButton.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View view) {
-                            // Dismiss the popup window
-                            mPopupWindow.dismiss();
-                        }
-                    });
-
-                    mPopupWindow.setBackgroundDrawable(d);
-                    //Center popup
-                    mPopupWindow.showAtLocation(mConstraintLayout, Gravity.CENTER,0,0);
+                    /*TODO: save relevat data to pass to solutiondetails*/
+                    /*Build Intent object with sourceActivity(this) and targetActivity*/
+                    Intent intent = new Intent(MainActivity.this, JourneyDetailsActivity.class);
+                    /*Call target (second) activity*/
+                    startActivity(intent);
 
                 }
             });
