@@ -1,17 +1,17 @@
 # Table of Contents
 
 * [Scope](#scope)
-  * [Getting started](#getting-started)
-  * [Prerequisite](#prerequisite)
-    * [Installing](#installing)
-      * [REST API Mocking](#rest-api-mocking)
-  * [Running Test](#running-test)
-  * [Built with](#built-with)
-    * [Default library dependency](#default-library-dependency)
-      * [Util libraries](#util-libraries)
-      * [Test libraries](#test-libraries)
-  * [Authors](#authors)
-  * [Licence](#licence)
+* [Prerequisite](#prerequisite)
+* [UI Design](#ui-design)
+* [BackEnd informations](#backend-informations)
+  * [REST API Mocking](#rest-api-mocking)
+* [Running Test](#running-test)
+* [Built with](#built-with)
+* [Default library dependency](#default-library-dependency)
+  * [Util libraries](#util-libraries)
+  * [Test libraries](#test-libraries)
+* [Authors](#authors)
+* [Licence](#licence)
 
 # Scope
 
@@ -20,16 +20,17 @@ This is a simple project to simulate a train journey related operations within a
 **NOTE:**  
 This application is intented as example/educational scope. 
 
-## Getting started
-*TO_DO*
-
-### Prerequisite
+# Prerequisite
 * Java version 1.8
 * Gradle
 
-### Installing
+# UI Desing
 
-#### REST API Mocking
+For UI design we have used a opens-source tool named **Pencil**, avaiable [here](https://pencil.evolus.vn/)
+
+# BackEnd informations
+
+## REST API Mocking
 
 In order to simulate a json response we use [Wiremock](http://wiremock.org/) tool avaiable [here](http://wiremock.org/docs/download-and-installation/)
 
@@ -54,27 +55,26 @@ java -jar wiremock-standalone-2.24.0.jar --port 9091
 http://localhost:<wiremock_port>/__admin/
 ```
 
-## Running Test
+# Running Test
 *TO_DO*
 
-## Built with
+# Built with
 * [Java SDK Version](http://www.oracle.com/technetwork/java/javase/downloads/index.html) - 1.8
 * [Gradle](https://gradle.org/) - Dependency Management
 
-### Default library dependency
+# Default library dependency
 
-#### Rest client libary
+## Rest client libary
 
 * **retrofit2**
   * **core:** '2.4.0'
   * **json-parser:** converter-gson
 
-#### Util libraries
+## Util libraries
 
 
-#### Test libraries
+## Test libraries
 * **junit.version:** 4.12
-
 
 ## Authors
 *TO_DO*
@@ -84,4 +84,3 @@ http://localhost:<wiremock_port>/__admin/
 
 ## Acknowledgments
 *TO_DO*
-
