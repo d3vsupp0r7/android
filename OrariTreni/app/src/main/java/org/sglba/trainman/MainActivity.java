@@ -166,8 +166,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String tmpDeparture = autoCompleteDepartures.getText().toString();
                 String tmpArrivals = autoCompleteArrivals.getText().toString();
+                //
+                String keyA = getKeyFromValue(stationMapFilteredForArrivals,tmpArrivals);
+                String keyP = getKeyFromValue(stationMapFilteredForDepartures, tmpDeparture);
+                //
                 autoCompleteDepartures.setText(tmpArrivals);
                 autoCompleteArrivals.setText(tmpDeparture);
+                //
+                stationMapFilteredForDepartures.put(keyA,tmpArrivals);
+                stationMapFilteredForArrivals.put(keyP,tmpDeparture);
 
             }
         });
@@ -227,7 +234,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+    }
 
+    public static String getKeyFromValue(Map hm, String value) {
+        for (Object o : hm.keySet()) {
+            if (hm.get(o).equals(value)) {
+                return (String)o;
+            }
+        }
+        return null;
     }
 
     private void getStationByRegionForDepartures(String region, String charSequence) {
