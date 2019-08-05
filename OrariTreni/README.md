@@ -24,7 +24,7 @@ This application is intented as example/educational scope.
 * Java version 1.8
 * Gradle
 
-# UI Desing
+# UI Design
 
 For UI design we have used a opens-source tool named **Pencil**, avaiable [here](https://pencil.evolus.vn/)
 
