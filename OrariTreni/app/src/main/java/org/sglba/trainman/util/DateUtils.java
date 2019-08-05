@@ -1,14 +1,9 @@
 package org.sglba.trainman.util;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.os.Build;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class DateUtils {
 
