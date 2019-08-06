@@ -295,8 +295,8 @@ public class MainActivity extends AppCompatActivity {
                     isAPIDeparturesCallPerformed=true;
                 } else {
                     //TODO: Manage application exception on comunication error
-                    isAPIDeparturesCallPerformed=false;
                     Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - failed");
+                    isAPIDeparturesCallPerformed=false;
                 }
             }
 
@@ -304,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call call, Throwable t) {
                 //TODO: Manage application exception on comunication error
                 Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - onFailure");
+                isAPIDeparturesCallPerformed=false;
             }
         });
     }
@@ -352,14 +353,15 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     //TODO: Manage application exception on comunication error
-                    Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForArrivals - failed");
                     isAPIArrivalsCallPerformed=false;
+                    Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForArrivals - failed");
                 }
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
                 //TODO: Manage application exception on comunication error
+                isAPIArrivalsCallPerformed=false;
                 Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForArrivals  - onFailure");
             }
         });
