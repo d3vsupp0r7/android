@@ -68,9 +68,10 @@ public class MainActivity extends AppCompatActivity {
     //Data
     Map<String, String> stationMapFilteredForDepartures = new HashMap<>();
     Map<String, String> stationMapFilteredForArrivals = new HashMap<>();
-
+    //Boolean conditions
     Boolean isCalendarButtonPressed=true;
-
+    Boolean isAPIDeparturesCallPerformed=false;
+    Boolean isAPIArrivalsCallPerformed=false;
     //To Add on Date Utils
     String   selectedDate;
     int yearToSet;
@@ -118,8 +119,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!isAPIDeparturesCallPerformed) {
+                    getStationByRegionForDepartures(CAMPANIA_REGION, s.toString());
+                }
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
-                getStationByRegionForDepartures(CAMPANIA_REGION, s.toString());
             }
 
             @Override
@@ -138,7 +141,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                getStationByRegionForArrivals(CAMPANIA_REGION, s.toString());
+                if(!isAPIArrivalsCallPerformed) {
+                    getStationByRegionForArrivals(CAMPANIA_REGION, s.toString());
+                }
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
 
@@ -287,9 +292,10 @@ public class MainActivity extends AppCompatActivity {
                     stationMapFilteredForDepartures.putAll(stationMapFiltered);
                     adapterForDepartures = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
                     autoCompleteDepartures.setAdapter(adapterForDepartures);
-
+                    isAPIDeparturesCallPerformed=true;
                 } else {
                     //TODO: Manage application exception on comunication error
+                    isAPIDeparturesCallPerformed=false;
                     Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - failed");
                 }
             }
@@ -342,10 +348,12 @@ public class MainActivity extends AppCompatActivity {
                     stationMapFilteredForArrivals.putAll(stationMapFiltered);
                     adapterForArrivals = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
                     autoCompleteArrivals.setAdapter(adapterForArrivals);
+                    isAPIArrivalsCallPerformed=true;
 
                 } else {
                     //TODO: Manage application exception on comunication error
                     Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForArrivals - failed");
+                    isAPIArrivalsCallPerformed=false;
                 }
             }
 
