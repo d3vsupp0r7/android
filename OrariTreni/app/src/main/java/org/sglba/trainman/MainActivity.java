@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     //Data
     Map<String, String> stationMapFilteredForDepartures = new HashMap<>();
     Map<String, String> stationMapFilteredForArrivals = new HashMap<>();
+    List<Station>stationList=new ArrayList<>();
     //Boolean conditions
     Boolean isCalendarButtonPressed=true;
     Boolean isAPIDeparturesCallPerformed=false;
@@ -119,8 +120,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!isAPIDeparturesCallPerformed) {
+                if(!isAPIDeparturesCallPerformed&&stationList.isEmpty()) {
                     getStationByRegionForDepartures(CAMPANIA_REGION, s.toString());
+                }else{
+                    setAdapterForAutocomplete(s.toString(),stationMapFilteredForDepartures,adapterForDepartures,autoCompleteDepartures,0);
                 }
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
             }
@@ -141,8 +144,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!isAPIArrivalsCallPerformed) {
+                if(!isAPIArrivalsCallPerformed&&stationList.isEmpty()) {
                     getStationByRegionForArrivals(CAMPANIA_REGION, s.toString());
+                }else{
+                    setAdapterForAutocomplete(s.toString(),stationMapFilteredForArrivals,adapterForArrivals,autoCompleteArrivals,1);
                 }
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
@@ -280,6 +285,9 @@ public class MainActivity extends AppCompatActivity {
                     List<Station> station = response.body();
                     stationMapFiltered.clear();
                     stationNamesList.clear();
+                    if (stationList.isEmpty()) {
+                        stationList.addAll(station);
+                    }
 
                     for (Station singleStation : station) {
 
@@ -339,6 +347,9 @@ public class MainActivity extends AppCompatActivity {
                     List<Station> station = response.body();
                     stationMapFiltered.clear();
                     stationNamesList.clear();
+                    if (stationList.isEmpty()) {
+                        stationList.addAll(station);
+                    }
                     for (Station singleStation : station) {
                         if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence)) {
                             stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(), singleStation.getCodStazione());
@@ -394,10 +405,6 @@ public class MainActivity extends AppCompatActivity {
                     List<Soluzioni> solutionsList = railRoute.getSoluzioni();
                     Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** START generate dynamic tableLayout");
                     createSolutionsLayoutTable(solutionsList);
-                    /* for (Soluzioni singleSolution : solutionsList) {
-                        createSolutionsLayoutTable(singleSolution);
-                        }
-                    */
                     Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** END generate dynamic tableLayout");
 
                 } else {
@@ -413,6 +420,26 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getTravelSolutionsFromStations  - onFailure");
             }
         });
+    }
+
+    private void setAdapterForAutocomplete(String charSequence,Map<String,String>stationMap,ArrayAdapter<String>adapter,AutoCompleteTextView autoCompleteTextView,int isAPICalled){
+        Map<String, String> stationMapFiltered = new HashMap<>();
+        List<String> stationNamesList = new ArrayList<>();
+        for (Station singleStation:stationList){
+            if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence)){
+                stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(),singleStation.getCodStazione());
+                stationNamesList.add(singleStation.getLocalita().getNomeLungo());
+            }
+        }
+        stationMap.clear();
+        stationMap.putAll(stationMapFiltered);
+        adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
+        autoCompleteTextView.setAdapter(adapter);
+        if (isAPICalled==0){
+            isAPIDeparturesCallPerformed=true;
+        }else if(isAPICalled==1){
+            isAPIArrivalsCallPerformed=true;
+        }
     }
 
     private void createSolutionsLayoutTable(  List<Soluzioni> solutionsList) {
