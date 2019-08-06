@@ -2,10 +2,15 @@ package org.sglba.trainman.costraints;
 
 public enum TrainCategoryCostraintsEnum {
 
-    SFM("SFM","Metro", "Metro"),
-    REGIONALE("Regionale","Regionale","Regionale"),
-    URB("Urb","Urb","Urb"),
+    SFM("SFM","Metro", "MET"),
+    REGIONALE("Regionale","Regionale","REG"),
+    URB("","Urb",""),
     AUTOBUS("Autobus","Autobus","Autobus"),
+    ICN("ICN","ICN","ICN"),
+    IC("IC","IC","IC"),
+    FRECCIAROSSA("Frecciarossa","Frecciarossa","FR"),
+    FRECCIABIANCA("Frecciabianca","Frecciabianca","FB"),
+    FRECCIAARGENTO("Frecciaargento","Frecciaargento","FA"),
     INVALID_VALUE("INVALID_VALUE","INVALID_VALUE","INVALID_VALUE")
     ;
 

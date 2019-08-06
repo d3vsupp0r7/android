@@ -3,6 +3,7 @@ package org.sglba.trainman;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 import org.sglba.trainman.costraints.ApplicationCostraintsEnum;
+import org.sglba.trainman.costraints.TrainCategoryCostraintsEnum;
 import org.sglba.trainman.model.RailRoute;
 import org.sglba.trainman.model.Soluzioni;
 import org.sglba.trainman.model.Station;
@@ -109,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         //trainSolutions - TableLayout confifuration
         trainSolutionsTableLayout = findViewById(R.id.trainSolutionsTableLayout);
         trainSolutionsTableLayout.setStretchAllColumns(true);
+        trainSolutionsTableLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
 
         autoCompleteDepartures.addTextChangedListener(new TextWatcher() {
             @Override
@@ -411,9 +414,9 @@ public class MainActivity extends AppCompatActivity {
         int topRowMargin=0;
         int rightRowMargin=0;
         int bottomRowMargin = 0;
-        int textSize = 0, smallTextSize =0, mediumTextSize = 0;
+        int textSize = 10, smallTextSize =0, mediumTextSize = 0;
 
-        textSize = (int) getResources().getDimension(R.dimen.font_size_verysmall);
+        textSize = (int) getResources().getDimension(R.dimen.font_size_medium);
         smallTextSize = (int) getResources().getDimension(R.dimen.font_size_small);
         mediumTextSize = (int) getResources().getDimension(R.dimen.font_size_medium);
 
@@ -440,7 +443,7 @@ public class MainActivity extends AppCompatActivity {
             layAmounts.setPadding(0, 10, 0, 10);
             layAmounts.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.MATCH_PARENT));
-            layAmounts.setBackgroundColor(Color.parseColor("#ffffff"));
+            layAmounts.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
             //
             final LinearLayout layAmounts2 = new LinearLayout(this);
             layAmounts2.setOrientation(LinearLayout.VERTICAL);
@@ -448,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
             layAmounts2.setPadding(0, 10, 0, 10);
             layAmounts2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.MATCH_PARENT));
-            layAmounts2.setBackgroundColor(Color.parseColor("#ffffff"));
+            layAmounts2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
             //
             final LinearLayout layAmounts3 = new LinearLayout(this);
             layAmounts3.setOrientation(LinearLayout.VERTICAL);
@@ -456,25 +459,27 @@ public class MainActivity extends AppCompatActivity {
             layAmounts3.setPadding(0, 10, 600, 10);
             layAmounts3.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.MATCH_PARENT));
-            layAmounts3.setBackgroundColor(Color.parseColor("#ffffff"));
+            layAmounts3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
             //
             final TextView tv = new TextView(this);
             tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             tv.setPadding(5, 0, 1, 5);
             tv.setGravity(Gravity.LEFT);
-            tv.setBackgroundColor(Color.parseColor("#ffffff"));
-            tv.setTextColor(Color.parseColor("#000000"));
+            tv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tv.setTextColor(Color.parseColor("#ffffff"));
             tv.setText(DateUtils.formatDate(firstVehicle.getOrarioPartenza())+"   "+firstVehicle.getOrigine());
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            tv.setTypeface(null, Typeface.BOLD_ITALIC);
             layAmounts.addView(tv);
             //////
             final TextView tv2 = new TextView(this);
             tv2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             tv2.setPadding(5, 0, 1, 5);
             tv2.setGravity(Gravity.LEFT);
-            tv2.setBackgroundColor(Color.parseColor("#ffffff"));
-            tv2.setTextColor(Color.parseColor("#000000"));
+            tv2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tv2.setTextColor(Color.parseColor("#ffffff"));
             tv2.setText(DateUtils.formatDate(lastVehicle.getOrarioArrivo())+"   "+lastVehicle.getDestinazione());
+            tv2.setTypeface(null, Typeface.BOLD_ITALIC);
             tv2.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             layAmounts.addView(tv2);
             //////
@@ -482,83 +487,92 @@ public class MainActivity extends AppCompatActivity {
             tv3.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             tv3.setPadding(5, 0, 1, 5);
             tv3.setGravity(Gravity.LEFT);
-            tv3.setBackgroundColor(Color.parseColor("#ffffff"));
-            tv3.setTextColor(Color.parseColor("#000000"));
+            tv3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tv3.setTextColor(Color.parseColor("#ffffff"));
             StringBuilder stringBuilder= new StringBuilder();
             for (Vehicle vehicle:vehicleForSolution){
+                stringBuilder.append(TrainCategoryCostraintsEnum.getEnumFromCode(vehicle.getCategoriaDescrizione()).getDescription()+" ");
                 stringBuilder.append(vehicle.getNumeroTreno()+"   ");
             }
             tv3.setText(stringBuilder.toString());
             tv3.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            tv3.setTypeface(null, Typeface.BOLD_ITALIC);
             layAmounts.addView(tv3);
             //
             final TextView tv4 = new TextView(this);
             tv4.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             tv4.setPadding(5, 0, 1, 5);
             tv4.setGravity(Gravity.LEFT);
-            tv4.setBackgroundColor(Color.parseColor("#ffffff"));
-            tv4.setTextColor(Color.parseColor("#000000"));
+            tv4.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tv4.setTextColor(Color.parseColor("#ffffff"));
             tv4.setText("a");
+            tv4.setTypeface(null, Typeface.BOLD_ITALIC);
             tv4.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             //
             final TextView tvb = new TextView(this);
             tvb.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             tvb.setPadding(5, 0, 1, 5);
             tvb.setGravity(Gravity.LEFT);
-            tvb.setBackgroundColor(Color.parseColor("#ffffff"));
-            tvb.setTextColor(Color.parseColor("#000000"));
+            tvb.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tvb.setTextColor(Color.parseColor("#ffffff"));
             tvb.setText("");
             tvb.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            tvb.setTypeface(null, Typeface.BOLD_ITALIC);
             layAmounts2.addView(tvb);
             //
             final TextView tvb2 = new TextView(this);
             tvb2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             tvb2.setPadding(5, 0, 1, 5);
             tvb2.setGravity(Gravity.LEFT);
-            tvb2.setBackgroundColor(Color.parseColor("#ffffff"));
-            tvb2.setTextColor(Color.parseColor("#000000"));
+            tvb2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tvb2.setTextColor(Color.parseColor("#ffffff"));
             tvb2.setText("");
             tvb2.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            tvb2.setTypeface(null, Typeface.BOLD_ITALIC);
             layAmounts2.addView(tvb2);
             //
             final TextView tvb3 = new TextView(this);
             tvb3.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             tvb3.setPadding(5, 0, 1, 5);
             tvb3.setGravity(Gravity.LEFT);
-            tvb3.setBackgroundColor(Color.parseColor("#ffffff"));
-            tvb3.setTextColor(Color.parseColor("#000000"));
+            tvb3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tvb3.setTextColor(Color.parseColor("#ffffff"));
             tvb3.setText("");
             tvb3.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            tvb3.setTypeface(null, Typeface.BOLD_ITALIC);
             layAmounts2.addView(tvb3);
             //
             final TextView tvDur = new TextView(this);
             tvDur.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             tvDur.setPadding(5, 0, 1, 5);
             tvDur.setGravity(Gravity.RIGHT);
-            tvDur.setBackgroundColor(Color.parseColor("#ffffff"));
-            tvDur.setTextColor(Color.parseColor("#000000"));
+            tvDur.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tvDur.setTextColor(Color.parseColor("#ffffff"));
             tvDur.setText("");
             tvDur.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            tvDur.setTypeface(null, Typeface.BOLD_ITALIC);
             layAmounts3.addView(tvDur);
             //
             final TextView tvDur2 = new TextView(this);
             tvDur2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-            tvDur2.setPadding(650, 0, 1, 5);
+            tvDur2.setPadding(350, 0, 1, 5);
             tvDur2.setGravity(Gravity.RIGHT);
-            tvDur2.setBackgroundColor(Color.parseColor("#ffffff"));
-            tvDur2.setTextColor(Color.parseColor("#000000"));
+            tvDur2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tvDur2.setTextColor(Color.parseColor("#ffffff"));
             tvDur2.setText(currentSolution.getDurata());
             tvDur2.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            tvDur2.setTypeface(null, Typeface.BOLD_ITALIC);
             layAmounts3.addView(tvDur2);
             //
             final TextView tvDur3 = new TextView(this);
             tvDur3.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
             tvDur3.setPadding(5, 0, 1, 5);
             tvDur3.setGravity(Gravity.RIGHT);
-            tvDur3.setBackgroundColor(Color.parseColor("#ffffff"));
-            tvDur3.setTextColor(Color.parseColor("#000000"));
+            tvDur3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tvDur3.setTextColor(Color.parseColor("#ffffff"));
             tvDur3.setText("");
             tvDur3.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            tvDur3.setTypeface(null, Typeface.BOLD_ITALIC);
             layAmounts3.addView(tvDur3);
             //
             final TableRow tr = new TableRow(this);
@@ -584,6 +598,7 @@ public class MainActivity extends AppCompatActivity {
             tr.addView(layAmounts);
             tr.addView(layAmounts2);
             tr.addView(layAmounts3);
+            tr.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
             trainSolutionsTableLayout.addView(tr, trParams);
             /*Separator*/
             final TableRow trSep = new TableRow(this);
