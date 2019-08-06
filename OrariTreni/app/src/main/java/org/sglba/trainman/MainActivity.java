@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!isAPIDeparturesCallPerformed&&stationList.isEmpty()) {
                     getStationByRegionForDepartures(CAMPANIA_REGION, s.toString());
                 }else{
-                    setAdapterForAutocomplete(s.toString(),stationMapFilteredForDepartures,adapterForDepartures,autoCompleteDepartures,0);
+                    setAdapterForAutocomplete(s.toString(),0);
                 }
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
             }
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!isAPIArrivalsCallPerformed&&stationList.isEmpty()) {
                     getStationByRegionForArrivals(CAMPANIA_REGION, s.toString());
                 }else{
-                    setAdapterForAutocomplete(s.toString(),stationMapFilteredForArrivals,adapterForArrivals,autoCompleteArrivals,1);
+                    setAdapterForAutocomplete(s.toString(),1);
                 }
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
@@ -425,7 +425,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setAdapterForAutocomplete(String charSequence,Map<String,String>stationMap,ArrayAdapter<String>adapter,AutoCompleteTextView autoCompleteTextView,int isAPICalled){
+    private void setAdapterForAutocomplete(String charSequence,int trainDestinationFlag){
         Map<String, String> stationMapFiltered = new HashMap<>();
         List<String> stationNamesList = new ArrayList<>();
         for (Station singleStation:stationList){
@@ -434,14 +434,15 @@ public class MainActivity extends AppCompatActivity {
                 stationNamesList.add(singleStation.getLocalita().getNomeLungo());
             }
         }
-        stationMap.clear();
-        stationMap.putAll(stationMapFiltered);
-        adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
-        autoCompleteTextView.setAdapter(adapter);
-        if (isAPICalled==0){
+        ArrayAdapter<String >adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
+        if (trainDestinationFlag==0){
             isAPIDeparturesCallPerformed=true;
-        }else if(isAPICalled==1){
+            stationMapFilteredForDepartures.putAll(stationMapFiltered);
+            autoCompleteDepartures.setAdapter(adapter);
+        }else if(trainDestinationFlag==1){
             isAPIArrivalsCallPerformed=true;
+            stationMapFilteredForArrivals.putAll(stationMapFiltered);
+            autoCompleteArrivals.setAdapter(adapter);
         }
     }
 
