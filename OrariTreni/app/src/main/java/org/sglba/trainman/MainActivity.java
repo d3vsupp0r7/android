@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
                     getStationByRegionForDeparturesAndArrival(CAMPANIA_REGION, s.toString());
                 }
-                autocomplete(s.toString(),1);
+                autocomplete(s.toString(),0);
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
             }
 
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
                     getStationByRegionForDeparturesAndArrival(CAMPANIA_REGION, s.toString());
                 }
-                autocomplete(s.toString(),0);
+                autocomplete(s.toString(),1);
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
 
@@ -320,10 +320,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         adapterForDeparturesAndArrival = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
-        if(checkDeparturesOrArrivals==0)
-          autoCompleteDepartures.setAdapter(adapterForDeparturesAndArrival);
-        else if(checkDeparturesOrArrivals==1)
+        if(checkDeparturesOrArrivals==0) {
+            autoCompleteDepartures.setAdapter(adapterForDeparturesAndArrival);
+            stationMapFilteredForDepartures.putAll(stationMapFiltered);
+        }
+        else if(checkDeparturesOrArrivals==1) {
             autoCompleteArrivals.setAdapter(adapterForDeparturesAndArrival);
+            stationMapFilteredForArrivals.putAll(stationMapFiltered);
+        }
     }
 
 
