@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
                     getStationByRegionForDeparturesAndArrival(CAMPANIA_REGION, s.toString());
                 }
-                autocomplete(s.toString());
+                autocomplete(s.toString(),1);
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
             }
 
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
                     getStationByRegionForDeparturesAndArrival(CAMPANIA_REGION, s.toString());
                 }
-                autocomplete(s.toString());
+                autocomplete(s.toString(),0);
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
 
@@ -316,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void autocomplete(String charSequence){
+    private void autocomplete(String charSequence,int checkDeparturesOrArrivals){
         Map<String, String> stationMapFiltered = new HashMap<>();
         List<String> stationNamesList = new ArrayList<>();
         for (Station singleStation:stationList){
@@ -325,6 +325,10 @@ public class MainActivity extends AppCompatActivity {
                 stationNamesList.add(singleStation.getLocalita().getNomeLungo());
             }
         }
+        if(checkDeparturesOrArrivals==0)
+          autoCompleteDepartures.setAdapter(adapterForDeparturesAndArrival);
+        else if(checkDeparturesOrArrivals==1)
+            autoCompleteArrivals.setAdapter(adapterForDeparturesAndArrival);
     }
 
 
