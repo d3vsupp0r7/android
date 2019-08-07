@@ -85,15 +85,13 @@
 
     <ScrollView
         android:id="@+id/trainSolutionsScrollView"
-        android:layout_width="384dp"
-        android:layout_height="487dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="228dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="411dp"
+        android:layout_height="505dp"
+        android:layout_marginTop="220dp"
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
-        android:scrollbars="none"
         android:background="@color/colorPrimary"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
@@ -105,6 +103,7 @@
             android:id="@+id/trainSolutionsTableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
 
         </TableLayout>
     </ScrollView>
@@ -124,22 +123,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.163"
         app:srcCompat="@drawable/search_icon" />
-
-    <ImageButton
-        android:id="@+id/calendarButton"
-        android:layout_width="59dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.163"
-        app:srcCompat="@drawable/calendar_icon" />
 
     <ImageButton
         android:id="@+id/swapButton"
@@ -172,21 +155,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.288" />
 
-    <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/calendarButton"
+        android:layout_width="219dp"
+        android:layout_height="43dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Nessuna Data Selezionata"
+        android:textSize="14sp"
         android:textStyle="bold|italic"
-        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="@+id/trainSolutionsScrollView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="@+id/trainSolutionsScrollView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.252" />
+        app:layout_constraintVertical_bias="0.16" />
 
 </android.support.constraint.ConstraintLayout>
