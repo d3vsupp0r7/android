@@ -39,7 +39,7 @@ public class DynamicTableActivity  extends AppCompatActivity {
     ConstraintLayout mConstraintLayout;
 
     //Obtain class as TAG for logging
-    private String TAG = RetrofitExampleActivity.class.getSimpleName();
+    private String TAG = DynamicTableActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
