@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
                     getStationByRegionForDeparturesAndArrival(CAMPANIA_REGION, s.toString());
                 }
+                autocomplete(s.toString());
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
             }
 
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
                     getStationByRegionForDeparturesAndArrival(CAMPANIA_REGION, s.toString());
                 }
+                autocomplete(s.toString());
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
 
@@ -312,6 +314,17 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDeparturesAndArrival  - onFailure");
             }
         });
+    }
+
+    private void autocomplete(String charSequence){
+        Map<String, String> stationMapFiltered = new HashMap<>();
+        List<String> stationNamesList = new ArrayList<>();
+        for (Station singleStation:stationList){
+            if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence)){
+                stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(),singleStation.getCodStazione());
+                stationNamesList.add(singleStation.getLocalita().getNomeLungo());
+            }
+        }
     }
 
 
