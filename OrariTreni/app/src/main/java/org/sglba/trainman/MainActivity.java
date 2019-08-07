@@ -295,9 +295,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     stationMapFilteredForDepartures.putAll(stationMapFiltered);
                     stationMapFilteredForArrivals.putAll(stationMapFiltered);
-                    adapterForDeparturesAndArrival = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
-                    autoCompleteDepartures.setAdapter(adapterForDeparturesAndArrival);
-                    autoCompleteArrivals.setAdapter(adapterForDeparturesAndArrival);
                     isAPIArrivalsAndDeparturesCallPerformed=true;
 
                 } else {
@@ -325,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
                 stationNamesList.add(singleStation.getLocalita().getNomeLungo());
             }
         }
+        adapterForDeparturesAndArrival = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
         if(checkDeparturesOrArrivals==0)
           autoCompleteDepartures.setAdapter(adapterForDeparturesAndArrival);
         else if(checkDeparturesOrArrivals==1)
