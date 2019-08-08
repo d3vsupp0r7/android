@@ -488,7 +488,7 @@ public class MainActivity extends AppCompatActivity {
             int rightRowMargin,
             int bottomRowMargin){
         TableLayout.LayoutParams trParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
-                TableLayout.LayoutParams.WRAP_CONTENT);
+                TableLayout.LayoutParams.MATCH_PARENT);
         trParams.setMargins(leftRowMargin, topRowMargin, rightRowMargin, bottomRowMargin);
         tr.setLayoutParams(trParams);
         return trParams;
