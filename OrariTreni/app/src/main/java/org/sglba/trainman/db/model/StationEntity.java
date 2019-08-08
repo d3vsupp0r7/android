@@ -1,12 +1,15 @@
 package org.sglba.trainman.db.model;
 
-public class StationEntity {
+import java.io.Serializable;
+
+public class StationEntity implements Serializable {
 
     /*
     * First element of map represent the table name
     * */
     public enum StationEntityFields { STATION, ID, BUSINESS_ID, STATION_NAME, LATITUDE, LONGITUDE };
 
+    private static final long serialVersionUID = 6679549475857037758L;
     private Long id;
     private String businessId;
     private String stationName;

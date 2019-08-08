@@ -8,7 +8,7 @@ import org.sglba.trainman.db.model.StationEntity;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String dbname="Trainman.db";
+    public static final String DB_NAME ="Trainman.db";
 
     // Database Version
     private static final int DATABASE_VERSION = 1;
@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     /**/
     public DatabaseHelper(Context context) {
-        super(context, dbname, null, 1);
+        super(context, DB_NAME, null, 1);
     }
 
     //Database Creation
