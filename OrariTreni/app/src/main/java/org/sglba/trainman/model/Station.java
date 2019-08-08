@@ -3,6 +3,8 @@ package org.sglba.trainman.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -203,6 +205,19 @@ public class Station implements Serializable
 
     public Boolean getEsterno() {
         return esterno;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Station station = (Station) o;
+        return localita.getNomeLungo().equals(station.localita.getNomeLungo());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(localita.getNomeLungo());
     }
 
     public void setEsterno(Boolean esterno) {
