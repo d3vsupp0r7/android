@@ -4,5 +4,9 @@
     <!-- SplashScreen config -->
     <string name="title_activity_splash">SplashActivity</string>
     <string name="welcome">Welcome to\nTraining App</string>
+    <string name="title_activity_linear_layout">LinearLayoutActivity</string>
+    <string name="title_activity_linear_layout_horizontal">LinearLayoutHorizontal</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
 
 </resources>

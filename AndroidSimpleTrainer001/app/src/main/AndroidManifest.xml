@@ -9,39 +9,54 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- Main activity -->
+        <activity
+            android:name=".ItemListActivity"
+            android:label="@string/title_item_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ItemDetailActivity"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".ItemListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.lba.android.simple.trainer.ItemListActivity" />
+        </activity>
+        <activity
+            android:name=".layout.LinearLayoutHorizontal"
+            android:label="@string/title_activity_linear_layout_horizontal"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".layout.LinearLayoutVerticalActivity"
+            android:label="@string/title_activity_linear_layout"
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- Main activity -->
         <activity android:name=".MainActivity">
+
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+            -->
 
-        </activity>
-
-        <!-- Second Activity -->
-        <activity android:name=".SecondActivity"
-            android:label="@string/app_name"/>
-
-        <!-- DynamicTable Activity -->
-        <activity android:name=".DynamicTableActivity"
-            android:label="@string/app_name"/>
-
-        <!-- SplashScreen activity -->
-        <activity android:name=".SplashActivity"
+        </activity> <!-- Second Activity -->
+        <activity
+            android:name=".SecondActivity"
+            android:label="@string/app_name" /> <!-- DynamicTable Activity -->
+        <activity
+            android:name=".DynamicTableActivity"
+            android:label="@string/app_name" /> <!-- SplashScreen activity -->
+        <activity
+            android:name=".SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
-
-
-
 
 </manifest>
