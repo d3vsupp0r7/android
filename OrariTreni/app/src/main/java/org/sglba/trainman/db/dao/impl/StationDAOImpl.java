@@ -1,5 +1,6 @@
 package org.sglba.trainman.db.dao.impl;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -37,7 +38,17 @@ public class StationDAOImpl implements StationDAO {
 
     @Override
     public long createStation(StationEntity model) {
-        return 0;
+
+        ContentValues values = new ContentValues();
+        values.put(StationEntity.StationEntityFields.BUSINESS_ID.toString(), model.getBusinessId());
+        values.put(StationEntity.StationEntityFields.STATION_NAME.toString(), model.getStationName());
+        values.put(StationEntity.StationEntityFields.LATITUDE.toString(), model.getLatitude());
+        values.put(StationEntity.StationEntityFields.LONGITUDE.toString().toString(),model.getLongitude());
+
+        // insert row
+        long id = database.insert(StationEntity.StationEntityFields.STATION.toString(), null, values);
+
+        return id;
     }
 
     @Override
@@ -54,14 +65,14 @@ public class StationDAOImpl implements StationDAO {
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
-                StationEntity td = new StationEntity();
-                td.setId(c.getLong(c.getColumnIndex(StationEntity.StationEntityFields.ID.toString())));
-                td.setBusinessId(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.BUSINESS_ID.toString())));
-                td.setStationName(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.STATION_NAME.toString())));
-                td.setLatitude(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.LATITUDE.toString())));
-                td.setLongitude(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.LONGITUDE.toString())));
+                StationEntity station = new StationEntity();
+                station.setId(c.getLong(c.getColumnIndex(StationEntity.StationEntityFields.ID.toString())));
+                station.setBusinessId(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.BUSINESS_ID.toString())));
+                station.setStationName(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.STATION_NAME.toString())));
+                station.setLatitude(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.LATITUDE.toString())));
+                station.setLongitude(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.LONGITUDE.toString())));
                 // adding to list
-                settings.add(td);
+                settings.add(station);
             } while (c.moveToNext());
         }
 
