@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
+import org.lba.android.simple.trainer.db.model.SettingsDAO;
+import org.lba.android.simple.trainer.db.model.SettingsModel;
 import org.lba.android.simple.trainer.model.Employee;
 
 import java.util.ArrayList;
@@ -36,6 +38,21 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** DBWriting example **");
+        SettingsDAO settingsDAO = new SettingsDAO(this);
+        SettingsModel model = new SettingsModel();
+        model.setColumn1("Saving");
+        model.setColumn2("Model");
+        model.setColumn3(3l);
+        settingsDAO.createSettingsRecord(model);
+
+        /******************/
+        List<SettingsModel> modelOnDb = settingsDAO.readAllSettings();
+        for (SettingsModel currentModel:modelOnDb) {
+            Log.d(ApplicationCostraintsEnum.DB.getValue(),"Setting: " + currentModel.toString());
+        }
+
 
         /*Activity navigation*/
         nextActivityButton =(Button)findViewById(R.id.nextActivity);

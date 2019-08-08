@@ -3,6 +3,7 @@ package org.lba.android.simple.trainer.costraints;
 public enum ApplicationCostraintsEnum {
 
     APP_NAME("AndroidTraining001"),
+    DB("DB_AndroidTraining001"),
     ;
 
     private String value;

@@ -40,4 +40,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     //utils
     implementation 'joda-time:joda-time:2.10.3'
+    //DB-ORM
+    implementation 'androidx.room:room-runtime:2.1.0'
 }
