@@ -242,15 +242,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static String getKeyFromValue(Map hm, String value) {
-        for (Object o : hm.keySet()) {
-            if (hm.get(o).equals(value)) {
-                return (String)o;
-            }
-        }
-        return null;
-    }
-
     private void getStationByRegionForDeparturesAndArrival(String region, String charSequence) {
         //Obtain an instance of Retrofit by calling the static method.
         Retrofit retrofit = NetworkStationClient.getRetrofitClient();
@@ -285,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                         stationList.addAll(station);
                     }
                     for (Station singleStation : station) {
-                        if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence)) {
+                        if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence.toLowerCase())) {
                             stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(), singleStation.getCodStazione());
                             stationNamesList.add(singleStation.getLocalita().getNomeLungo());
                         }
@@ -314,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
         Map<String, String> stationMapFiltered = new HashMap<>();
         List<String> stationNamesList = new ArrayList<>();
         for (Station singleStation:stationList){
-            if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence)){
+            if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence.toLowerCase())){
                 stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(),singleStation.getCodStazione());
                 stationNamesList.add(singleStation.getLocalita().getNomeLungo());
             }
