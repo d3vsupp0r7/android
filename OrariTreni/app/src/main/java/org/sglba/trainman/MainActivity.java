@@ -61,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
     AutoCompleteTextView autoCompleteDepartures;
     AutoCompleteTextView autoCompleteArrivals;
     //Adapters
-    ArrayAdapter<String> adapterForDepartures;
-    ArrayAdapter<String> adapterForArrivals;
+    ArrayAdapter<String> adapterForDeparturesAndArrival;
     //Layouts
     TableLayout trainSolutionsTableLayout;
     //Data
@@ -71,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
     List<Station>stationList=new ArrayList<>();
     //Boolean conditions
     Boolean isCalendarButtonPressed=true;
-    Boolean isAPIDeparturesCallPerformed=false;
-    Boolean isAPIArrivalsCallPerformed=false;
+    Boolean isAPIArrivalsAndDeparturesCallPerformed=false;
     //To Add on Date Utils
     String   selectedDate;
     int yearToSet;
@@ -119,11 +117,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!isAPIDeparturesCallPerformed&&stationList.isEmpty()) {
-                    getStationByRegionForDepartures(CAMPANIA_REGION, s.toString());
-                }else{
-                    setAdapterForAutocomplete(s.toString(),0);
+                if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
+                    getStationByRegionForDeparturesAndArrival(CAMPANIA_REGION, s.toString());
                 }
+                autocomplete(s.toString(),0);
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
             }
 
@@ -143,11 +140,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!isAPIArrivalsCallPerformed&&stationList.isEmpty()) {
-                    getStationByRegionForArrivals(CAMPANIA_REGION, s.toString());
-                }else{
-                    setAdapterForAutocomplete(s.toString(),1);
+                if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
+                    getStationByRegionForDeparturesAndArrival(CAMPANIA_REGION, s.toString());
                 }
+                autocomplete(s.toString(),1);
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
 
@@ -246,136 +242,83 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static String getKeyFromValue(Map hm, String value) {
-        for (Object o : hm.keySet()) {
-            if (hm.get(o).equals(value)) {
-                return (String)o;
+    private void getStationByRegionForDeparturesAndArrival(String region, String charSequence) {
+        //Obtain an instance of Retrofit by calling the static method.
+        Retrofit retrofit = NetworkStationClient.getRetrofitClient();
+        /*
+        The main purpose of Retrofit is to create HTTP calls from the Java interface based on the annotation associated with each method. This is achieved by just passing the interface class as parameter to the create method
+        */
+        StationService stationService = retrofit.create(StationService.class);
+        /*
+        Invoke the method corresponding to the HTTP request which will return a Call object. This Call object will used to send the actual network request with the specified parameters
+        */
+        Call call = stationService.getStationByRegion(region);
+        /*
+        This is the line which actually sends a network request. Calling enqueue() executes a call asynchronously. It has two callback listeners which will invoked on the main thread
+        */
+        call.enqueue(new Callback<List<Station>>() {
+            @Override
+            public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
+                /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
+                 */
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDeparturesAndArrival - started");
+                Map<String, String> stationMapFiltered = new HashMap<>();
+                List<String> stationNamesList = new ArrayList<>();
+
+                if (response.body() != null) {
+
+                    Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDeparturesAndArrival - response processing");
+
+                    List<Station> station = response.body();
+                    stationMapFiltered.clear();
+                    stationNamesList.clear();
+                    if (stationList.isEmpty()) {
+                        stationList.addAll(station);
+                    }
+                    for (Station singleStation : station) {
+                        if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence.toLowerCase())) {
+                            stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(), singleStation.getCodStazione());
+                            stationNamesList.add(singleStation.getLocalita().getNomeLungo());
+                        }
+                    }
+                    stationMapFilteredForDepartures.putAll(stationMapFiltered);
+                    stationMapFilteredForArrivals.putAll(stationMapFiltered);
+                    isAPIArrivalsAndDeparturesCallPerformed=true;
+
+                } else {
+                    //TODO: Manage application exception on comunication error
+                    isAPIArrivalsAndDeparturesCallPerformed=false;
+                    Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDeparturesAndArrival - failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                //TODO: Manage application exception on comunication error
+                isAPIArrivalsAndDeparturesCallPerformed=false;
+                Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDeparturesAndArrival  - onFailure");
+            }
+        });
+    }
+
+    private void autocomplete(String charSequence,int checkDeparturesOrArrivals){
+        Map<String, String> stationMapFiltered = new HashMap<>();
+        List<String> stationNamesList = new ArrayList<>();
+        for (Station singleStation:stationList){
+            if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence.toLowerCase())){
+                stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(),singleStation.getCodStazione());
+                stationNamesList.add(singleStation.getLocalita().getNomeLungo());
             }
         }
-        return null;
-    }
-
-    private void getStationByRegionForDepartures(String region, String charSequence) {
-        //Obtain an instance of Retrofit by calling the static method.
-        Retrofit retrofit = NetworkStationClient.getRetrofitClient();
-        /*
-        The main purpose of Retrofit is to create HTTP calls from the Java interface based on the annotation associated with each method. This is achieved by just passing the interface class as parameter to the create method
-        */
-        StationService stationService = retrofit.create(StationService.class);
-        /*
-        Invoke the method corresponding to the HTTP request which will return a Call object. This Call object will used to send the actual network request with the specified parameters
-        */
-        Call call = stationService.getStationByRegion(region);
-        /*
-        This is the line which actually sends a network request. Calling enqueue() executes a call asynchronously. It has two callback listeners which will invoked on the main thread
-        */
-        call.enqueue(new Callback<List<Station>>() {
-            @Override
-            public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
-                /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
-                 */
-                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - started");
-
-                Map<String, String> stationMapFiltered = new HashMap<>();
-                List<String> stationNamesList = new ArrayList<>();
-
-                if (response.body() != null) {
-                    Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - response processing");
-
-                    List<Station> station = response.body();
-                    stationMapFiltered.clear();
-                    stationNamesList.clear();
-                    if (stationList.isEmpty()) {
-                        stationList.addAll(station);
-                    }
-
-                    for (Station singleStation : station) {
-
-                        if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence)) {
-                            stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(), singleStation.getCodStazione());
-                            stationNamesList.add(singleStation.getLocalita().getNomeLungo());
-                        }
-                    }
-
-                    stationMapFilteredForDepartures.putAll(stationMapFiltered);
-                    adapterForDepartures = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
-                    autoCompleteDepartures.setAdapter(adapterForDepartures);
-                    isAPIDeparturesCallPerformed=true;
-                } else {
-                    //TODO: Manage application exception on comunication error
-                    Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - failed");
-                    isAPIDeparturesCallPerformed=false;
-                }
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                //TODO: Manage application exception on comunication error
-                Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - onFailure");
-                isAPIDeparturesCallPerformed=false;
-            }
-        });
-    }
-
-    private void getStationByRegionForArrivals(String region, String charSequence) {
-        //Obtain an instance of Retrofit by calling the static method.
-        Retrofit retrofit = NetworkStationClient.getRetrofitClient();
-        /*
-        The main purpose of Retrofit is to create HTTP calls from the Java interface based on the annotation associated with each method. This is achieved by just passing the interface class as parameter to the create method
-        */
-        StationService stationService = retrofit.create(StationService.class);
-        /*
-        Invoke the method corresponding to the HTTP request which will return a Call object. This Call object will used to send the actual network request with the specified parameters
-        */
-        Call call = stationService.getStationByRegion(region);
-        /*
-        This is the line which actually sends a network request. Calling enqueue() executes a call asynchronously. It has two callback listeners which will invoked on the main thread
-        */
-        call.enqueue(new Callback<List<Station>>() {
-            @Override
-            public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
-                /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
-                 */
-                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForArrivals - started");
-                Map<String, String> stationMapFiltered = new HashMap<>();
-                List<String> stationNamesList = new ArrayList<>();
-
-                if (response.body() != null) {
-
-                    Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDepartures - response processing");
-
-                    List<Station> station = response.body();
-                    stationMapFiltered.clear();
-                    stationNamesList.clear();
-                    if (stationList.isEmpty()) {
-                        stationList.addAll(station);
-                    }
-                    for (Station singleStation : station) {
-                        if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence)) {
-                            stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(), singleStation.getCodStazione());
-                            stationNamesList.add(singleStation.getLocalita().getNomeLungo());
-                        }
-                    }
-
-                    stationMapFilteredForArrivals.putAll(stationMapFiltered);
-                    adapterForArrivals = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
-                    autoCompleteArrivals.setAdapter(adapterForArrivals);
-                    isAPIArrivalsCallPerformed=true;
-
-                } else {
-                    //TODO: Manage application exception on comunication error
-                    isAPIArrivalsCallPerformed=false;
-                    Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForArrivals - failed");
-                }
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                //TODO: Manage application exception on comunication error
-                isAPIArrivalsCallPerformed=false;
-                Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForArrivals  - onFailure");
-            }
-        });
+        adapterForDeparturesAndArrival = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
+        if(checkDeparturesOrArrivals==0) {
+            autoCompleteDepartures.setAdapter(adapterForDeparturesAndArrival);
+            stationMapFilteredForDepartures.putAll(stationMapFiltered);
+        }
+        else if(checkDeparturesOrArrivals==1) {
+            autoCompleteArrivals.setAdapter(adapterForDeparturesAndArrival);
+            stationMapFilteredForArrivals.putAll(stationMapFiltered);
+        }
     }
 
 
@@ -422,26 +365,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setAdapterForAutocomplete(String charSequence,int trainDestinationFlag){
-        Map<String, String> stationMapFiltered = new HashMap<>();
-        List<String> stationNamesList = new ArrayList<>();
-        for (Station singleStation:stationList){
-            if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence)){
-                stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(),singleStation.getCodStazione());
-                stationNamesList.add(singleStation.getLocalita().getNomeLungo());
-            }
-        }
-        ArrayAdapter<String >adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
-        if (trainDestinationFlag==0){
-            isAPIDeparturesCallPerformed=true;
-            stationMapFilteredForDepartures.putAll(stationMapFiltered);
-            autoCompleteDepartures.setAdapter(adapter);
-        }else if(trainDestinationFlag==1){
-            isAPIArrivalsCallPerformed=true;
-            stationMapFilteredForArrivals.putAll(stationMapFiltered);
-            autoCompleteArrivals.setAdapter(adapter);
-        }
-    }
 
     private void createSolutionsLayoutTable(  List<Soluzioni> solutionsList) {
 
