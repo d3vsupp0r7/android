@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -422,7 +423,7 @@ public class MainActivity extends AppCompatActivity {
             tvDur.setGravity(Gravity.RIGHT);
             tvDur.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
             tvDur.setTextColor(Color.parseColor("#ffffff"));
-            tvDur.setText(currentSolution.getDurata());
+            tvDur.setText(currentSolution.getDurata()!=null?currentSolution.getDurata():DateUtils.calculateDurationTime(firstVehicle.getOrarioPartenza(),lastVehicle.getOrarioArrivo()));
             tvDur.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             tvDur.setTypeface(null, Typeface.BOLD_ITALIC);
             TableRow tr2 = new TableRow(this);
@@ -442,6 +443,13 @@ public class MainActivity extends AppCompatActivity {
                 tv3.setText(TrainCategoryCostraintsEnum.getEnumFromCode(vehicle.getCategoriaDescrizione()).getDescription()+" "+vehicle.getNumeroTreno());
                 tv3.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
                 tv3.setTypeface(null, Typeface.BOLD_ITALIC);
+                //
+                GradientDrawable gd = new GradientDrawable();
+                gd.setColor(0xFF90A4AE); // Changes this drawbale to use a single color instead of a gradient
+                gd.setCornerRadius(5);
+                gd.setStroke(1, 0xFF90A4AE);
+                //
+                tv3.setBackground(gd);
                 tr3.addView(tv3,vehicleForSolution.indexOf(vehicle));
             }
             //
