@@ -106,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
         trainSolutionsTableLayout = findViewById(R.id.trainSolutionsTableLayout);
         trainSolutionsTableLayout.setStretchAllColumns(true);
         trainSolutionsTableLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+        //Performs API call to retrieve all the stations for each region
+        if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
+            getStationByRegionForDeparturesAndArrival();
+        }
 
         autoCompleteDepartures.addTextChangedListener(new TextWatcher() {
             @Override
@@ -115,9 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
-                    getStationByRegionForDeparturesAndArrival(s.toString());
-                }
                 autocomplete(s.toString(),0);
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
             }
@@ -133,14 +134,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.addTextChangedListener - executed");
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
-                    getStationByRegionForDeparturesAndArrival(s.toString());
-                }
                 autocomplete(s.toString(),1);
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
@@ -240,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getStationByRegionForDeparturesAndArrival(String charSequence) {
+    private void getStationByRegionForDeparturesAndArrival() {
         //Obtain an instance of Retrofit by calling the static method.
         Retrofit retrofit = NetworkStationClient.getRetrofitClient();
         /*
@@ -272,12 +269,6 @@ public class MainActivity extends AppCompatActivity {
                         stationMapFiltered.clear();
                         stationNamesList.clear();
                         stationList.addAll(station);
-                        for (Station singleStation : stationList) {
-                            if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence.toLowerCase())) {
-                                stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(), singleStation.getCodStazione());
-                                stationNamesList.add(singleStation.getLocalita().getNomeLungo());
-                            }
-                        }
                         stationMapFilteredForDepartures.putAll(stationMapFiltered);
                         stationMapFilteredForArrivals.putAll(stationMapFiltered);
                         isAPIArrivalsAndDeparturesCallPerformed = true;
