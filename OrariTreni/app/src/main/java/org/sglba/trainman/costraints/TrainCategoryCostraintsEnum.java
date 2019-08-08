@@ -4,6 +4,7 @@ public enum TrainCategoryCostraintsEnum {
 
     SFM("SFM","Metro", "MET"),
     REGIONALE("Regionale","Regionale","REG"),
+    REGIONALEVELOCE("RV","RV","REGVel"),
     URB("","Urb",""),
     AUTOBUS("Autobus","Autobus","Autobus"),
     ICN("ICN","ICN","ICN"),
