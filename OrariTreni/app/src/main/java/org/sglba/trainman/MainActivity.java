@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -165,6 +166,9 @@ public class MainActivity extends AppCompatActivity {
         findButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //To hide the KeyBoard
+                hideKeyBoard();
+                //To call the API service
                 if (autoCompleteDepartures.getText() != null & !autoCompleteDepartures.getText().toString().isEmpty()
                         && autoCompleteArrivals.getText() != null & !autoCompleteArrivals.getText().toString().isEmpty()) {
                     String departureStationCode = stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "");
@@ -177,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
         swapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyBoard();
                 String tmpDeparture = autoCompleteDepartures.getText().toString();
                 String tmpArrivals = autoCompleteArrivals.getText().toString();
                 //
@@ -201,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "calendarButton.onClick - executed");
                 CalendarView calendarView = new CalendarView(MainActivity.this);
+                hideKeyBoard();
                 if (isCalendarButtonPressed){
                     if (selectedDate != null) {
                         Calendar calendar = new GregorianCalendar();
@@ -250,6 +256,14 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    private void hideKeyBoard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     private void getStationByRegionForDeparturesAndArrival() {
