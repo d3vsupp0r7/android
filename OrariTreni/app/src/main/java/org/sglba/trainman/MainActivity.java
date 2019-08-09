@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     //Boolean conditions
     Boolean isCalendarButtonPressed=true;
     Boolean isAPIArrivalsAndDeparturesCallPerformed=false;
+    Boolean isSwitchPressed=false;
     //To Add on Date Utils
     String   selectedDate;
     int yearToSet;
@@ -119,7 +120,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                autocomplete(s.toString(),0);
+                if(!isSwitchPressed) {
+                    autocomplete(s.toString(), 0);
+                }
+                else
+                {
+                    isSwitchPressed=true;
+                }
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
             }
 
@@ -138,7 +145,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                autocomplete(s.toString(),1);
+                if(!isSwitchPressed) {
+                    autocomplete(s.toString(), 1);
+                }
+                else
+                {
+                    isSwitchPressed=true;
+                }
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
 
@@ -173,7 +186,9 @@ public class MainActivity extends AppCompatActivity {
                 stationMapFilteredForDepartures.put(tmpArrivals,arrivalStationCode);
                 stationMapFilteredForArrivals.put(tmpDeparture,departureStationCode);
                 //
+                isSwitchPressed=true;
                 autoCompleteDepartures.setText(tmpArrivals);
+                isSwitchPressed=true;
                 autoCompleteArrivals.setText(tmpDeparture);
                 //
 
@@ -475,9 +490,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private TableLayout.LayoutParams createTableParams(TableRow tr,int leftRowMargin,
-            int topRowMargin,
-            int rightRowMargin,
-            int bottomRowMargin){
+                                                       int topRowMargin,
+                                                       int rightRowMargin,
+                                                       int bottomRowMargin){
         TableLayout.LayoutParams trParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.MATCH_PARENT);
         trParams.setMargins(leftRowMargin, topRowMargin, rightRowMargin, bottomRowMargin);
