@@ -1,5 +1,6 @@
 package org.sglba.trainman;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -32,8 +34,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.util.Log;
+import android.widget.TimePicker;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.sglba.trainman.costraints.ApplicationCostraintsEnum;
+import org.sglba.trainman.costraints.DatePatternFormatterCostraintEnum;
 import org.sglba.trainman.costraints.TrainCategoryCostraintsEnum;
 import org.sglba.trainman.model.RailRoute;
 import org.sglba.trainman.model.Soluzioni;
@@ -51,6 +57,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -83,6 +90,9 @@ public class MainActivity extends AppCompatActivity {
     //Popup
     ConstraintLayout mConstraintLayout;
     Context mContext;
+    //DateTimePicker
+    TimePicker timePicker;
+    Button calendarButton;
 
     //Buttons
     ImageButton swapButton;
@@ -96,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         /* UI Components */
         //Buttons reference from UI
         ImageButton findButton = findViewById(R.id.findButton);
-        Button calendarButton= findViewById(R.id.calendarButton);
+        calendarButton= findViewById(R.id.calendarButton);
         swapButton =  findViewById(R.id.swapButton);
         //Autocomplete configurations
         autoCompleteArrivals = findViewById(R.id.autoCompleteArrivals);
@@ -205,54 +215,8 @@ public class MainActivity extends AppCompatActivity {
         calendarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "calendarButton.onClick - executed");
-                CalendarView calendarView = new CalendarView(MainActivity.this);
-                hideKeyBoard();
-                if (isCalendarButtonPressed){
-                    if (selectedDate != null) {
-                        Calendar calendar = new GregorianCalendar();
-                        calendar.set(yearToSet, monthToSet, dayToSet, 0, 0);
-                        calendarView.setDate(calendar.getTimeInMillis());
-                    }
 
-                    // Add Listener in calendar
-                    calendarView
-                            .setOnDateChangeListener(
-                                    new CalendarView
-                                            .OnDateChangeListener() {
-                                        @Override
-                                        public void onSelectedDayChange(
-                                                @NonNull CalendarView view,
-                                                int year,
-                                                int month,
-                                                int dayOfMonth) {
-                                            yearToSet = year;
-                                            monthToSet = month;
-                                            dayToSet = dayOfMonth;
-
-                                            String sMonth = String.valueOf((monthToSet + 1));
-                                            String sDay = String.valueOf(dayToSet);
-
-                                            if (sDay.length() == 1)
-                                                sDay = "0" + sDay;
-
-                                            if (sMonth.length() == 1)
-                                                sMonth = "0" + sMonth;
-
-                                            String date
-                                                    = year + "-" + sMonth + "-" + sDay;
-                                            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "calendarButton.onClick - selectedDate: " + selectedDate);
-                                            selectedDate = date;
-                                            calendarButton.setText(DateUtils.formatDateToUE(selectedDate));
-                                            trainSolutionsTableLayout.removeView(calendarView);
-                                            isCalendarButtonPressed=true;
-                                        }
-                                    });
-                    trainSolutionsTableLayout.addView(calendarView,0);
-
-
-                    isCalendarButtonPressed=false;
-                }
+                selectDateTime(v,0);
             }
 
         });
@@ -265,6 +229,40 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public void selectDateTime(View v, final int flag) {
+        final View dialogView = View.inflate(this, R.layout.date_time_picker, null);
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        //To set 24H on timePicker
+        timePicker = (TimePicker) dialogView.findViewById(R.id.timepicker);
+        timePicker.setIs24HourView(true);
+        dialogView.findViewById(R.id.datetimeset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.datepicker);
+                Calendar calendar = new GregorianCalendar(datePicker.getYear(),
+                        datePicker.getMonth(),
+                        datePicker.getDayOfMonth(),
+                        timePicker.getHour(),
+                        timePicker.getMinute());
+                /**/
+                TimeZone tz = calendar.getTimeZone();
+                DateTimeZone jodaTz = DateTimeZone.forID(tz.getID());
+                DateTime dateTime = new DateTime(calendar.getTimeInMillis(), jodaTz);
+                String result = dateTime.toString(DatePatternFormatterCostraintEnum.US_DATE_PATTERN_WITH_TIME.getValue());
+                String toTxtView = result.replace(" ","T");
+                /**/
+                String buttonText = dateTime.toString(DatePatternFormatterCostraintEnum.EU_DATE_PATTERN_WITH_TIME_NO_T.getValue());
+                /**/
+                calendarButton.setText(buttonText);
+                selectedDate = toTxtView;
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "calendarButton.onClick - selectedDate: " + selectedDate);
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.setView(dialogView);
+        alertDialog.show();
     }
 
     private void getStationByRegionForDeparturesAndArrival() {
@@ -352,7 +350,11 @@ public class MainActivity extends AppCompatActivity {
         /*
         Invoke the method corresponding to the HTTP request which will return a Call object. This Call object will used to send the actual network request with the specified parameters
         */
+        Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "departureStation: " + departureStation
+                        + "arrivalStation: " + arrivalStation +
+                        "date: " + date);
         Call call = stationService.getTravelSolutionsFromStations(departureStation, arrivalStation, date);
+
         /*
         This is the line which actually sends a network request. Calling enqueue() executes a call asynchronously. It has two callback listeners which will invoked on the main thread
         */

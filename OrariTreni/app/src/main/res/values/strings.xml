@@ -1,8 +1,18 @@
 <resources>
     <!-- App messages labels -->
-    <!-- Generals -->
+
+    <!-- 1. Generals -->
     <string name="app_name">OrariTreni</string>
-    <string name="welcome">Welcome to\nTrainMan</string>
-    <!-- -->
+    <!-- 2. Main activity -->
+    <!-- 2.1 Date popup-->
+    <string name="btnLblSelectDate">Seleziona data/ora viaggio</string>
+    <!--2.2 -->
+    <string name="btnLblFrom">Da:</string>
+    <string name="btnLblStationDeparture">Stazione Partenza</string>
+    <string name="btnLblTo">A:</string>
+    <string name="btnLblStationArrival">Stazione Arrivo</string>
+    <string name="btnLblNoSelectedDate">Nessuna Data Selezionata</string>
+    <!-- Settings activity -->
     <string name="action_settings">Settings</string>
+
 </resources>
