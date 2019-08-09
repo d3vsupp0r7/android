@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     //Boolean conditions
     Boolean isCalendarButtonPressed=true;
     Boolean isAPIArrivalsAndDeparturesCallPerformed=false;
+    Boolean isSwitchPressed=false;
     //To Add on Date Utils
     String   selectedDate;
     int yearToSet;
@@ -106,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
         trainSolutionsTableLayout = findViewById(R.id.trainSolutionsTableLayout);
         trainSolutionsTableLayout.setStretchAllColumns(true);
         trainSolutionsTableLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+        //Performs API call to retrieve all the stations for each region
+        if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
+            getStationByRegionForDeparturesAndArrival();
+        }
 
         autoCompleteDepartures.addTextChangedListener(new TextWatcher() {
             @Override
@@ -115,10 +120,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
-                    getStationByRegionForDeparturesAndArrival(s.toString());
+                if(!isSwitchPressed) {
+                    autocomplete(s.toString(), 0);
                 }
-                autocomplete(s.toString(),0);
+                else
+                {
+                    isSwitchPressed=true;
+                }
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteDepartures.onTextChanged - executed");
             }
 
@@ -133,15 +141,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.addTextChangedListener - executed");
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
-                    getStationByRegionForDeparturesAndArrival(s.toString());
+                if(!isSwitchPressed) {
+                    autocomplete(s.toString(), 1);
                 }
-                autocomplete(s.toString(),1);
+                else
+                {
+                    isSwitchPressed=true;
+                }
                 Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "autoCompleteArrivals.onTextChanged - executed");
             }
 
@@ -176,7 +186,9 @@ public class MainActivity extends AppCompatActivity {
                 stationMapFilteredForDepartures.put(tmpArrivals,arrivalStationCode);
                 stationMapFilteredForArrivals.put(tmpDeparture,departureStationCode);
                 //
+                isSwitchPressed=true;
                 autoCompleteDepartures.setText(tmpArrivals);
+                isSwitchPressed=true;
                 autoCompleteArrivals.setText(tmpDeparture);
                 //
 
@@ -240,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getStationByRegionForDeparturesAndArrival(String charSequence) {
+    private void getStationByRegionForDeparturesAndArrival() {
         //Obtain an instance of Retrofit by calling the static method.
         Retrofit retrofit = NetworkStationClient.getRetrofitClient();
         /*
@@ -272,12 +284,6 @@ public class MainActivity extends AppCompatActivity {
                         stationMapFiltered.clear();
                         stationNamesList.clear();
                         stationList.addAll(station);
-                        for (Station singleStation : stationList) {
-                            if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence.toLowerCase())) {
-                                stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(), singleStation.getCodStazione());
-                                stationNamesList.add(singleStation.getLocalita().getNomeLungo());
-                            }
-                        }
                         stationMapFilteredForDepartures.putAll(stationMapFiltered);
                         stationMapFilteredForArrivals.putAll(stationMapFiltered);
                         isAPIArrivalsAndDeparturesCallPerformed = true;
@@ -484,11 +490,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private TableLayout.LayoutParams createTableParams(TableRow tr,int leftRowMargin,
-            int topRowMargin,
-            int rightRowMargin,
-            int bottomRowMargin){
+        int topRowMargin,
+        int rightRowMargin,
+        int bottomRowMargin){
         TableLayout.LayoutParams trParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
-                TableLayout.LayoutParams.WRAP_CONTENT);
+                TableLayout.LayoutParams.MATCH_PARENT);
         trParams.setMargins(leftRowMargin, topRowMargin, rightRowMargin, bottomRowMargin);
         tr.setLayoutParams(trParams);
         return trParams;
