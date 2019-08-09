@@ -66,4 +66,17 @@ public class DateUtils {
         return dateFormatted;
 
     }
+
+    public static String formatCurrentDateForAPIService(){
+        String dateFormatted="";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        //
+        String pattern = "yyyy-MM-dd'T'HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        //
+        dateFormatted=simpleDateFormat.format(date);
+        return dateFormatted;
+    }
+
 }

@@ -45,6 +45,7 @@ import org.sglba.trainman.util.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                         && autoCompleteArrivals.getText() != null & !autoCompleteArrivals.getText().toString().isEmpty()) {
                     String departureStationCode = stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "");
                     String arrivalStationCode = stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()).replace("S0", "");
-                    getTrainByStations(departureStationCode, arrivalStationCode,selectedDate!=null?selectedDate:"");
+                    getTrainByStations(departureStationCode, arrivalStationCode,selectedDate!=null?selectedDate:DateUtils.formatCurrentDateForAPIService());
                 }
             }
         });
@@ -504,9 +505,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private TableLayout.LayoutParams createTableParams(TableRow tr,int leftRowMargin,
-        int topRowMargin,
-        int rightRowMargin,
-        int bottomRowMargin){
+                                                       int topRowMargin,
+                                                       int rightRowMargin,
+                                                       int bottomRowMargin){
         TableLayout.LayoutParams trParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.MATCH_PARENT);
         trParams.setMargins(leftRowMargin, topRowMargin, rightRowMargin, bottomRowMargin);
