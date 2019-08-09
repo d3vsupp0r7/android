@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Button nextActivityButton;
     Button dynamicTableActivityButton;
     Button toMDActivity;
+    Button toDatePickerButton;
 
 
     @Override
@@ -91,6 +92,18 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto toMDActivity activity **");
                 /*Build Intent object with sourceActivity(this) and targetActivity*/
                 Intent intent = new Intent(MainActivity.this, ItemListActivity.class);
+                /*Call target (second) activity*/
+                startActivity(intent);
+            }
+        });
+        /**/
+        toDatePickerButton =(Button)findViewById(R.id.toDatePickerButton);
+        toDatePickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto DatePicker activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
+                Intent intent = new Intent(MainActivity.this, DateAndTimePickerActivity.class);
                 /*Call target (second) activity*/
                 startActivity(intent);
             }

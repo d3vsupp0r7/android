@@ -9,4 +9,15 @@
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
 
+    <!-- Button text -->
+    <!-- Common Labels -->
+    <string name="btnLblToMainActivity">To Main Act</string>
+
+    <!-- CustomDate Activity -->
+    <string name="btnLblToCustomDatePicker">To Custom DatePicker</string>
+    <string name="btnLblPickAFirstDateTime">Pick a First\nDateTime</string>
+    <string name="btnLblPickASecondDateTime">Pick a Second\nDateTime</string>
+    <string name="btnLblSelect">Select</string>
+    <string name="btnLblExecDateOperation">Exec date operations</string>
+
 </resources>
