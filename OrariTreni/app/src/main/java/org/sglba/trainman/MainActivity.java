@@ -11,6 +11,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
@@ -216,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                selectDateTime(v,0);
+                selectDateTime(v);
             }
 
         });
@@ -231,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void selectDateTime(View v, final int flag) {
+    public void selectDateTime(View v) {
         final View dialogView = View.inflate(this, R.layout.date_time_picker, null);
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         //To set 24H on timePicker
@@ -246,17 +247,17 @@ public class MainActivity extends AppCompatActivity {
                         datePicker.getDayOfMonth(),
                         timePicker.getHour(),
                         timePicker.getMinute());
-                /**/
+                /*Date management with JodaTime*/
                 TimeZone tz = calendar.getTimeZone();
                 DateTimeZone jodaTz = DateTimeZone.forID(tz.getID());
                 DateTime dateTime = new DateTime(calendar.getTimeInMillis(), jodaTz);
-                String result = dateTime.toString(DatePatternFormatterCostraintEnum.US_DATE_PATTERN_WITH_TIME.getValue());
-                String toTxtView = result.replace(" ","T");
-                /**/
-                String buttonText = dateTime.toString(DatePatternFormatterCostraintEnum.EU_DATE_PATTERN_WITH_TIME_NO_T.getValue());
-                /**/
-                calendarButton.setText(buttonText);
-                selectedDate = toTxtView;
+                String dateFormatFromPickers = dateTime.toString(DatePatternFormatterCostraintEnum.US_DATE_PATTERN_WITH_TIME.getValue());
+                String dateFormatForAPICall = dateFormatFromPickers.replace(" ","T");
+                /*UI Settings*/
+                String dateTxtFormattedButtonUI = dateTime.toString(DatePatternFormatterCostraintEnum.EU_DATE_PATTERN_WITH_TIME_NO_T.getValue());
+                /*Date management with UI/Service components*/
+                calendarButton.setText(dateTxtFormattedButtonUI);
+                selectedDate = dateFormatForAPICall;
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "calendarButton.onClick - selectedDate: " + selectedDate);
                 alertDialog.dismiss();
             }
@@ -417,13 +418,12 @@ public class MainActivity extends AppCompatActivity {
             String duration = currentSolution.getDurata();
             //Veichle management
             //Define layout for row
-            //
 
             final TextView tv = new TextView(this);
             tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT,1f));
             tv.setPadding(5, 0, 1, 5);
             tv.setGravity(Gravity.LEFT);
-            tv.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tv.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
             tv.setTextColor(Color.parseColor("#ffffff"));
             tv.setText(DateUtils.formatDate(firstVehicle.getOrarioPartenza())+"   "+firstVehicle.getOrigine());
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
@@ -434,7 +434,7 @@ public class MainActivity extends AppCompatActivity {
             tv2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT,0.7f));
             tv2.setPadding(5, 0, 1, 5);
             tv2.setGravity(Gravity.LEFT);
-            tv2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tv2.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
             tv2.setTextColor(Color.parseColor("#ffffff"));
             tv2.setText(DateUtils.formatDate(lastVehicle.getOrarioArrivo())+"   "+lastVehicle.getDestinazione());
             tv2.setTypeface(null, Typeface.BOLD_ITALIC);
@@ -444,7 +444,7 @@ public class MainActivity extends AppCompatActivity {
             tvDur.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT,0.3f));
             tvDur.setPadding(5, 0, 20, 5);
             tvDur.setGravity(Gravity.RIGHT);
-            tvDur.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tvDur.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
             tvDur.setTextColor(Color.parseColor("#ffffff"));
             tvDur.setText(currentSolution.getDurata()!=null?currentSolution.getDurata():DateUtils.calculateDurationTime(firstVehicle.getOrarioPartenza(),lastVehicle.getOrarioArrivo()));
             tvDur.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
@@ -461,7 +461,7 @@ public class MainActivity extends AppCompatActivity {
                 tv3.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
                 tv3.setPadding(0, 0, -30, 5);
                 tv3.setGravity(Gravity.LEFT);
-                tv3.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+                tv3.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
                 tv3.setTextColor(Color.parseColor("#ffffff"));
                 tv3.setText(TrainCategoryCostraintsEnum.getEnumFromCode(vehicle.getCategoriaDescrizione()).getDescription()+" "+vehicle.getNumeroTreno());
                 tv3.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
@@ -483,7 +483,7 @@ public class MainActivity extends AppCompatActivity {
             tr2.setLayoutParams(tr2Params);
             tr2.addView(tv2);
             tr2.addView(tvDur);
-            tr.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            tr.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
             trainSolutionsTableLayout.addView(tr, tr1Params);
             trainSolutionsTableLayout.addView(tr2, tr2Params);
             trainSolutionsTableLayout.addView(tr3, tr3Params);
