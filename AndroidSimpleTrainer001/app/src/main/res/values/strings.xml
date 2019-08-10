@@ -28,8 +28,8 @@
     <string name="txtLblDateTimePickerIndex">Date and Time picker examples</string>
     <string name="txtLblDateTimePicker">Date and Time picker example 1</string>
     <!-- Database -->
-
     <string name="txtLblDatabaseIndex">Database examples</string>
+    <string name="txtLblDatabaseCRUD">Database CRUD examples</string>
     <!-- Button text -->
 
 
