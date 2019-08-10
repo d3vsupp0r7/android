@@ -1,4 +1,4 @@
-package org.lba.android.simple.trainer;
+package org.lba.android.simple.trainer.activity.masterdetail.items;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.lba.android.simple.trainer.R;
 import org.lba.android.simple.trainer.dummy.DummyContent;
 
 import java.util.List;

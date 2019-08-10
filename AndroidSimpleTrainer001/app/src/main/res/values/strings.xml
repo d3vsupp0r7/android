@@ -9,9 +9,36 @@
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
 
+    <!-- Main activity -->
+    <string name="txtLblMainActivity">Welcome to main trainer activity</string>
+    <string name="btnLblToSecondActivity">To Second Actv</string>
+    <string name="btnLblToDynaTable">To DynaTable</string>
+    <string name="btnLblToMDActivity">To MD Actv</string>
+    <string name="btnLblToDBActivity">To DB Actv</string>
+    <!-- Second activity -->
+    <string name="txtLblSecondActivity">This is the second activity</string>
+    <string name="txtLblSharedDataMainActivity">Shared data with MainActivity</string>
+    <!-- DynamicTableSampleIndexActivity -->
+    <string name="txtLblDynamicTableSampleIndexActivity">DynamicTableSampleIndexActivity samples</string>
+    <string name="btnLblToExample1">To Example 1</string>
+    <string name="btnLblToIndexSamplePage">To Index Sample</string>
+    <!-- Example1 -->
+    <string name="txtLblDynamicTableSample1">Dynamic table example</string>
+    <!-- DateTimePicker -->
+    <string name="txtLblDateTimePickerIndex">Date and Time picker examples</string>
+    <string name="txtLblDateTimePicker">Date and Time picker example 1</string>
+    <!-- Database -->
+
+    <string name="txtLblDatabaseIndex">Database examples</string>
     <!-- Button text -->
+
+
     <!-- Common Labels -->
     <string name="btnLblToMainActivity">To Main Act</string>
+    <string name="btnLblShowPopup">Show Popup</string>
+    <string name="btnLblBackToIndex">Back to index samples</string>
+    <string name="txtEditLblEnterText">Enter text here</string>
+
 
     <!-- CustomDate Activity -->
     <string name="btnLblToCustomDatePicker">To Custom DatePicker</string>

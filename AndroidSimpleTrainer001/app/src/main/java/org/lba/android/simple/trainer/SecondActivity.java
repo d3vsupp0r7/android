@@ -40,7 +40,7 @@ public class SecondActivity extends Activity {
         Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"** SecondActivity - started **");
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.second_activity);
+        setContentView(R.layout.activity_second);
 
         mConstraintLayout = (ConstraintLayout) findViewById(R.id.secondActivityLayout);
 
@@ -70,7 +70,7 @@ public class SecondActivity extends Activity {
             public void onClick(View v) {
                 //Obtain layout for popup
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-                View customView = inflater.inflate(R.layout.simple_popup_layout,null);
+                View customView = inflater.inflate(R.layout.simple_layout_popup,null);
                 // Define background color for layout
                 Drawable d = new ColorDrawable(Color.BLUE);
                 //

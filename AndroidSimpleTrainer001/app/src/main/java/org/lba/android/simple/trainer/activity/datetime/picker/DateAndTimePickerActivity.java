@@ -1,4 +1,4 @@
-package org.lba.android.simple.trainer;
+package org.lba.android.simple.trainer.activity.datetime.picker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +15,9 @@ import android.app.AlertDialog;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.lba.android.simple.trainer.MainActivity;
+import org.lba.android.simple.trainer.R;
+import org.lba.android.simple.trainer.activity.DateTimeSampleIndexActivity;
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
 
 import java.util.Calendar;
@@ -28,6 +31,7 @@ public class DateAndTimePickerActivity extends AppCompatActivity {
     Button pickDateTimeButton;
     Button pickDateTimeButton2;
     Button toMainActivityButton;
+    Button backToIndexSampleButton;
     //
     TimePicker timePicker;
 
@@ -61,14 +65,24 @@ public class DateAndTimePickerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"** SecondActivity goto MainActivity - started **");
-                Intent intent= new Intent(DateAndTimePickerActivity.this,MainActivity.class);
+                Intent intent= new Intent(DateAndTimePickerActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        backToIndexSampleButton = (Button)findViewById(R.id.backToIndexSampleButton);
+        backToIndexSampleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"** SecondActivity goto MainActivity - started **");
+                Intent intent= new Intent(DateAndTimePickerActivity.this, DateTimeSampleIndexActivity.class);
                 startActivity(intent);
             }
         });
     }
 
     public void SelectDateTime(View v, final int flag) {
-        final View dialogView = View.inflate(this, R.layout.date_time_picker, null);
+        final View dialogView = View.inflate(this, R.layout.date_time_picker_popup_1, null);
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         //To set 24H on timePicker
         timePicker = (TimePicker) dialogView.findViewById(R.id.timepicker);
