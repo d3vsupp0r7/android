@@ -1,5 +1,9 @@
 package org.sglba.trainman.util;
 
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.Minutes;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,24 +46,20 @@ public class DateUtils {
         //HH converts hour in 24 hours format (0-23), day calculation
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         String dateFormatted="";
-        Date d1 = null;
-        Date d2 = null;
         try {
-            d1 = format.parse(dateStringDeparture);
-            d2 = format.parse(dateStringArrival);
+            Date d1 = format.parse(dateStringDeparture);
+            Date d2 = format.parse(dateStringArrival);
+            DateTime dj1=new DateTime(d1);
+            DateTime dj2=new DateTime(d2);
+
+            Duration duration = new Duration(dj2,dj1);
+
+            long minutes = duration.getStandardMinutes();
+            long hours = minutes / 60;
+            long minutesRemaining = minutes % 60;
 
             //in milliseconds
-            long diff = d2.getTime() - d1.getTime();
-
-            long diffSeconds = diff / 1000 % 60;
-            long diffMinutes = diff / (60 * 1000) % 60;
-            long diffHours = diff / (60 * 60 * 1000) % 24;
-            long diffDays = diff / (24 * 60 * 60 * 1000);
-
-            Date h = new Date(diff);
-            DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-            dateFormatted=dateFormat.format(h);
-
+            dateFormatted=Long.toString(hours).replace("-","")+":"+Long.toString(minutesRemaining).replace("-","");
         } catch (Exception e) {
             e.printStackTrace();
         }
