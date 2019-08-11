@@ -21,7 +21,9 @@
     <!-- DynamicTableSampleIndexActivity -->
     <string name="txtLblDynamicTableSampleIndexActivity">DynamicTableSampleIndexActivity samples</string>
     <string name="btnLblToExample1">To Example 1</string>
+    <string name="btnLblToExample2">To Example 2</string>
     <string name="btnLblToIndexSamplePage">To Index Sample</string>
+    <string name="txtLblDynamicTableSampleExample2">DynamicTable Sample 2</string>
     <!-- Example1 -->
     <string name="txtLblDynamicTableSample1">Dynamic table example</string>
     <!-- DateTimePicker -->

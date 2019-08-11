@@ -1,4 +1,4 @@
-package org.lba.android.simple.trainer.layout;
+package org.lba.android.simple.trainer.activity.layout.linear;
 
 import android.os.Bundle;
 

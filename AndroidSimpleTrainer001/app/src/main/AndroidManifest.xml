@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.database.DatabaseCRUDActivity"></activity>
+        <activity android:name=".activity.dynamictable.DynamicTableExample1SingleRowActivity"></activity>
+        <activity android:name=".activity.layout.tablelayout.TableLayoutExample2Activity" />
+        <activity android:name=".activity.layout.tablelayout.TableLayoutExample1Activity" />
+        <activity android:name=".activity.LayoutSampleIndexActivity" />
+        <activity android:name=".activity.database.DatabaseCRUDActivity" />
         <activity android:name=".activity.DatabaseSampleIndexActivity" />
         <activity android:name=".activity.DateTimeSampleIndexActivity" />
         <activity android:name=".activity.MasterDetailSampleIndexActivity" />
@@ -29,11 +33,11 @@
                 android:value="org.lba.android.simple.trainer.activity.masterdetail.items.ItemListActivity" />
         </activity>
         <activity
-            android:name=".layout.LinearLayoutHorizontal"
+            android:name=".activity.layout.linear.LinearLayoutHorizontalActivity"
             android:label="@string/title_activity_linear_layout_horizontal"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".layout.LinearLayoutVerticalActivity"
+            android:name=".activity.layout.linear.LinearLayoutVerticalActivity"
             android:label="@string/title_activity_linear_layout"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- Main activity -->
         <activity android:name=".MainActivity">
