@@ -197,7 +197,7 @@ public class DynamicTableExample1SingleRowActivity extends AppCompatActivity {
 
         //
         TextView rowText1 = new TextView(this);
-        rowText1.setText("Num Devices: " + currentEmployee.getDevices().size());
+        rowText1.setText("Num Dev.: " + currentEmployee.getDevices().size());
         rowText1.setPadding(5, 15, 15, 15);
 
         TextView rowText2 = new TextView(this);
