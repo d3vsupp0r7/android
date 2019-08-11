@@ -91,13 +91,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <TableLayout
-            android:id="@+id/trainSolutionsTableLayout"
+        <LinearLayout
+            android:id="@+id/linearLayoutScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </TableLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
     </ScrollView>
 
     <ImageButton
@@ -142,10 +140,10 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.288" />
+        app:layout_constraintVertical_bias="0.259" />
 
     <Button
         android:id="@+id/calendarButton"
