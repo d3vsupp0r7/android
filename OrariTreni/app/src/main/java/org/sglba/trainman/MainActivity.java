@@ -2,35 +2,25 @@ package org.sglba.trainman;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.Space;
+
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -52,6 +42,7 @@ import org.sglba.trainman.util.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -329,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
                 stationNamesList.add(singleStation.getLocalita().getNomeLungo());
             }
         }
+        Collections.sort(stationNamesList);
         adapterForDeparturesAndArrival = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
         if(checkDeparturesOrArrivals==0) {
             autoCompleteDepartures.setAdapter(adapterForDeparturesAndArrival);
