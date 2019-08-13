@@ -54,4 +54,14 @@ public class TrainSolution implements Serializable {
     public void setVehicleForSolution(List<Vehicle> vehicleForSolution) {
         VehicleForSolution = vehicleForSolution;
     }
+
+    @Override
+    public String toString() {
+        return "TrainSolution{" +
+                "solution=" + solution +
+                ", firstVehicle=" + firstVehicle +
+                ", lastVehicle=" + lastVehicle +
+                ", VehicleForSolution=" + VehicleForSolution +
+                '}';
+    }
 }
