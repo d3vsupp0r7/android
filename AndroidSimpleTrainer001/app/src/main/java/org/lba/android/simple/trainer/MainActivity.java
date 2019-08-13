@@ -10,6 +10,7 @@ import org.lba.android.simple.trainer.activity.DateTimeSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.DynamicTableSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.datetime.picker.DateAndTimePickerActivity;
 import org.lba.android.simple.trainer.activity.dynamictable.DynamicTableActivity;
+import org.lba.android.simple.trainer.activity.fragment.ActivityForFragmentHelloWorld;
 import org.lba.android.simple.trainer.activity.masterdetail.items.ItemListActivity;
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
 import org.lba.android.simple.trainer.db.model.SettingsDAO;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Button toMDActivity;
     Button toDatePickerButton;
     Button toDBActivity;
+    Button toFragmentExample;
 
 
     @Override
@@ -122,6 +124,18 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto DatabaseSampleIndexActivity activity **");
                 /*Build Intent object with sourceActivity(this) and targetActivity*/
                 Intent intent = new Intent(MainActivity.this, DatabaseSampleIndexActivity.class);
+                /*Call target (second) activity*/
+                startActivity(intent);
+            }
+        });
+        /**/
+        toFragmentExample = (Button)findViewById(R.id.toFragmentExample);
+        toFragmentExample.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto DatabaseSampleIndexActivity activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
+                Intent intent = new Intent(MainActivity.this, ActivityForFragmentHelloWorld.class);
                 /*Call target (second) activity*/
                 startActivity(intent);
             }
