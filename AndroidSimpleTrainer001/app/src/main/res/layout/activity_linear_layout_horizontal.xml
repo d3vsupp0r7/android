@@ -8,6 +8,7 @@
         android:layout_width="100dp"
         android:layout_height="95dp"
         android:layout_weight="1"
+        android:contentDescription="@android:string/search_go"
         app:srcCompat="@drawable/search_icon" />
 
     <Button

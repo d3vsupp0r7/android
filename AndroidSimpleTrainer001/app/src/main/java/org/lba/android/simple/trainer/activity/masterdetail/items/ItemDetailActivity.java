@@ -1,4 +1,4 @@
-package org.lba.android.simple.trainer;
+package org.lba.android.simple.trainer.activity.masterdetail.items;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 
 import android.view.MenuItem;
+
+import org.lba.android.simple.trainer.R;
 
 /**
  * An activity representing a single Item detail screen. This

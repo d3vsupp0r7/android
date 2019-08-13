@@ -1,18 +1,12 @@
-package org.lba.android.simple.trainer.layout;
+package org.lba.android.simple.trainer.activity.layout.linear;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.View;
 
 import org.lba.android.simple.trainer.R;
 
-public class LinearLayoutHorizontal extends AppCompatActivity {
+public class LinearLayoutHorizontalActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

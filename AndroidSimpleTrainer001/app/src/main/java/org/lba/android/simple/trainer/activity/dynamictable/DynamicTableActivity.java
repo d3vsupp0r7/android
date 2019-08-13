@@ -1,4 +1,4 @@
-package org.lba.android.simple.trainer;
+package org.lba.android.simple.trainer.activity.dynamictable;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import org.lba.android.simple.trainer.MainActivity;
+import org.lba.android.simple.trainer.R;
+import org.lba.android.simple.trainer.activity.DynamicTableSampleIndexActivity;
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
 import org.lba.android.simple.trainer.model.Employee;
 
@@ -34,6 +37,7 @@ public class DynamicTableActivity  extends AppCompatActivity {
     //UI components
     ProgressDialog mProgressBar;
     Button backToFirstActivityButton;
+    Button backToIndexSampleButton;
     //Layout components
     private TableLayout mTableLayout;
     ConstraintLayout mConstraintLayout;
@@ -89,7 +93,17 @@ public class DynamicTableActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"** DynamicTableActivity goto MainActivity - started **");
-                Intent intent= new Intent(DynamicTableActivity.this,MainActivity.class);
+                Intent intent= new Intent(DynamicTableActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        backToIndexSampleButton=(Button)findViewById(R.id.backToIndexSampleButton);
+        backToIndexSampleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"** DynamicTableActivity goto MainActivity - started **");
+                Intent intent= new Intent(DynamicTableActivity.this, DynamicTableSampleIndexActivity.class);
                 startActivity(intent);
             }
         });

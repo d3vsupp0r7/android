@@ -5,6 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.lba.android.simple.trainer.activity.DatabaseSampleIndexActivity;
+import org.lba.android.simple.trainer.activity.DateTimeSampleIndexActivity;
+import org.lba.android.simple.trainer.activity.DynamicTableSampleIndexActivity;
+import org.lba.android.simple.trainer.activity.datetime.picker.DateAndTimePickerActivity;
+import org.lba.android.simple.trainer.activity.dynamictable.DynamicTableActivity;
+import org.lba.android.simple.trainer.activity.fragment.ActivityForFragmentHelloWorld;
+import org.lba.android.simple.trainer.activity.masterdetail.items.ItemListActivity;
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
 import org.lba.android.simple.trainer.db.model.SettingsDAO;
 import org.lba.android.simple.trainer.db.model.SettingsModel;
@@ -19,7 +26,6 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     Button dynamicTableActivityButton;
     Button toMDActivity;
     Button toDatePickerButton;
+    Button toDBActivity;
+    Button toFragmentExample;
 
 
     @Override
@@ -76,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
         dynamicTableActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto dynamicTable activity **");
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto DynamicTableSampleIndexActivity activity **");
                 /*Build Intent object with sourceActivity(this) and targetActivity*/
-                Intent intent = new Intent(MainActivity.this, DynamicTableActivity.class);
+                Intent intent = new Intent(MainActivity.this, DynamicTableSampleIndexActivity.class);
                 /*Call target (second) activity*/
                 startActivity(intent);
             }
@@ -101,14 +109,37 @@ public class MainActivity extends AppCompatActivity {
         toDatePickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto DatePicker activity **");
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto DateTimeSampleIndexActivity activity **");
                 /*Build Intent object with sourceActivity(this) and targetActivity*/
-                Intent intent = new Intent(MainActivity.this, DateAndTimePickerActivity.class);
+                Intent intent = new Intent(MainActivity.this, DateTimeSampleIndexActivity.class);
                 /*Call target (second) activity*/
                 startActivity(intent);
             }
         });
-
+        /**/
+        toDBActivity = (Button)findViewById(R.id.toDBActivity);
+        toDBActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto DatabaseSampleIndexActivity activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
+                Intent intent = new Intent(MainActivity.this, DatabaseSampleIndexActivity.class);
+                /*Call target (second) activity*/
+                startActivity(intent);
+            }
+        });
+        /**/
+        toFragmentExample = (Button)findViewById(R.id.toFragmentExample);
+        toFragmentExample.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto DatabaseSampleIndexActivity activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
+                Intent intent = new Intent(MainActivity.this, ActivityForFragmentHelloWorld.class);
+                /*Call target (second) activity*/
+                startActivity(intent);
+            }
+        });
 
         /*Demo Data Builder*/
         myEmployeeList = new ArrayList<>();
