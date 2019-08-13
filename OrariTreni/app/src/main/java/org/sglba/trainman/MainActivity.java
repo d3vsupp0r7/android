@@ -525,19 +525,13 @@ public class MainActivity extends AppCompatActivity {
         rowText2.setTypeface(null, Typeface.BOLD_ITALIC);
         //
         TextView rowTextProv = new TextView(this);
-        rowTextProv.setPadding(5, 15, 15, 15);
+        rowTextProv.setPadding(150, 15, 15, 15);
         rowTextProv.setText("                   ");
-        TextView rowTextProv2 = new TextView(this);
-        rowTextProv2.setPadding(5, 15, 15, 15);
-        rowTextProv2.setText("                  ");
-        TextView rowTextProv3 = new TextView(this);
-        rowTextProv3.setPadding(5, 15, 15, 15);
-        rowTextProv3.setText("                   ");
         //
 
         Soluzioni currentSolution = trainSolution.getSolution();
         TextView rowText3 = new TextView(this);
-        rowText3.setText( currentSolution.getDurata()!=null?currentSolution.getDurata():DateUtils.calculateDurationTime(trainSolution.getFirstVehicle().getOrarioPartenza(),trainSolution.getLastVehicle().getOrarioArrivo()));
+        rowText3.setText(DateUtils.calculateDurationTime(trainSolution.getFirstVehicle().getOrarioPartenza(),trainSolution.getLastVehicle().getOrarioArrivo()));
         rowText3.setPadding(5, 15, 15, 15);
         rowText3.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
         rowText3.setTextColor(Color.parseColor("#ffffff"));
@@ -548,8 +542,6 @@ public class MainActivity extends AppCompatActivity {
         LL.addView(rowText1);
         LL.addView(rowText2);
         LL.addView(rowTextProv);
-        LL.addView(rowTextProv2);
-        LL.addView(rowTextProv3);
         LL.addView(rowText3);
         //     LL.setTag(View.generateViewId(),"tda_"+i);
 
