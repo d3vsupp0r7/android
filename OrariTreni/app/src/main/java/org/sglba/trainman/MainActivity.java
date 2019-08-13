@@ -28,6 +28,7 @@ import android.widget.TimePicker;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.sglba.trainman.costraints.ApplicationCostraintsEnum;
@@ -102,6 +103,10 @@ public class MainActivity extends AppCompatActivity {
         autoCompleteDepartures = findViewById(R.id.autoCompleteDepartures);
         autoCompleteDepartures.setThreshold(2);
         autoCompleteArrivals.setThreshold(2);
+        // Initialize button with current date for RFI-14
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter fmtButton= DateTimeFormat.forPattern(DatePatternFormatterCostraintEnum.EU_DATE_PATTERN.getValue());
+        calendarButton.setText("Oggi: " + fmtButton.print(now));
         //
 
         if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
@@ -488,7 +493,6 @@ public class MainActivity extends AppCompatActivity {
         rowText2.setTextColor(Color.parseColor("#ffffff"));
         rowText2.setTypeface(null, Typeface.BOLD_ITALIC);
 
-        //TODO: Data subtraction with jodatime
         //
         LinearLayout LL = new LinearLayout(this);
         LL.setOrientation(LinearLayout.HORIZONTAL);
