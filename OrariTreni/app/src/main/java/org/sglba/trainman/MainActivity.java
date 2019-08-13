@@ -2,36 +2,24 @@ package org.sglba.trainman;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.ScrollView;
-import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -48,6 +36,7 @@ import org.sglba.trainman.costraints.TrainCategoryCostraintsEnum;
 import org.sglba.trainman.model.RailRoute;
 import org.sglba.trainman.model.Soluzioni;
 import org.sglba.trainman.model.Station;
+import org.sglba.trainman.model.TrainSolution;
 import org.sglba.trainman.model.Vehicle;
 import org.sglba.trainman.retrofitclient.NetworkStationClient;
 import org.sglba.trainman.service.StationService;
@@ -55,7 +44,6 @@ import org.sglba.trainman.util.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -67,8 +55,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
-import org.sglba.trainman.ui.model.TrainSolution;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
     Boolean isSwitchPressed=false;
     //To Add on Date Utils
     String   selectedDate;
-    int yearToSet;
-    int monthToSet;
-    int dayToSet;
 
     //Popup
     ConstraintLayout mConstraintLayout;
@@ -420,25 +403,22 @@ public class MainActivity extends AppCompatActivity {
 
             TrainSolution trainSolution = new TrainSolution(currentSolution,firstVehicle,lastVehicle,vehicleForSolution);
             //Solution data
-            String duration = currentSolution.getDurata();
             //Veichle management
             //Define layout for row
-            String color = "";
-            if(i%2 ==0) {
-                color = "#e5eb34";
-            }else{
-                color = "#acfcf7";
-            }
             //
             TableRow tr1 = new TableRow(this);
-            buildRowTrainDetails(i, tr1,trainSolution, color);
+            buildRowTrainDetails(i, tr1,trainSolution);
             //
             TableRow tr2 = new TableRow(this);
-            buildRowTrainDetailsArrival(i, tr2,trainSolution, color);
+            buildRowTrainDetailsArrival(i, tr2,trainSolution);
             //
             TableRow tr3 = new TableRow(this);
-            buildRowTrainDetailsSolutions(i, tr3,trainSolution, color);
+            buildRowTrainDetailsSolutions(i, tr3,trainSolution);
             //
+            final TableRow trSep = new TableRow(this);
+            buildRowTrainDetailsSeparator(scrollViewLinearLayout, leftRowMargin, topRowMargin, rightRowMargin, bottomRowMargin, trSep);
+            //
+
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -471,8 +451,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void buildRowTrainDetailsSeparator(LinearLayout scrollViewLinearLayout, int leftRowMargin, int topRowMargin, int rightRowMargin, int bottomRowMargin, TableRow trSep) {
+        TableLayout.LayoutParams trParamsSep = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+        trParamsSep.setMargins(leftRowMargin, topRowMargin, rightRowMargin, bottomRowMargin);
+        trSep.setLayoutParams(trParamsSep);
+        TextView tvSep = new TextView(this);
+        TableRow.LayoutParams tvSepLay = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
+        tvSepLay.span = 4;
+        tvSep.setLayoutParams(tvSepLay);
+        tvSep.setBackgroundColor(Color.parseColor("#d9d9d9"));
+        tvSep.setHeight(1);
+        trSep.addView(tvSep);
+        scrollViewLinearLayout.addView(trSep);
+    }
+
     /*****************/
-    private void buildRowTrainDetails(int i, TableRow tr1, TrainSolution trainSolution, String color) {
+    private void buildRowTrainDetails(int i, TableRow tr1, TrainSolution trainSolution) {
         //
         DateTimeFormatter formatter = DateTimeFormat.forPattern(DatePatternFormatterCostraintEnum.US_DATE_PATTERN_WITH_TIME.getValue());
         DateTime dt = formatter.parseDateTime(trainSolution.getFirstVehicle().getOrarioPartenza());
@@ -482,32 +477,33 @@ public class MainActivity extends AppCompatActivity {
         TextView rowText1 = new TextView(this);
         rowText1.setText(date1[1]);
         rowText1.setPadding(5, 15, 15, 15);
+        rowText1.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
+        rowText1.setTextColor(Color.parseColor("#ffffff"));
+        rowText1.setTypeface(null, Typeface.BOLD_ITALIC);
 
         TextView rowText2 = new TextView(this);
         rowText2.setText(trainSolution.getFirstVehicle().getOrigine());
         rowText2.setPadding(5, 15, 15, 15);
+        rowText2.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
+        rowText2.setTextColor(Color.parseColor("#ffffff"));
+        rowText2.setTypeface(null, Typeface.BOLD_ITALIC);
 
         //TODO: Data subtraction with jodatime
-        Soluzioni currentSolution = trainSolution.getSolution();
-        TextView rowText3 = new TextView(this);
-        rowText3.setText( currentSolution.getDurata()!=null?currentSolution.getDurata():DateUtils.calculateDurationTime(trainSolution.getFirstVehicle().getOrarioPartenza(),trainSolution.getLastVehicle().getOrarioArrivo()));
-        rowText3.setPadding(5, 15, 15, 15);
         //
         LinearLayout LL = new LinearLayout(this);
         LL.setOrientation(LinearLayout.HORIZONTAL);
         LL.addView(rowText1);
         LL.addView(rowText2);
-        LL.addView(rowText3);
 //        LL.setTag(View.generateViewId(),"td_"+i);
         //
 //        tr1.setTag(View.generateViewId(),"tr_td_"+i);
 
-        tr1.setBackgroundColor(Color.parseColor(color));
+        tr1.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
         tr1.addView(LL);
 
     }
 
-    private void buildRowTrainDetailsArrival(int i, TableRow tr2,  TrainSolution trainSolution, String color) {
+    private void buildRowTrainDetailsArrival(int i, TableRow tr2,  TrainSolution trainSolution) {
         //
         DateTimeFormatter formatter = DateTimeFormat.forPattern(DatePatternFormatterCostraintEnum.US_DATE_PATTERN_WITH_TIME.getValue());
         DateTime dt = formatter.parseDateTime(trainSolution.getLastVehicle().getOrarioArrivo());
@@ -517,23 +513,52 @@ public class MainActivity extends AppCompatActivity {
         TextView rowText1 = new TextView(this);
         rowText1.setText(date1[1]);
         rowText1.setPadding(5, 15, 15, 15);
+        rowText1.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
+        rowText1.setTextColor(Color.parseColor("#ffffff"));
+        rowText1.setTypeface(null, Typeface.BOLD_ITALIC);
 
         TextView rowText2 = new TextView(this);
         rowText2.setText(trainSolution.getLastVehicle().getDestinazione());
         rowText2.setPadding(5, 15, 15, 15);
+        rowText2.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
+        rowText2.setTextColor(Color.parseColor("#ffffff"));
+        rowText2.setTypeface(null, Typeface.BOLD_ITALIC);
+        //
+        TextView rowTextProv = new TextView(this);
+        rowTextProv.setPadding(5, 15, 15, 15);
+        rowTextProv.setText("                   ");
+        TextView rowTextProv2 = new TextView(this);
+        rowTextProv2.setPadding(5, 15, 15, 15);
+        rowTextProv2.setText("                  ");
+        TextView rowTextProv3 = new TextView(this);
+        rowTextProv3.setPadding(5, 15, 15, 15);
+        rowTextProv3.setText("                   ");
+        //
+
+        Soluzioni currentSolution = trainSolution.getSolution();
+        TextView rowText3 = new TextView(this);
+        rowText3.setText( currentSolution.getDurata()!=null?currentSolution.getDurata():DateUtils.calculateDurationTime(trainSolution.getFirstVehicle().getOrarioPartenza(),trainSolution.getLastVehicle().getOrarioArrivo()));
+        rowText3.setPadding(5, 15, 15, 15);
+        rowText3.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
+        rowText3.setTextColor(Color.parseColor("#ffffff"));
+        rowText3.setTypeface(null, Typeface.BOLD_ITALIC);
 
         LinearLayout LL = new LinearLayout(this);
         LL.setOrientation(LinearLayout.HORIZONTAL);
         LL.addView(rowText1);
         LL.addView(rowText2);
+        LL.addView(rowTextProv);
+        LL.addView(rowTextProv2);
+        LL.addView(rowTextProv3);
+        LL.addView(rowText3);
         //     LL.setTag(View.generateViewId(),"tda_"+i);
 
         tr2.addView(LL);
         //      tr2.setTag(View.generateViewId(),"tr_tda_"+i);
-        tr2.setBackgroundColor(Color.parseColor(color));
+        tr2.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
     }
 
-    private void buildRowTrainDetailsSolutions(int i, TableRow tr2, TrainSolution trainSolution, String color) {
+    private void buildRowTrainDetailsSolutions(int i, TableRow tr2, TrainSolution trainSolution) {
 
         //
         //
@@ -547,13 +572,23 @@ public class MainActivity extends AppCompatActivity {
 
             TextView rowText1 = new TextView(this);
             rowText1.setText(TrainCategoryCostraintsEnum.getEnumFromCode(currentSolution.getCategoriaDescrizione()).getDescription()+" "+currentSolution.getNumeroTreno());
+            rowText1.setTextColor(Color.parseColor("#ffffff"));
             rowText1.setPadding(5, 15, 15, 15);
             //
+            GradientDrawable gd = new GradientDrawable();
+            gd.setColor(0xFF90A4AE); // Changes this drawbale to use a single color instead of a gradient
+            gd.setCornerRadius(5);
+            gd.setStroke(1, 0xFF90A4AE);
+            rowText1.setBackground(gd);
+            //
+            TextView rowText2 = new TextView(this);
+            rowText2.setPadding(5, 15, 15, 15);
             LL.addView(rowText1);
+            LL.addView(rowText2);
         }
 
         tr2.addView(LL);
-        tr2.setBackgroundColor(Color.parseColor(color));
+        tr2.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
 
     }
 
