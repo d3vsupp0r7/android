@@ -37,7 +37,9 @@
     <string name="txtLblDatabaseCRUD">Database CRUD examples</string>
     <!-- AsyncTaskExample1Activity -->
     <string name="btnLblCallAsyncTask1">Call asyncTask 1</string>
-
+    <!-- AsyncTaskExample1Activity -->
+    <string name="txtLblRetrofitActivity">Retrofit examples</string>
+    <string name="txtLblRetrofitExample1">Retrofit example 1</string>
     <!-- Button text -->
 
 
