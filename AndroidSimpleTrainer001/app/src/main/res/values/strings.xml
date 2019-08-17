@@ -15,6 +15,9 @@
     <string name="btnLblToDynaTable">To DynaTable</string>
     <string name="btnLblToMDActivity">To MD Actv</string>
     <string name="btnLblToDBActivity">To DB Actv</string>
+    <string name="btnLblToFragmentActivity">To Frgmt Actv</string>
+    <string name="btnLblToAsyncActivity">To Async Actv</string>
+    <string name="btnLblToRetrofitActivity">To Retrofit Actv</string>
     <!-- Second activity -->
     <string name="txtLblSecondActivity">This is the second activity</string>
     <string name="txtLblSharedDataMainActivity">Shared data with MainActivity</string>
@@ -32,6 +35,9 @@
     <!-- Database -->
     <string name="txtLblDatabaseIndex">Database examples</string>
     <string name="txtLblDatabaseCRUD">Database CRUD examples</string>
+    <!-- AsyncTaskExample1Activity -->
+    <string name="btnLblCallAsyncTask1">Call asyncTask 1</string>
+
     <!-- Button text -->
 
 

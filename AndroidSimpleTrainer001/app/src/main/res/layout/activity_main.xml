@@ -24,8 +24,8 @@
 
     <Button
         android:id="@+id/toMDActivity"
-        android:layout_width="142dp"
-        android:layout_height="55dp"
+        android:layout_width="143dp"
+        android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -102,26 +102,26 @@
    app:layout_constraintTop_toTopOf="parent"
    app:layout_constraintVertical_bias="0.18" />
 
-<Button
-   android:id="@+id/nextActivity"
-   android:layout_width="143dp"
-   android:layout_height="52dp"
-   android:layout_marginStart="8dp"
-   android:layout_marginTop="8dp"
-   android:layout_marginEnd="8dp"
-   android:layout_marginBottom="8dp"
-   android:text="@string/btnLblToSecondActivity"
-   app:layout_constraintBottom_toBottomOf="parent"
-   app:layout_constraintEnd_toEndOf="parent"
-   app:layout_constraintHorizontal_bias="0.039"
-   app:layout_constraintStart_toStartOf="parent"
-   app:layout_constraintTop_toTopOf="parent"
-   app:layout_constraintVertical_bias="0.343" />
+    <Button
+        android:id="@+id/nextActivity"
+        android:layout_width="143dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/btnLblToSecondActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.039"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.343" />
 
     <Button
         android:id="@+id/toDBActivity"
         android:layout_width="143dp"
-        android:layout_height="50dp"
+        android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -132,21 +132,51 @@
         app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.733" />
+        app:layout_constraintVertical_bias="0.73" />
 
     <Button
         android:id="@+id/toFragmentExample"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="143dp"
+        android:layout_height="56dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Button"
+        android:text="@string/btnLblToFragmentActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.657"
-        app:layout_constraintStart_toStartOf="@+id/nextActivity"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.336" />
+        app:layout_constraintVertical_bias="0.809" />
+
+    <Button
+        android:id="@+id/toAsyncActivity"
+        android:layout_width="143dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/btnLblToAsyncActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.669"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.339" />
+
+    <Button
+        android:id="@+id/toRetrofitActivity"
+        android:layout_width="143dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/btnLblToRetrofitActivity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.674"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.437" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
