@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.fragment.ActivityForFragmentHelloWorld"></activity>
+        <activity android:name=".activity.AsyncTaskSampleIndexActivity"></activity>
+        <activity android:name=".activity.asynctask.AsyncTaskExample1Activity" />
+        <activity android:name=".activity.retrofit.RetrofitExample1Activity" />
+        <activity android:name=".activity.RetrofitSampleIndexActivity" />
+        <activity android:name=".activity.fragment.ActivityForFragmentHelloWorld" />
         <activity android:name=".activity.dynamictable.DynamicTableExample1SingleRowActivity" />
         <activity android:name=".activity.layout.tablelayout.TableLayoutExample2Activity" />
         <activity android:name=".activity.layout.tablelayout.TableLayoutExample1Activity" />

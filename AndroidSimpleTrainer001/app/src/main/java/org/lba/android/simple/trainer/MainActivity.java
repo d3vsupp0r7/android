@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.lba.android.simple.trainer.activity.AsyncTaskSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.DatabaseSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.DateTimeSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.DynamicTableSampleIndexActivity;
+import org.lba.android.simple.trainer.activity.RetrofitSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.datetime.picker.DateAndTimePickerActivity;
 import org.lba.android.simple.trainer.activity.dynamictable.DynamicTableActivity;
 import org.lba.android.simple.trainer.activity.fragment.ActivityForFragmentHelloWorld;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     Button toDatePickerButton;
     Button toDBActivity;
     Button toFragmentExample;
+    Button toAsyncActivity;
+    Button toRetrofitActivity;
 
 
     @Override
@@ -136,6 +140,30 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto DatabaseSampleIndexActivity activity **");
                 /*Build Intent object with sourceActivity(this) and targetActivity*/
                 Intent intent = new Intent(MainActivity.this, ActivityForFragmentHelloWorld.class);
+                /*Call target (second) activity*/
+                startActivity(intent);
+            }
+        });
+        //toAsyncActivity
+        toAsyncActivity = (Button)findViewById(R.id.toAsyncActivity);
+        toAsyncActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto AsyncTaskSampleIndexActivity activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
+                Intent intent = new Intent(MainActivity.this, AsyncTaskSampleIndexActivity.class);
+                /*Call target (second) activity*/
+                startActivity(intent);
+            }
+        });
+        //toRetrofitActivity
+        toRetrofitActivity = (Button)findViewById(R.id.toRetrofitActivity);
+        toRetrofitActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto RetrofitSampleIndexActivity activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
+                Intent intent = new Intent(MainActivity.this, RetrofitSampleIndexActivity.class);
                 /*Call target (second) activity*/
                 startActivity(intent);
             }

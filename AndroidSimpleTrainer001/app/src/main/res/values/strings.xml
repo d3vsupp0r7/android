@@ -15,6 +15,9 @@
     <string name="btnLblToDynaTable">To DynaTable</string>
     <string name="btnLblToMDActivity">To MD Actv</string>
     <string name="btnLblToDBActivity">To DB Actv</string>
+    <string name="btnLblToFragmentActivity">To Frgmt Actv</string>
+    <string name="btnLblToAsyncActivity">To Async Actv</string>
+    <string name="btnLblToRetrofitActivity">To Retrofit Actv</string>
     <!-- Second activity -->
     <string name="txtLblSecondActivity">This is the second activity</string>
     <string name="txtLblSharedDataMainActivity">Shared data with MainActivity</string>
@@ -31,7 +34,20 @@
     <string name="txtLblDateTimePicker">Date and Time picker example 1</string>
     <!-- Database -->
     <string name="txtLblDatabaseIndex">Database examples</string>
-    <string name="txtLblDatabaseCRUD">Database CRUD examples</string>
+    <string name="txtLblDatabaseCRUD">Database CRUD example 1</string>
+    <string name="btnLabelCreate">Create</string>
+    <string name="btnLabelRead">Read</string>
+    <string name="btnLabelUpdate">Update</string>
+    <string name="btnLabelDelete">Delete</string>
+    <string name="txtLblName">Name</string>
+    <string name="txtLblSurname">Surname</string>
+    <string name="txtInputName">SampleName</string>
+    <string name="txtInputSurname">SampleSurname</string>
+    <!-- AsyncTaskExample1Activity -->
+    <string name="btnLblCallAsyncTask1">Call asyncTask 1</string>
+    <!-- AsyncTaskExample1Activity -->
+    <string name="txtLblRetrofitActivity">Retrofit examples</string>
+    <string name="txtLblRetrofitExample1">Retrofit example 1</string>
     <!-- Button text -->
 
 
@@ -48,5 +64,8 @@
     <string name="btnLblPickASecondDateTime">Pick a Second\nDateTime</string>
     <string name="btnLblSelect">Select</string>
     <string name="btnLblExecDateOperation">Exec date operations</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
