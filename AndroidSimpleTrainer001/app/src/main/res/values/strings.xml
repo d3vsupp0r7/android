@@ -40,7 +40,9 @@
     <string name="btnLabelUpdate">Update</string>
     <string name="btnLabelDelete">Delete</string>
     <string name="txtLblName">Name</string>
-    <string name="txtLblSurname">Surame</string>
+    <string name="txtLblSurname">Surname</string>
+    <string name="txtInputName">SampleName</string>
+    <string name="txtInputSurname">SampleSurname</string>
     <!-- AsyncTaskExample1Activity -->
     <string name="btnLblCallAsyncTask1">Call asyncTask 1</string>
     <!-- AsyncTaskExample1Activity -->
@@ -62,5 +64,8 @@
     <string name="btnLblPickASecondDateTime">Pick a Second\nDateTime</string>
     <string name="btnLblSelect">Select</string>
     <string name="btnLblExecDateOperation">Exec date operations</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

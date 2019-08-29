@@ -38,6 +38,7 @@ public class DatabaseCRUDActivity extends AppCompatActivity {
     EditText surnameInputTxt;
     /**/
     TextView txtLblData1;
+    TextView txtLblData2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +51,14 @@ public class DatabaseCRUDActivity extends AppCompatActivity {
         nameInputTxt = findViewById(R.id.nameInputTxt);
         surnameInputTxt = findViewById(R.id.surnameInputTxt);
         txtLblData1 = findViewById(R.id.txtLblData1);
-
+        txtLblData2 = findViewById(R.id.txtLblData2);
         /*Load existing Employees*/
         EmployeeDAO employeeDAO = new EmployeeDAO(mContext);
         List<EmployeeModel>listEmployees = employeeDAO.readAllEmployee();
         Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Read employees: " + listEmployees.size());
+        if(listEmployees!=null && listEmployees.size()>0){
+            txtLblData1.setText("There are saved employees: " + listEmployees.size());
+        }
 
         /**/
         toMainActivityButton = (Button)findViewById(R.id.toMainActivityButton);
@@ -89,13 +93,17 @@ public class DatabaseCRUDActivity extends AppCompatActivity {
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Employee for input fields: " + model.toString() );
 
                 /**/
-                EmployeeDAO settingsDAO = new EmployeeDAO(mContext);
-                long createEmployeeId = settingsDAO.createEmployeeRecord(model);
+                EmployeeDAO employeeDAO = new EmployeeDAO(mContext);
+                long createEmployeeId = employeeDAO.createEmployeeRecord(model);
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Created Employee with id: " + createEmployeeId );
                 /**/
                 nameInputTxt.setText("");
                 surnameInputTxt.setText("");
                 txtLblData1.setText("Saved employee with id: " + createEmployeeId);
+                /**/
+                EmployeeModel savedEmployee = employeeDAO.findEmployeeById(createEmployeeId);
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Found Employee by id: " + savedEmployee.toString() );
+                txtLblData2.setText("Action: CREATE - Result: " + savedEmployee.toString());
 
 
             }

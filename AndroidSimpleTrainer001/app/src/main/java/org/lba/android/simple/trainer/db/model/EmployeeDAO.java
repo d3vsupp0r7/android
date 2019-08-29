@@ -76,6 +76,31 @@ public class EmployeeDAO {
         return employeeList;
     }
 
+    public EmployeeModel findEmployeeById(Long id) {
+
+        String selectQuery = "SELECT  * FROM " + EmployeeModel.EmployeeModelFields.EMPLOYEE.toString()
+                + " where " + EmployeeModel.EmployeeModelFields.ID.toString() + " = " + id;
+        EmployeeModel td = new EmployeeModel();
+        Log.e(LOG, selectQuery);
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+
+                td.setId(c.getString(c.getColumnIndex(EmployeeModel.EmployeeModelFields.ID.toString())));
+                td.setName(c.getString(c.getColumnIndex(EmployeeModel.EmployeeModelFields.NAME.toString())));
+                td.setSurname(c.getString(c.getColumnIndex(EmployeeModel.EmployeeModelFields.SURNAME.toString())));
+
+            } while (c.moveToNext());
+        }
+
+        return td;
+    }
+
+
     //TODO: Update
 
     //TODO: Delete
