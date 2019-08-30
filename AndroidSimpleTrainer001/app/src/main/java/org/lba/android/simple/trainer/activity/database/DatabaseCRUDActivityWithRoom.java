@@ -15,11 +15,13 @@ import org.lba.android.simple.trainer.db.room.config.RoomDatabaseClient;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -90,6 +92,17 @@ public class DatabaseCRUDActivityWithRoom extends AppCompatActivity {
         dbCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                /*Validation Example*/
+                if(TextUtils.isEmpty(nameInputTxt.getText().toString())){
+                    Toast.makeText(mContext,"Please enter a name", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(surnameInputTxt.getText().toString())){
+                    Toast.makeText(mContext,"Please enter a surname", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** DatabaseCRUDActivity goto DatabaseSampleIndexActivity - started **");
                 /**/
                 EmployeeModelWithRoomDAO employeeDao = RoomDatabaseClient.getInstance(mContext).getAppDatabase().employeeDao();
