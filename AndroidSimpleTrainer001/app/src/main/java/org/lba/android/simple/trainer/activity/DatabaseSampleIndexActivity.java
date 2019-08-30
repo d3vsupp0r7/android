@@ -9,9 +9,13 @@ import android.widget.Button;
 
 import org.lba.android.simple.trainer.R;
 import org.lba.android.simple.trainer.activity.database.DatabaseCRUDActivity;
+import org.lba.android.simple.trainer.activity.database.DatabaseCRUDActivityWithRoom;
 import org.lba.android.simple.trainer.activity.datetime.picker.DateAndTimePickerActivity;
 
 public class DatabaseSampleIndexActivity extends AppCompatActivity {
+
+    private static final String TAG = DatabaseSampleIndexActivity.class.getName();
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,7 @@ public class DatabaseSampleIndexActivity extends AppCompatActivity {
 
         /**/
         Button example1 = (Button)findViewById(R.id.dbButtonSample1);
+        Button example2 = (Button)findViewById(R.id.dbButtonSample2);
 
         /**/
         View.OnClickListener listener = new View.OnClickListener() {
@@ -27,11 +32,19 @@ public class DatabaseSampleIndexActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Button btn = (Button)view;
+
                 switch (btn.getId()){
 
                     case R.id.dbButtonSample1:
                         /*Build Intent object with sourceActivity(this) and targetActivity*/
-                        Intent intent = new Intent(DatabaseSampleIndexActivity.this, DatabaseCRUDActivity.class);
+                        intent = new Intent(DatabaseSampleIndexActivity.this, DatabaseCRUDActivity.class);
+                        /*Call target (second) activity*/
+                        startActivity(intent);
+                        break;
+
+                    case R.id.dbButtonSample2:
+                        /*Build Intent object with sourceActivity(this) and targetActivity*/
+                        intent = new Intent(DatabaseSampleIndexActivity.this, DatabaseCRUDActivityWithRoom.class);
                         /*Call target (second) activity*/
                         startActivity(intent);
                         break;
@@ -41,5 +54,6 @@ public class DatabaseSampleIndexActivity extends AppCompatActivity {
 
         //Add example
         example1.setOnClickListener(listener);
+        example2.setOnClickListener(listener);
     }
 }
