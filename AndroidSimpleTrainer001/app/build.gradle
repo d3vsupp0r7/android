@@ -45,4 +45,5 @@ dependencies {
     implementation 'joda-time:joda-time:2.10.3'
     //DB-ORM
     implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 }
