@@ -32,6 +32,7 @@ public class DatabaseCRUDActivityWithRoom extends AppCompatActivity {
     Button backToIndexSampleButton;
     //
     Button dbCreateButton;
+    Button btnDeleteAll;
     //
     /**/
     TextView txtLblData1;
@@ -91,7 +92,6 @@ public class DatabaseCRUDActivityWithRoom extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** DatabaseCRUDActivity goto DatabaseSampleIndexActivity - started **");
                 /**/
-                /**/
                 EmployeeModelWithRoomDAO employeeDao = RoomDatabaseClient.getInstance(mContext).getAppDatabase().employeeDao();
                 /**/
                 EmployeeModelWithRoom employeeFromTxtInput = new EmployeeModelWithRoom(nameInputTxt.getText().toString(),surnameInputTxt.getText().toString());
@@ -110,6 +110,23 @@ public class DatabaseCRUDActivityWithRoom extends AppCompatActivity {
             }
         });
 
+        //DeleteAll
+        btnDeleteAll  = (Button) findViewById(R.id.btnDeleteAll);
+        btnDeleteAll .setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EmployeeModelWithRoomDAO employeeDao = RoomDatabaseClient.getInstance(mContext).getAppDatabase().employeeDao();
+                employeeDao.deleteAll();
+                List<EmployeeModelWithRoom> listEmployees = RoomDatabaseClient.getInstance(getApplicationContext()).getAppDatabase().employeeDao().getAll();
+                if(listEmployees!=null && listEmployees.size() == 0){
+                    txtLblData1.setText("All employee are deleted.");
+                    txtLblData2.setText("Action: DELETE - OK");
+                }else{
+                    txtLblData1.setText("ERROR on DELETE");
+                    txtLblData2.setText("Action: DELETE - KO");
+                }
+            }
+        });
     }
 
 }
