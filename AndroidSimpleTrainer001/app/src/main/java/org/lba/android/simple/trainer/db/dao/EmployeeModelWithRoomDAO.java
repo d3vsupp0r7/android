@@ -1,7 +1,9 @@
-package org.lba.android.simple.trainer.db.model;
+package org.lba.android.simple.trainer.db.dao;
 
 import androidx.room.Dao;
 import androidx.room.Query;
+
+import org.lba.android.simple.trainer.db.model.EmployeeModelWithRoom;
 
 import java.util.List;
 

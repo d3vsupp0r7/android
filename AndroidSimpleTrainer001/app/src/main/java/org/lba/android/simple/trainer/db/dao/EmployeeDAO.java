@@ -1,4 +1,4 @@
-package org.lba.android.simple.trainer.db.model;
+package org.lba.android.simple.trainer.db.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import org.lba.android.simple.trainer.db.DatabaseHelper;
-import org.lba.android.simple.trainer.model.Employee;
+import org.lba.android.simple.trainer.db.model.EmployeeModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -10,12 +10,10 @@ import org.lba.android.simple.trainer.activity.DatabaseSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.DateTimeSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.DynamicTableSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.RetrofitSampleIndexActivity;
-import org.lba.android.simple.trainer.activity.datetime.picker.DateAndTimePickerActivity;
-import org.lba.android.simple.trainer.activity.dynamictable.DynamicTableActivity;
 import org.lba.android.simple.trainer.activity.fragment.ActivityForFragmentHelloWorld;
 import org.lba.android.simple.trainer.activity.masterdetail.items.ItemListActivity;
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
-import org.lba.android.simple.trainer.db.model.SettingsDAO;
+import org.lba.android.simple.trainer.db.dao.SettingsDAO;
 import org.lba.android.simple.trainer.db.model.SettingsModel;
 import org.lba.android.simple.trainer.model.Employee;
 
