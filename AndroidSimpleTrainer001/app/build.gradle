@@ -20,6 +20,9 @@ android {
 }
 
 dependencies {
+    //define versions
+    def room_version = '2.1.0'
+    /***************/
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //Android standard project lib
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -41,5 +44,5 @@ dependencies {
     //utils
     implementation 'joda-time:joda-time:2.10.3'
     //DB-ORM
-    implementation 'androidx.room:room-runtime:2.1.0'
+    implementation "androidx.room:room-runtime:$room_version"
 }
