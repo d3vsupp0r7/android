@@ -1,10 +1,11 @@
-package org.lba.android.simple.trainer.db.model;
+package org.lba.android.simple.trainer.db.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import org.lba.android.simple.trainer.db.DatabaseHelper;
+import org.lba.android.simple.trainer.db.model.SettingsModel;
 
 import java.util.ArrayList;
 import java.util.List;

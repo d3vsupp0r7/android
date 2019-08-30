@@ -35,10 +35,14 @@
     <!-- Database -->
     <string name="txtLblDatabaseIndex">Database examples</string>
     <string name="txtLblDatabaseCRUD">Database CRUD example 1</string>
+    <string name="txtLblDatabaseCRUDROOM1">Database CRUD example with ROOM - 1</string>
     <string name="btnLabelCreate">Create</string>
     <string name="btnLabelRead">Read</string>
     <string name="btnLabelUpdate">Update</string>
+    <string name="btnLabelUpdateById">Update by id</string>
     <string name="btnLabelDelete">Delete</string>
+    <string name="btnLabelDeleteById">Delete by id</string>
+    <string name="btnLabelDeleteAll">Delete All</string>
     <string name="txtLblName">Name</string>
     <string name="txtLblSurname">Surname</string>
     <string name="txtInputName">SampleName</string>

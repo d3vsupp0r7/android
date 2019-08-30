@@ -14,14 +14,9 @@ import android.widget.TextView;
 import org.lba.android.simple.trainer.MainActivity;
 import org.lba.android.simple.trainer.R;
 import org.lba.android.simple.trainer.activity.DatabaseSampleIndexActivity;
-import org.lba.android.simple.trainer.activity.DateTimeSampleIndexActivity;
-import org.lba.android.simple.trainer.activity.datetime.picker.DateAndTimePickerActivity;
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
-import org.lba.android.simple.trainer.db.model.EmployeeDAO;
+import org.lba.android.simple.trainer.db.dao.EmployeeDAO;
 import org.lba.android.simple.trainer.db.model.EmployeeModel;
-import org.lba.android.simple.trainer.db.model.SettingsDAO;
-import org.lba.android.simple.trainer.db.model.SettingsModel;
-import org.lba.android.simple.trainer.model.Employee;
 
 import java.util.List;
 

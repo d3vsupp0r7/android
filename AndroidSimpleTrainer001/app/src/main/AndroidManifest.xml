@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AsyncTaskSampleIndexActivity"></activity>
+        <activity android:name=".activity.database.DatabaseCRUDActivityWithRoom"></activity>
+        <activity android:name=".activity.AsyncTaskSampleIndexActivity" />
         <activity android:name=".activity.asynctask.AsyncTaskExample1Activity" />
         <activity android:name=".activity.retrofit.RetrofitExample1Activity" />
         <activity android:name=".activity.RetrofitSampleIndexActivity" />
