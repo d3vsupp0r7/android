@@ -16,7 +16,9 @@ public class RoomDatabaseClient {
 
         //creating the app database with Room database builder
         //EmployeeRoomDB is the name of the database
-        appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "EmployeeRoomDB").build();
+        appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "EmployeeRoomDB")
+                .allowMainThreadQueries()//Addded for example purpose. Use AsyncTask for production
+                .build();
     }
 
     public static synchronized RoomDatabaseClient getInstance(Context mCtx) {
