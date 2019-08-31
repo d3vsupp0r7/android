@@ -14,9 +14,9 @@ public class RoomDatabaseClientConfig {
         this.mCtx = mCtx;
 
         //creating the app database with Room database builder
-        //EmployeeRoomDB is the name of the database
+        //StationRoomDB is the name of the database
         appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "StationsRoomDB")
-                .allowMainThreadQueries()//Addded for example purpose. Use AsyncTask for production
+                .allowMainThreadQueries()//Added for example purpose. Use AsyncTask for production
                 .build();
     }
 
