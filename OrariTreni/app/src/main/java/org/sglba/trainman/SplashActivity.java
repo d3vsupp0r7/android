@@ -14,6 +14,8 @@ import org.sglba.trainman.service.StationService;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,8 +58,9 @@ public class SplashActivity extends Activity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            /**/
+
             Retrofit retrofit = NetworkStationClient.getRetrofitClient();
+
             StationService stationService = retrofit.create(StationService.class);
             for (int z=0;z<23;z++) {
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** id: " + z);
