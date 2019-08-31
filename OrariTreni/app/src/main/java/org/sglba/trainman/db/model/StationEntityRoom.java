@@ -20,15 +20,24 @@ public class StationEntityRoom {
     private String stationName;
 
     @ColumnInfo(name = "station_latitude")
-    private String latitude;
+    private Double latitude;
 
     @ColumnInfo(name = "station_longitude")
-    private  String longitude;
+    private  Double longitude;
 
     public StationEntityRoom() {
     }
 
-    public StationEntityRoom(Long id, String stationId, String stationBusinessId, String stationName, String latitude, String longitude) {
+    /**
+     *
+     * @param id
+     * @param stationId
+     * @param stationBusinessId
+     * @param stationName
+     * @param latitude
+     * @param longitude
+     */
+    public StationEntityRoom(Long id, String stationId, String stationBusinessId, String stationName, Double latitude, Double longitude) {
         this.id = id;
         this.stationId = stationId;
         this.stationBusinessId = stationBusinessId;
@@ -37,7 +46,15 @@ public class StationEntityRoom {
         this.longitude = longitude;
     }
 
-    public StationEntityRoom(String stationId, String stationBusinessId, String stationName, String latitude, String longitude) {
+    /**
+     *
+     * @param stationId
+     * @param stationBusinessId
+     * @param stationName
+     * @param latitude
+     * @param longitude
+     */
+    public StationEntityRoom(String stationId, String stationBusinessId, String stationName, Double latitude, Double longitude) {
         this.stationId = stationId;
         this.stationBusinessId = stationBusinessId;
         this.stationName = stationName;
@@ -77,19 +94,19 @@ public class StationEntityRoom {
         this.stationName = stationName;
     }
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 

@@ -7,7 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.sglba.trainman.costraints.ApplicationCostraintsEnum;
+import org.sglba.trainman.db.model.StationEntityRoom;
+import org.sglba.trainman.db.room.config.AppDatabase;
+import org.sglba.trainman.db.room.config.RoomDatabaseClientConfig;
 import org.sglba.trainman.model.Station;
 import org.sglba.trainman.retrofitclient.NetworkStationClient;
 import org.sglba.trainman.service.StationService;
@@ -26,12 +30,24 @@ public class SplashActivity extends Activity {
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 1000;
 
+    AppDatabase appDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         /*Get data*/
-        new GetAllStationsForServerAsyncTask().execute();
+        appDatabase = RoomDatabaseClientConfig.getInstance(getApplicationContext()).getAppDatabase();
+        List<StationEntityRoom> listStations = appDatabase.stationDao().getAll();
+        Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Existing sations: " + listStations.size());
+        /**/
+        if(CollectionUtils.isEmpty(listStations)){
+            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"DB is empty - start retrofit calls");
+            new GetAllStationsForServerAsyncTask().execute();
+        }else{
+            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"There are saved statiosn: " + listStations.size());
+        }
+
 
         /* Handler timer */
         new Handler().postDelayed(new Runnable() {
@@ -79,6 +95,19 @@ public class SplashActivity extends Activity {
                             for (Station currentStation: stationList) {
                                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "CurrentStation: " + currentStation.toString() );
                                 //TODO: Save station details on db
+                                String codiceStazione = currentStation.getCodiceStazione();
+
+                                StationEntityRoom stationToSave = new StationEntityRoom(
+                                        codiceStazione,
+                                        codiceStazione.replace("S0",""),//TODO: Strategy for station processing
+                                        currentStation.getLocalita().getNomeLungo(),
+                                        currentStation.getLat(),
+                                        currentStation.getLon()
+                                );
+
+                                Long saveResult = appDatabase.stationDao().insert(stationToSave);
+                                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "Saved station on DB with id: " + saveResult);
+
                             }
                         }
                     }
