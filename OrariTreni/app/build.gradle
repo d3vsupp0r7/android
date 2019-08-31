@@ -25,6 +25,7 @@ android {
 
 dependencies {
     //define versions
+    def apache_collections='4.4'
     //J
     def joda_time_version='2.10.3'
     // R
@@ -45,6 +46,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     //utils
     implementation "joda-time:joda-time:$joda_time_version"
+    implementation "org.apache.commons:commons-collections4:$apache_collections"
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
