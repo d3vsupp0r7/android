@@ -498,7 +498,8 @@ public class MainActivity extends AppCompatActivity {
         LL.setOrientation(LinearLayout.HORIZONTAL);
         LL.addView(rowText1);
         LL.addView(rowText2);
-//        LL.setTag(View.generateViewId(),"td_"+i);
+
+        // LL.setTag(View.generateViewId(),"td_"+i);
         //
 //        tr1.setTag(View.generateViewId(),"tr_td_"+i);
 
@@ -547,7 +548,7 @@ public class MainActivity extends AppCompatActivity {
         LL.addView(rowText2);
         LL.addView(rowTextProv);
         LL.addView(rowText3);
-        //     LL.setTag(View.generateViewId(),"tda_"+i);
+        LL.setTag(View.generateViewId(),"tda_"+i);
 
         tr2.addView(LL);
         //      tr2.setTag(View.generateViewId(),"tr_tda_"+i);
@@ -559,7 +560,7 @@ public class MainActivity extends AppCompatActivity {
         //
         //
         LinearLayout LL = new LinearLayout(this);
-        //     LL.setTag(View.generateViewId(),"tds_"+i);
+        LL.setTag(View.generateViewId(),"tds_"+i);
         LL.setOrientation(LinearLayout.HORIZONTAL);
         //
         for(int j = 0; j < trainSolution.getVehicleForSolution().size();j++){
