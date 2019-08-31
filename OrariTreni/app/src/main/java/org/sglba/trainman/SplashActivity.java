@@ -45,7 +45,7 @@ public class SplashActivity extends Activity {
             Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"DB is empty - start retrofit calls");
             new GetAllStationsForServerAsyncTask().execute();
         }else{
-            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"There are saved statiosn: " + listStations.size());
+            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"There are saved stations: " + listStations.size());
         }
 
 
