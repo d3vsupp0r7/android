@@ -22,7 +22,7 @@ public interface StationEntityRoomDAO {
     List<StationEntityRoom> getAll();
 
     @Query("SELECT * FROM stations WHERE id = :stationsId")
-    StationEntityRoom findEmployeeById(long stationsId);
+    StationEntityRoom findStationById(long stationsId);
 
     //Update
     @Update(onConflict = OnConflictStrategy.IGNORE)
@@ -33,5 +33,5 @@ public interface StationEntityRoomDAO {
     public void deleteAll();
 
     @Query("DELETE FROM stations WHERE id = :stationsId")
-    abstract void deleteEmployeeById(long stationsId);
+    abstract void deleteStationById(long stationsId);
 }
