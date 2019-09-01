@@ -18,6 +18,7 @@
     <string name="btnLblToFragmentActivity">To Frgmt Actv</string>
     <string name="btnLblToAsyncActivity">To Async Actv</string>
     <string name="btnLblToRetrofitActivity">To Retrofit Actv</string>
+    <string name="btnLblToBasicUIActivity">To BasicUI Actv</string>
     <!-- Second activity -->
     <string name="txtLblSecondActivity">This is the second activity</string>
     <string name="txtLblSharedDataMainActivity">Shared data with MainActivity</string>
@@ -71,5 +72,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Basic UI -->
+    <string name="txtLblBasicUI">Basic UI Example Index</string>
+    <string name="txtLblAutocomplete">Basic Autocomplete Example</string>
 
 </resources>

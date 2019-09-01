@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.lba.android.simple.trainer.activity.AsyncTaskSampleIndexActivity;
+import org.lba.android.simple.trainer.activity.BasicUIIndexActivity;
 import org.lba.android.simple.trainer.activity.DatabaseSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.DateTimeSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.DynamicTableSampleIndexActivity;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Button toFragmentExample;
     Button toAsyncActivity;
     Button toRetrofitActivity;
+    Button toBasicUi;
 
 
     @Override
@@ -166,7 +168,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        /**/
+        toBasicUi = (Button)findViewById(R.id.toBasicUiActivity);
+        toBasicUi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto toBasicUiActivity activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
+                Intent intent = new Intent(MainActivity.this, BasicUIIndexActivity.class);
+                /*Call target (second) activity*/
+                startActivity(intent);
+            }
+        });
         /*Demo Data Builder*/
         myEmployeeList = new ArrayList<>();
         factory = new PodamFactoryImpl();
