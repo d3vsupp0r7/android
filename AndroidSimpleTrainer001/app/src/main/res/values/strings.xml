@@ -76,5 +76,6 @@
     <!-- Basic UI -->
     <string name="txtLblBasicUI">Basic UI Example Index</string>
     <string name="txtLblAutocomplete">Basic Autocomplete Example</string>
+    <string name="txtLblAutocompleteObjList">Autocomplete Object List</string>
 
 </resources>
