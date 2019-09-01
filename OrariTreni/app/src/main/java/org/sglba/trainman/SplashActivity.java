@@ -16,6 +16,7 @@ import org.sglba.trainman.model.Station;
 import org.sglba.trainman.retrofitclient.NetworkStationClient;
 import org.sglba.trainman.service.StationService;
 
+import java.io.Serializable;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -31,6 +32,7 @@ public class SplashActivity extends Activity {
     private static int SPLASH_TIME_OUT = 1000;
 
     AppDatabase appDatabase;
+    List<StationEntityRoom> stationListApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +40,14 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         /*Get data*/
         appDatabase = RoomDatabaseClientConfig.getInstance(getApplicationContext()).getAppDatabase();
-        List<StationEntityRoom> listStations = appDatabase.stationDao().getAll();
-        Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Existing sations: " + listStations.size());
+        stationListApp = appDatabase.stationDao().getAll();
+        Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Existing sations: " + stationListApp.size());
         /**/
-        if(CollectionUtils.isEmpty(listStations)){
+        if(CollectionUtils.isEmpty(stationListApp)){
             Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"DB is empty - start retrofit calls");
             new GetAllStationsForServerAsyncTask().execute();
         }else{
-            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"There are saved stations: " + listStations.size());
+            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"There are saved stations: " + stationListApp.size());
         }
 
 
@@ -61,8 +63,10 @@ public class SplashActivity extends Activity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                //IMPO: Size of data to pass too large: intent.putExtra("stationList",(Serializable)stationListApp);
+
+                startActivity(intent);
 
                 // close this activity
                 finish();
@@ -127,6 +131,10 @@ public class SplashActivity extends Activity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "GetAllStationsForServerAsyncTask - onPostExecute - STARTED" );
+
+            /*1. Load stations to pass on apps */
+            stationListApp = appDatabase.stationDao().getAll();
+
         }
     }
 }

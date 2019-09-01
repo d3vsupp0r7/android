@@ -4,8 +4,13 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "stations")
-public class StationEntityRoom {
+public class StationEntityRoom implements Serializable {
+
+
+    private static final long serialVersionUID = -2067362331207212073L;
 
     @PrimaryKey(autoGenerate = true)
     private Long id;
