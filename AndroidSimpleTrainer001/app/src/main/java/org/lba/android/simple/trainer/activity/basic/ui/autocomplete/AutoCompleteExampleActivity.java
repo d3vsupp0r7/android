@@ -14,8 +14,6 @@ import android.widget.Button;
 import org.lba.android.simple.trainer.MainActivity;
 import org.lba.android.simple.trainer.R;
 import org.lba.android.simple.trainer.activity.BasicUIIndexActivity;
-import org.lba.android.simple.trainer.activity.DatabaseSampleIndexActivity;
-import org.lba.android.simple.trainer.activity.database.DatabaseCRUDActivityWithRoom;
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
 
 public class AutoCompleteExampleActivity extends AppCompatActivity {
@@ -29,7 +27,7 @@ public class AutoCompleteExampleActivity extends AppCompatActivity {
     AutoCompleteTextView autoCpmTxtViewStringArray;
 
     /***/
-    private String[] fruits = {"Apple", "Appy", "Banana", "Cherry", "Date", "Grape", "Kiwi", "Mango", "Pear"};
+    private String[] employeeNamesStringArray = {"Anthony", "Artur", "Bob", "Chris", "Donald", "Gregory", "Kim", "Martin", "Paul"};
     /***/
 
     @Override
@@ -61,7 +59,7 @@ public class AutoCompleteExampleActivity extends AppCompatActivity {
         });
         /** String[] array automplete management**/
         ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this, android.R.layout.select_dialog_item, fruits);
+                (this, android.R.layout.select_dialog_item, employeeNamesStringArray);
         autoCpmTxtViewStringArray.setThreshold(1); //will start working from first character
         autoCpmTxtViewStringArray.setAdapter(adapter);
         /***/
