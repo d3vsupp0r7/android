@@ -7,8 +7,16 @@ This Activity represent the main activity for the application.
 
 In this activity there are buttons that open the related examples index activity.
 
+This activity also contains example on:  
+
+1) Passing data, generated with PODAM library, to another activity (SecondActivity)using the Intent class;
 
 # SecondActivity
+
+This activity contains the following examples:
+
+1) Reading data passed by another activity (MainActivity);
+2) Button to show a simple Popup
 
 # AsyncTaskSampleIndexActivity
 ## AsyncTaskExample1Activity
