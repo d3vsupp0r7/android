@@ -26,7 +26,7 @@ This application is intented as example/educational scope.
 
 # UI Design
 
-For UI design we have used a opens-source tool named **Pencil**, avaiable [here](https://pencil.evolus.vn/)
+For UI design we have used a open-source tool named **Pencil**, avaiable [here](https://pencil.evolus.vn/)
 
 # BackEnd informations
 
