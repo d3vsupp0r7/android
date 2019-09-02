@@ -64,6 +64,10 @@ http://localhost:<wiremock_port>/__admin/
 
 # Default library dependency
 
+## ORM
+
+* **room :** 1.1.1
+
 ## Rest client libary
 
 * **retrofit2**
@@ -72,6 +76,10 @@ http://localhost:<wiremock_port>/__admin/
 
 ## Util libraries
 
+* **joda-time:** 2.10.3  
+  Library used for Date/Time management  
+
+* **apache_collections:** 4.4
 
 ## Test libraries
 * **junit.version:** 4.12
