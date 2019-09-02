@@ -26,6 +26,12 @@ This activity represent the index activity for basic Android UI examples.
 
 ## AutoCompleteExampleActivity
 
+This activity is based on Autocomplete example.  
+The Autcomplete is based on:  
+
+1) String array: String[]
+2) Custom Object List: List<EmployeeUISampleModel>
+
 # DatabaseSampleIndexActivity
 This activity represent the index activity for Android Database examples.
 
