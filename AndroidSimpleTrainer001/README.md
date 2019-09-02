@@ -15,8 +15,8 @@
 # Scope
 The scope of this project is to illustrate the basic concepts with basic examples related to the main area
  and concepts of Android developments.
- 
-Please, for details of the example, please visit the **EXAMPLES.md** files.
+
+Please, for details of the example, please visit the **[example](EXAMPLES.md)** page.
 
 # Getting started
 *TO_DO*
