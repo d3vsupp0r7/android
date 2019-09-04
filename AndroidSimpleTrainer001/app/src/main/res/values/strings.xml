@@ -77,5 +77,6 @@
     <string name="txtLblBasicUI">Basic UI Example Index</string>
     <string name="txtLblAutocomplete">Basic Autocomplete Example</string>
     <string name="txtLblAutocompleteObjList">Autocomplete Object List</string>
+    <string name="txtLblAutocompleteObjListWithRoom">Autocomplete with ROOM DB filter</string>
 
 </resources>
