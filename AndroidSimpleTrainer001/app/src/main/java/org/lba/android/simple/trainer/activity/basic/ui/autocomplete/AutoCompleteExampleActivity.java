@@ -11,15 +11,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import org.lba.android.simple.trainer.MainActivity;
 import org.lba.android.simple.trainer.R;
 import org.lba.android.simple.trainer.activity.BasicUIIndexActivity;
 import org.lba.android.simple.trainer.activity.basic.ui.autocomplete.adapter.EmployeeAdapter;
+import org.lba.android.simple.trainer.activity.basic.ui.autocomplete.adapter.EmployeeAdapterWithRoom;
 import org.lba.android.simple.trainer.activity.basic.ui.model.EmployeeUISampleModel;
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
+import org.lba.android.simple.trainer.db.dao.EmployeeModelWithRoomDAO;
+import org.lba.android.simple.trainer.db.model.EmployeeModelWithRoom;
+import org.lba.android.simple.trainer.db.room.config.RoomDatabaseClient;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AutoCompleteExampleActivity extends AppCompatActivity {
 
@@ -35,6 +41,7 @@ public class AutoCompleteExampleActivity extends AppCompatActivity {
     AutoCompleteTextView autoCpmTxtViewObjectList;
     ArrayList<EmployeeUISampleModel> listEmployees;
     AutoCompleteTextView autoCompleteObjectList;
+    AutoCompleteTextView autoCompleteObjectListRoomDb;
 
     /***/
     private String[] employeeNamesStringArray = {"Anthony", "Artur", "Bob", "Chris", "Donald", "Gregory", "Kim", "Martin", "Paul"};
@@ -44,10 +51,11 @@ public class AutoCompleteExampleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_complete_example);
-
+        mContext = this;
         /**/
         autoCpmTxtViewStringArray = findViewById(R.id.autoCpmTxtViewStringArray);
         autoCompleteObjectList = findViewById(R.id.autoCompleteObjectList);
+        autoCompleteObjectListRoomDb = findViewById(R.id.autoCompleteObjectListRoomDb);
         /**/
         toMainActivityButton = (Button) findViewById(R.id.toMainActivityButton);
         toMainActivityButton.setOnClickListener(new View.OnClickListener() {
@@ -108,9 +116,48 @@ public class AutoCompleteExampleActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 EmployeeUISampleModel employeeSelected = (EmployeeUISampleModel) adapterView.getItemAtPosition(i);
                 Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** Employee selected: " + employeeSelected.toString() +" **");
-                //fruitDesc.setText(fruit.getDesc());
+
             }
         });
         /***/
+        /*AutocompleteRoomDB*/
+        EmployeeModelWithRoomDAO employeeDao = RoomDatabaseClient.getInstance(mContext).getAppDatabase().employeeDao();
+        List<EmployeeModelWithRoom> listEmployees = employeeDao.getAll();
+        if(listEmployees!=null && listEmployees.size()>0){
+            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Employee loaded: " + listEmployees.size() );
+        }else{
+            /*1. */
+            EmployeeModelWithRoom employeeFromTxtInput = new EmployeeModelWithRoom("anthony_EMPList","s1");
+            Long createEmployeeId = employeeDao.insert(employeeFromTxtInput);
+            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Employee for input fields: " + employeeFromTxtInput.toString() );
+            /*2. */
+            EmployeeModelWithRoom employeeFromTxtInput2 = new EmployeeModelWithRoom("artur_EMPList","s2");
+            Long createEmployeeId2 = employeeDao.insert(employeeFromTxtInput2);
+            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Employee for input fields: " + employeeFromTxtInput2.toString() );
+            /*3. */
+            EmployeeModelWithRoom employeeFromTxtInput3 = new EmployeeModelWithRoom("chris_EMPList","s3");
+            Long createEmployeeId3 = employeeDao.insert(employeeFromTxtInput3);
+            Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"Employee for input fields: " + employeeFromTxtInput3.toString() );
+        }
+
+        List<EmployeeModelWithRoom> storeOffers = new ArrayList<EmployeeModelWithRoom>();
+        EmployeeAdapterWithRoom adapterWithRoom = new EmployeeAdapterWithRoom(this,
+                R.layout.autocomplete_employee_list_layout, storeOffers);
+
+
+        autoCompleteObjectListRoomDb.setAdapter(adapterWithRoom);
+        autoCompleteObjectListRoomDb.setOnItemClickListener(onItemClickListener);
     }
+
+    private AdapterView.OnItemClickListener onItemClickListener =
+            new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    Toast.makeText(AutoCompleteExampleActivity.this,
+                            "Clicked item from auto completion list "
+                                    + adapterView.getItemAtPosition(i)
+                            , Toast.LENGTH_SHORT).show();
+                }
+            };
 }

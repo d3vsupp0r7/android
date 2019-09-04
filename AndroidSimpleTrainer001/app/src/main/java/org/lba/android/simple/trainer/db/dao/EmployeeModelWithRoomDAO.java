@@ -24,6 +24,8 @@ public interface EmployeeModelWithRoomDAO {
     @Query("SELECT * FROM employee_with_room WHERE id = :employeeId")
     EmployeeModelWithRoom findEmployeeById(long employeeId);
 
+    @Query("SELECT * FROM employee_with_room WHERE name like :name ")
+    List<EmployeeModelWithRoom> getEmployeesFilterByName(String name);
     //Update
     @Update(onConflict = OnConflictStrategy.IGNORE)
     void update(EmployeeModelWithRoom employee);
