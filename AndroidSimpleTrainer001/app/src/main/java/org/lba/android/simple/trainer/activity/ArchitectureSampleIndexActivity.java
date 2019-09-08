@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.lba.android.simple.trainer.R;
 import org.lba.android.simple.trainer.activity.basic.livedata.SimpleLiveDataExampleActivity;
+import org.lba.android.simple.trainer.activity.basic.mvp.MVPEmployeeSampleActivity;
 
 public class ArchitectureSampleIndexActivity extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class ArchitectureSampleIndexActivity extends AppCompatActivity {
         setContentView(R.layout.activity_architecture_sample_index);
 
         Button example1 = (Button)findViewById(R.id.btnToExample1);
+        Button example2 = (Button)findViewById(R.id.btnToExample2);
 
         /**/
         View.OnClickListener listener = new View.OnClickListener() {
@@ -37,11 +39,19 @@ public class ArchitectureSampleIndexActivity extends AppCompatActivity {
                         /*Call target (second) activity*/
                         startActivity(intent);
                         break;
+
+                    case R.id.btnToExample2:
+                        /*Build Intent object with sourceActivity(this) and targetActivity*/
+                        intent = new Intent(ArchitectureSampleIndexActivity.this, MVPEmployeeSampleActivity.class);
+                        /*Call target (second) activity*/
+                        startActivity(intent);
+                        break;
                 }
             }
         };
 
         //Add example
         example1.setOnClickListener(listener);
+        example2.setOnClickListener(listener);
     }
 }

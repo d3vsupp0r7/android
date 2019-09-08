@@ -88,6 +88,10 @@
     <!-- Architecture -->
     <string name="txtLblWelcomeArchitetureIndex">Welcome to Architecture index samples</string>
 
+    <!-- MVPEmployeeSampleActivity -->
+    <string name="txtLblWelcomeMVPSimpleEmployeeIndex">Welcome to MVP Simple Employee Example</string>
+    <string name="txtLblWelcomeMVPSimpleEmployeeIndexHelp">Please insert text into Edit Textbox</string>
+
     <!-- About Activity -->
     <string name="txtLblWelcomeAboutActivity">Welcome to About Activity.</string>
 
