@@ -2,6 +2,7 @@ package org.sglba.trainman;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -34,6 +35,9 @@ import org.joda.time.format.DateTimeFormatter;
 import org.sglba.trainman.costraints.ApplicationCostraintsEnum;
 import org.sglba.trainman.costraints.DatePatternFormatterCostraintEnum;
 import org.sglba.trainman.costraints.TrainCategoryCostraintsEnum;
+import org.sglba.trainman.db.model.StationEntityRoom;
+import org.sglba.trainman.db.room.config.AppDatabase;
+import org.sglba.trainman.db.room.config.RoomDatabaseClientConfig;
 import org.sglba.trainman.model.RailRoute;
 import org.sglba.trainman.model.Soluzioni;
 import org.sglba.trainman.model.Station;
@@ -87,12 +91,21 @@ public class MainActivity extends AppCompatActivity {
     //Buttons
     ImageButton swapButton;
 
+    /*DB*/
+    AppDatabase appDatabase;
+    List<StationEntityRoom> stationListApp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mConstraintLayout = (ConstraintLayout) findViewById(R.id.coordinatorLayout2);
         mContext = this;
+        /*Get Data*/
+        appDatabase = RoomDatabaseClientConfig.getInstance(getApplicationContext()).getAppDatabase();
+        stationListApp = appDatabase.stationDao().getAll();
+        Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "List of stations: " + stationList.size());
+
         /* UI Components */
         //Buttons reference from UI
         ImageButton findButton = findViewById(R.id.findButton);
@@ -498,7 +511,8 @@ public class MainActivity extends AppCompatActivity {
         LL.setOrientation(LinearLayout.HORIZONTAL);
         LL.addView(rowText1);
         LL.addView(rowText2);
-//        LL.setTag(View.generateViewId(),"td_"+i);
+
+        // LL.setTag(View.generateViewId(),"td_"+i);
         //
 //        tr1.setTag(View.generateViewId(),"tr_td_"+i);
 
@@ -547,7 +561,7 @@ public class MainActivity extends AppCompatActivity {
         LL.addView(rowText2);
         LL.addView(rowTextProv);
         LL.addView(rowText3);
-        //     LL.setTag(View.generateViewId(),"tda_"+i);
+        LL.setTag(View.generateViewId(),"tda_"+i);
 
         tr2.addView(LL);
         //      tr2.setTag(View.generateViewId(),"tr_tda_"+i);
@@ -559,7 +573,7 @@ public class MainActivity extends AppCompatActivity {
         //
         //
         LinearLayout LL = new LinearLayout(this);
-        //     LL.setTag(View.generateViewId(),"tds_"+i);
+        LL.setTag(View.generateViewId(),"tds_"+i);
         LL.setOrientation(LinearLayout.HORIZONTAL);
         //
         for(int j = 0; j < trainSolution.getVehicleForSolution().size();j++){

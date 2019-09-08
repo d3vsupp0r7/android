@@ -248,4 +248,25 @@ public class Station implements Serializable
         this.nomeCitta = nomeCitta;
     }
 
+    @Override
+    public String toString() {
+        return "Station{" +
+                "codReg=" + codReg +
+                ", tipoStazione=" + tipoStazione +
+                ", dettZoomStaz=" + dettZoomStaz +
+                ", pstaz=" + pstaz +
+                ", mappaCitta=" + mappaCitta +
+                ", codiceStazione='" + codiceStazione + '\'' +
+                ", codStazione='" + codStazione + '\'' +
+                ", lat=" + lat +
+                ", lon=" + lon +
+                ", latMappaCitta=" + latMappaCitta +
+                ", lonMappaCitta=" + lonMappaCitta +
+                ", localita=" + localita +
+                ", esterno=" + esterno +
+                ", offsetX=" + offsetX +
+                ", offsetY=" + offsetY +
+                ", nomeCitta='" + nomeCitta + '\'' +
+                '}';
+    }
 }

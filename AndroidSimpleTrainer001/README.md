@@ -13,12 +13,16 @@
 * [Licence](#licence)
 
 # Scope
+The scope of this project is to illustrate the basic concepts with basic examples related to the main area
+ and concepts of Android developments.
+
+Please, for details of the example, please visit the **[example](EXAMPLES.md)** page.
 
 # Getting started
 *TO_DO*
 
 ## Prerequisite
-* Java version 1.8
+* Java version: 1.8
 * Gradle
 
 ## Installing
@@ -33,7 +37,24 @@
 
 # Default library dependency
 
+## ORM
+
+* **room :** 2.1.0
+
+## REST
+
+* **retrofit:** 2.4.0  
+    Library used for REST HTTP Calls
+    * **retrofit2:converter-gson:** 2.4.0
+
 ## Util libraries
+
+* **joda-time:** 2.10.3  
+Library used for Date/Time management  
+
+* **podam:** 7.2.3.RELEASE  
+Library used for autopopulate Java POJO Objects
+
 
 
 ### Test libraries
