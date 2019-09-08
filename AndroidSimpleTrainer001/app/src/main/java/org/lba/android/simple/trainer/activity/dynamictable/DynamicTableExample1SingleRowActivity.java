@@ -1,25 +1,22 @@
 package org.lba.android.simple.trainer.activity.dynamictable;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import org.lba.android.simple.trainer.MainActivity;
 import org.lba.android.simple.trainer.R;
-import org.lba.android.simple.trainer.activity.DateTimeSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.DynamicTableSampleIndexActivity;
-import org.lba.android.simple.trainer.activity.datetime.picker.DateAndTimePickerActivity;
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
 import org.lba.android.simple.trainer.model.Employee;
 
