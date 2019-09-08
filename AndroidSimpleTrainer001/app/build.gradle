@@ -47,4 +47,7 @@ dependencies {
     //DB-ORM
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    //lifecycle
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 }
