@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.BasicUIIndexActivity"></activity>
+        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".activity.ArchitectureSampleIndexActivity" />
+        <activity android:name=".activity.basic.livedata.SimpleLiveDataExampleActivity" />
+        <activity android:name=".activity.BasicUIIndexActivity" />
         <activity android:name=".activity.basic.ui.autocomplete.AutoCompleteExampleActivity" />
         <activity android:name=".activity.database.DatabaseCRUDActivityWithRoom" />
         <activity android:name=".activity.AsyncTaskSampleIndexActivity" />

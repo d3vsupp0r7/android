@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.lba.android.simple.trainer.activity.ArchitectureSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.AsyncTaskSampleIndexActivity;
 import org.lba.android.simple.trainer.activity.BasicUIIndexActivity;
 import org.lba.android.simple.trainer.activity.DatabaseSampleIndexActivity;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     Button toAsyncActivity;
     Button toRetrofitActivity;
     Button toBasicUi;
+    Button toArchitectureActivity;
+    Button toAboutActivity;
 
 
     @Override
@@ -53,20 +56,35 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** DBWriting example **");
+        /* Load Existing Settings*/
         SettingsDAO settingsDAO = new SettingsDAO(this);
-        SettingsModel model = new SettingsModel();
-        model.setColumn1("Saving");
-        model.setColumn2("Model");
-        model.setColumn3(3l);
-        settingsDAO.createSettingsRecord(model);
-
-        /******************/
         List<SettingsModel> modelOnDb = settingsDAO.readAllSettings();
-        for (SettingsModel currentModel:modelOnDb) {
-            Log.d(ApplicationCostraintsEnum.DB.getValue(),"Setting: " + currentModel.toString());
+        if(modelOnDb!= null && modelOnDb.size() > 0) {
+            Log.d(ApplicationCostraintsEnum.DB.getValue(), "There are existing settings: " + modelOnDb.size());
+            for (SettingsModel currentModel : modelOnDb) {
+                Log.d(ApplicationCostraintsEnum.DB.getValue(), "Setting: " + currentModel.toString());
+            }
+        }else{
+            Log.d(ApplicationCostraintsEnum.DB.getValue(), "Writing an example setting on db");
+            //Create a sample record for settings
+            SettingsModel model = new SettingsModel();
+            model.setColumn1("Saving");
+            model.setColumn2("Model");
+            model.setColumn3(3l);
+            Long savedSettingId = settingsDAO.createSettingsRecord(model);
+            Log.d(ApplicationCostraintsEnum.DB.getValue(), "Setting inserted sucessfully with id: " + savedSettingId);
         }
 
+        /*NB: Example of PODAM Library to build Employee demo data*/
+        myEmployeeList = new ArrayList<>();
+        factory = new PodamFactoryImpl();
 
+        for(int i = 0; i < 10; i++){
+            Employee employeeElement = factory.manufacturePojoWithFullData(Employee.class);
+            myEmployeeList.add(employeeElement);
+        }
+
+        /** START - Navigation section **/
         /*Activity navigation*/
         nextActivityButton =(Button)findViewById(R.id.nextActivity);
         nextActivityButton.setOnClickListener(new View.OnClickListener() {
@@ -180,21 +198,32 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        /*Demo Data Builder*/
-        myEmployeeList = new ArrayList<>();
-        factory = new PodamFactoryImpl();
+        /**/
+        toArchitectureActivity = (Button)findViewById(R.id.toArchitectureActivity);
+        toArchitectureActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto toArchitectureActivity activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
+                Intent intent = new Intent(MainActivity.this, ArchitectureSampleIndexActivity.class);
+                /*Call target (second) activity*/
+                startActivity(intent);
+            }
+        });
+        /**/
+        toAboutActivity = (Button)findViewById(R.id.toAboutActivity);
+        toAboutActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** MainActivity - goto toAboutActivity activity **");
+                /*Build Intent object with sourceActivity(this) and targetActivity*/
+                Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                /*Call target (second) activity*/
+                startActivity(intent);
+            }
+        });
 
-        for(int i = 0; i < 10; i++){
-            Employee employeeElement = factory.manufacturePojoWithFullData(Employee.class);
-            myEmployeeList.add(employeeElement);
-        }
-        /*Dynamic UI Building*/
-        for (Employee currentEmployee: myEmployeeList) {
-
-        }
-
-
-
+        /** END - Navigation section **/
 
     }
 }
