@@ -1,20 +1,13 @@
 package org.sglba.trainman.util;
 
 import org.joda.time.DateTime;
-import org.joda.time.Duration;
-import org.joda.time.Hours;
-import org.joda.time.Interval;
-import org.joda.time.Minutes;
 import org.joda.time.Period;
-import org.joda.time.format.PeriodFormatter;
-import org.joda.time.format.PeriodFormatterBuilder;
 import org.sglba.trainman.costraints.DatePatternFormatterCostraintEnum;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class DateUtils {
 

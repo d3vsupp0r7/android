@@ -26,6 +26,8 @@ android {
 dependencies {
     //define versions
     def apache_collections='4.4'
+    //L
+    def lifecycle_version = "1.1.1"
     //J
     def joda_time_version='2.10.3'
     // R
@@ -57,5 +59,8 @@ dependencies {
     // FOR ANDROIDX annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation "android.arch.persistence.room:runtime:$room_version"
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+    //livedata
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 
 }

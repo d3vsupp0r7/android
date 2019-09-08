@@ -1,15 +1,13 @@
 package org.lba.android.simple.trainer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import org.lba.android.simple.trainer.R;
-import org.lba.android.simple.trainer.activity.basic.livedata.SimpleLiveDataExampleActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
 
 public class AboutActivity extends AppCompatActivity {

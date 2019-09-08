@@ -1,17 +1,5 @@
 package org.lba.android.simple.trainer.activity.database;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import org.lba.android.simple.trainer.MainActivity;
-import org.lba.android.simple.trainer.R;
-import org.lba.android.simple.trainer.activity.DatabaseSampleIndexActivity;
-import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
-import org.lba.android.simple.trainer.db.dao.EmployeeDAO;
-import org.lba.android.simple.trainer.db.dao.EmployeeModelWithRoomDAO;
-import org.lba.android.simple.trainer.db.model.EmployeeModel;
-import org.lba.android.simple.trainer.db.model.EmployeeModelWithRoom;
-import org.lba.android.simple.trainer.db.room.config.RoomDatabaseClient;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.lba.android.simple.trainer.MainActivity;
+import org.lba.android.simple.trainer.R;
+import org.lba.android.simple.trainer.activity.DatabaseSampleIndexActivity;
+import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
+import org.lba.android.simple.trainer.db.dao.EmployeeModelWithRoomDAO;
+import org.lba.android.simple.trainer.db.model.EmployeeModelWithRoom;
+import org.lba.android.simple.trainer.db.room.config.RoomDatabaseClient;
 
 import java.util.List;
 

@@ -1,14 +1,13 @@
 package org.lba.android.simple.trainer.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.lba.android.simple.trainer.R;
-import org.lba.android.simple.trainer.activity.asynctask.AsyncTaskExample1Activity;
 import org.lba.android.simple.trainer.activity.retrofit.RetrofitExample1Activity;
 
 public class RetrofitSampleIndexActivity extends AppCompatActivity {

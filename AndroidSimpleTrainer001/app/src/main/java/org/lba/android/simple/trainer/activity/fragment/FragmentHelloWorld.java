@@ -1,6 +1,5 @@
 package org.lba.android.simple.trainer.activity.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,13 +10,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import org.lba.android.simple.trainer.MainActivity;
 import org.lba.android.simple.trainer.R;
-import org.lba.android.simple.trainer.SecondActivity;
 import org.lba.android.simple.trainer.costraints.ApplicationCostraintsEnum;
-import org.lba.android.simple.trainer.model.Employee;
-
-import javax.annotation.Resource;
 
 public class FragmentHelloWorld extends Fragment {
 
