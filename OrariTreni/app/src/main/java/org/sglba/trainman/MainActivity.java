@@ -20,12 +20,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
