@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     AutoCompleteTextView autoCompleteArrivals;
     //Adapters
     ArrayAdapter<String> adapterForDeparturesAndArrival;
-    int z;
     //Data
     Map<String, String> stationMapFilteredForDepartures = new HashMap<>();
     Map<String, String> stationMapFilteredForArrivals = new HashMap<>();
