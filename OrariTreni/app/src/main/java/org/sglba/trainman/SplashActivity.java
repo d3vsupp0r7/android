@@ -100,7 +100,7 @@ public class SplashActivity extends Activity {
 
                                 StationEntityRoom stationToSave = new StationEntityRoom(
                                         codiceStazione,
-                                        codiceStazione.replace("S0",""),//TODO: Strategy for station processing
+                                        codiceStazione.replace("S0","").replace("S",""),//TODO: Strategy for station processing
                                         currentStation.getLocalita().getNomeLungo(),
                                         currentStation.getLat(),
                                         currentStation.getLon()

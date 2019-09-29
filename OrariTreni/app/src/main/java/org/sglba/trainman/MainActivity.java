@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -67,15 +66,11 @@ public class MainActivity extends AppCompatActivity {
     AutoCompleteTextView autoCompleteArrivals;
     //Adapters
     ArrayAdapter<String> adapterForDeparturesAndArrival;
-    //Layouts
-    TableLayout trainSolutionsTableLayout;
     //Data
     Map<String, String> stationMapFilteredForDepartures = new HashMap<>();
     Map<String, String> stationMapFilteredForArrivals = new HashMap<>();
     HashSet<Station> stationList=new HashSet<>();
     //Boolean conditions
-    Boolean isCalendarButtonPressed=true;
-    Boolean isAPIArrivalsAndDeparturesCallPerformed=false;
     Boolean isSwitchPressed=false;
     //To Add on Date Utils
     String   selectedDate;
@@ -120,10 +115,6 @@ public class MainActivity extends AppCompatActivity {
         DateTimeFormatter fmtButton= DateTimeFormat.forPattern(DatePatternFormatterCostraintEnum.EU_DATE_PATTERN.getValue());
         calendarButton.setText("Oggi: " + fmtButton.print(now));
         //
-
-        if(!isAPIArrivalsAndDeparturesCallPerformed&&stationList.isEmpty()) {
-            getStationByRegionForDeparturesAndArrival();
-        }
 
         autoCompleteDepartures.addTextChangedListener(new TextWatcher() {
             @Override
@@ -183,8 +174,8 @@ public class MainActivity extends AppCompatActivity {
                 //To call the API service
                 if (autoCompleteDepartures.getText() != null & !autoCompleteDepartures.getText().toString().isEmpty()
                         && autoCompleteArrivals.getText() != null & !autoCompleteArrivals.getText().toString().isEmpty()) {
-                    String departureStationCode = stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "");
-                    String arrivalStationCode = stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()).replace("S0", "");
+                    String departureStationCode = stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "").replace("S","");
+                    String arrivalStationCode = stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()).replace("S0", "").replace("S","");
                     getTrainByStations(departureStationCode, arrivalStationCode,selectedDate!=null?selectedDate:DateUtils.formatCurrentDateForAPIService());
                 }
             }
@@ -266,67 +257,13 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void getStationByRegionForDeparturesAndArrival() {
-        //Obtain an instance of Retrofit by calling the static method.
-        Retrofit retrofit = NetworkStationClient.getRetrofitClient();
-        /*
-        The main purpose of Retrofit is to create HTTP calls from the Java interface based on the annotation associated with each method. This is achieved by just passing the interface class as parameter to the create method
-        */
-        StationService stationService = retrofit.create(StationService.class);
-        /*
-        Invoke the method corresponding to the HTTP request which will return a Call object. This Call object will used to send the actual network request with the specified parameters
-        */
-        for (int z=0;z<23;z++) {
-            Call call = stationService.getStationByRegion(String.valueOf(z));
-        /*
-        This is the line which actually sends a network request. Calling enqueue() executes a call asynchronously. It has two callback listeners which will invoked on the main thread
-        */
-            call.enqueue(new Callback<List<Station>>() {
-                @Override
-                public void onResponse(Call<List<Station>> call, Response<List<Station>> response) {
-                    /*This is the success callback. Though the response type is JSON, with Retrofit we get the response in the form of WResponse POJO class
-                     */
-                    Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDeparturesAndArrival - started");
-                    Map<String, String> stationMapFiltered = new HashMap<>();
-                    List<String> stationNamesList = new ArrayList<>();
-
-                    if (response.body() != null) {
-
-                        Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDeparturesAndArrival - response processing");
-
-                        List<Station> station = response.body();
-                        stationMapFiltered.clear();
-                        stationNamesList.clear();
-                        stationList.addAll(station);
-                        stationMapFilteredForDepartures.putAll(stationMapFiltered);
-                        stationMapFilteredForArrivals.putAll(stationMapFiltered);
-                        isAPIArrivalsAndDeparturesCallPerformed = true;
-
-                    } else {
-                        //TODO: Manage application exception on comunication error
-                        isAPIArrivalsAndDeparturesCallPerformed = false;
-                        Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDeparturesAndArrival - failed");
-                    }
-                }
-
-                @Override
-                public void onFailure(Call call, Throwable t) {
-                    //TODO: Manage application exception on comunication error
-                    isAPIArrivalsAndDeparturesCallPerformed = false;
-                    Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getStationByRegionForDeparturesAndArrival  - onFailure");
-                }
-            });
-
-        }
-    }
-
     private void autocomplete(String charSequence,int checkDeparturesOrArrivals){
         Map<String, String> stationMapFiltered = new HashMap<>();
         List<String> stationNamesList = new ArrayList<>();
-        for (Station singleStation:stationList){
-            if (singleStation.getLocalita().getNomeLungo().toLowerCase().startsWith(charSequence.toLowerCase())){
-                stationMapFiltered.put(singleStation.getLocalita().getNomeLungo(),singleStation.getCodStazione());
-                stationNamesList.add(singleStation.getLocalita().getNomeLungo());
+        for (StationEntityRoom singleStation:stationListApp){
+            if (singleStation.getStationName().toLowerCase().startsWith(charSequence.toLowerCase())){
+                stationMapFiltered.put(singleStation.getStationName(),singleStation.getStationBusinessId());
+                stationNamesList.add(singleStation.getStationName());
             }
         }
         adapterForDeparturesAndArrival = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
@@ -392,7 +329,6 @@ public class MainActivity extends AppCompatActivity {
     private void createSolutionsLayoutTable(  List<Soluzioni> solutionsList) {
 
         /**/
-        ScrollView scrollViewLayout = findViewById(R.id.trainSolutionsScrollView);
         LinearLayout scrollViewLinearLayout = findViewById(R.id.linearLayoutScrollView);
         scrollViewLinearLayout.setOrientation(LinearLayout.VERTICAL);
         /**/
@@ -400,14 +336,8 @@ public class MainActivity extends AppCompatActivity {
         int topRowMargin=0;
         int rightRowMargin=0;
         int bottomRowMargin = 0;
-        int textSize = 10, smallTextSize =0, mediumTextSize = 0;
-
-        textSize = (int) getResources().getDimension(R.dimen.font_size_medium);
-        smallTextSize = (int) getResources().getDimension(R.dimen.font_size_small);
-        mediumTextSize = (int) getResources().getDimension(R.dimen.font_size_medium);
 
         int rows = solutionsList.size();
-        TextView textSpacer = null;
         scrollViewLinearLayout.removeAllViews();
 
         //Row iteration
@@ -511,10 +441,6 @@ public class MainActivity extends AppCompatActivity {
         LL.addView(rowText1);
         LL.addView(rowText2);
 
-        // LL.setTag(View.generateViewId(),"td_"+i);
-        //
-//        tr1.setTag(View.generateViewId(),"tr_td_"+i);
-
         tr1.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
         tr1.addView(LL);
 
@@ -546,7 +472,6 @@ public class MainActivity extends AppCompatActivity {
         rowTextProv.setText("                   ");
         //
 
-        Soluzioni currentSolution = trainSolution.getSolution();
         TextView rowText3 = new TextView(this);
         rowText3.setText(DateUtils.calculateDurationTime(trainSolution.getFirstVehicle().getOrarioPartenza(),trainSolution.getLastVehicle().getOrarioArrivo()));
         rowText3.setPadding(5, 15, 15, 15);
@@ -560,10 +485,8 @@ public class MainActivity extends AppCompatActivity {
         LL.addView(rowText2);
         LL.addView(rowTextProv);
         LL.addView(rowText3);
-        LL.setTag(View.generateViewId(),"tda_"+i);
 
         tr2.addView(LL);
-        //      tr2.setTag(View.generateViewId(),"tr_tda_"+i);
         tr2.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
     }
 
@@ -572,7 +495,6 @@ public class MainActivity extends AppCompatActivity {
         //
         //
         LinearLayout LL = new LinearLayout(this);
-        LL.setTag(View.generateViewId(),"tds_"+i);
         LL.setOrientation(LinearLayout.HORIZONTAL);
         //
         for(int j = 0; j < trainSolution.getVehicleForSolution().size();j++){
