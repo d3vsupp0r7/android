@@ -345,6 +345,7 @@ public class MainActivity extends AppCompatActivity {
 
             Soluzioni currentSolution = solutionsList.get(i);
             List<Vehicle> vehicleForSolution = currentSolution.getVehicles();
+            //add limit row for date/time
             Vehicle firstVehicle=vehicleForSolution.get(0);
             Vehicle lastVehicle=vehicleForSolution.get(vehicleForSolution.size()-1);
 
