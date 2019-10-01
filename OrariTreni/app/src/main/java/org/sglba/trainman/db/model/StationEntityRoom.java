@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity(tableName = "stations")
 public class StationEntityRoom implements Serializable {
@@ -126,4 +127,18 @@ public class StationEntityRoom implements Serializable {
                 ", longitude='" + longitude + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StationEntityRoom station = (StationEntityRoom) o;
+        return stationName.equals(station.stationName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(stationName);
+    }
+
 }

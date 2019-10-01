@@ -1,7 +1,9 @@
 package org.sglba.trainman.service;
 
+import org.sglba.trainman.model.Fermate;
 import org.sglba.trainman.model.RailRoute;
 import org.sglba.trainman.model.Station;
+import org.sglba.trainman.model.TrainStatus;
 
 import java.util.List;
 
@@ -17,5 +19,8 @@ public interface StationService {
 
     @GET("/viaggiatrenonew/resteasy/viaggiatreno/soluzioniViaggioNew/{departureStation}/{arrivalStation}/{departureDate}")
     Call <RailRoute> getTravelSolutionsFromStations(@Path("departureStation") String departureStation, @Path("arrivalStation") String arrivalStation, @Path("departureDate") String departureDate);
+
+    @GET("/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/{departureStation}/{TrainBusinessID}")
+    Call <TrainStatus> getTrainStatus(@Path("departureStation") String departureStation, @Path("TrainBusinessID") String trainBusinessID);
 
 }
