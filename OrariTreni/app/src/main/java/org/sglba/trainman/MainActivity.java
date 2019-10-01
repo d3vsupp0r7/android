@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -81,13 +82,14 @@ public class MainActivity extends AppCompatActivity {
     //DateTimePicker
     TimePicker timePicker;
     Button calendarButton;
+    ProgressBar progressBar;
 
     //Buttons
     ImageButton swapButton;
 
     /*DB*/
     AppDatabase appDatabase;
-    List<StationEntityRoom> stationListApp;
+    HashSet<StationEntityRoom> stationListApp= new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +99,13 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
         /*Get Data*/
         appDatabase = RoomDatabaseClientConfig.getInstance(getApplicationContext()).getAppDatabase();
-        stationListApp = appDatabase.stationDao().getAll();
+        stationListApp.addAll(appDatabase.stationDao().getAll());
         Log.i(ApplicationCostraintsEnum.APP_NAME.getValue(), "List of stations: " + stationList.size());
 
         /* UI Components */
         //Buttons reference from UI
+        progressBar=findViewById(R.id.progressBarSubmit);
+        progressBar.setVisibility(View.INVISIBLE);
         ImageButton findButton = findViewById(R.id.findButton);
         calendarButton= findViewById(R.id.calendarButton);
         swapButton =  findViewById(R.id.swapButton);
@@ -169,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         findButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 //To hide the KeyBoard
                 hideKeyBoard();
                 //To call the API service
@@ -309,10 +314,12 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** START generate dynamic tableLayout");
                     createSolutionsLayoutTable(solutionsList);
                     Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(), "** END generate dynamic tableLayout");
+                    progressBar.setVisibility(View.GONE);
 
                 } else {
                     //TODO: Manage application exception on comunication error
                     Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(), "SERVICE CALL: getTravelSolutionsFromStations - failed");
+                    progressBar.setVisibility(View.GONE);
                 }
 
             }
@@ -342,10 +349,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Row iteration
         for(int i = 0; i < rows; i ++) {
-
+            if (i==20){
+                break;
+            }
             Soluzioni currentSolution = solutionsList.get(i);
             List<Vehicle> vehicleForSolution = currentSolution.getVehicles();
-            //add limit row for date/time
             Vehicle firstVehicle=vehicleForSolution.get(0);
             Vehicle lastVehicle=vehicleForSolution.get(vehicleForSolution.size()-1);
 
