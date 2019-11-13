@@ -1,6 +1,7 @@
 package org.sglba.trainman;
 
 import android.app.AlertDialog;
+import android.arch.persistence.room.util.StringUtil;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -25,6 +26,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -53,6 +55,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TimeZone;
 
 import retrofit2.Call;
@@ -179,9 +182,15 @@ public class MainActivity extends AppCompatActivity {
                 //To call the API service
                 if (autoCompleteDepartures.getText() != null & !autoCompleteDepartures.getText().toString().isEmpty()
                         && autoCompleteArrivals.getText() != null & !autoCompleteArrivals.getText().toString().isEmpty()) {
-                    String departureStationCode = stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "").replace("S","");
-                    String arrivalStationCode = stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()).replace("S0", "").replace("S","");
-                    getTrainByStations(departureStationCode, arrivalStationCode,selectedDate!=null?selectedDate:DateUtils.formatCurrentDateForAPIService());
+                    String departureStationCode = stationMapFilteredForDepartures.containsKey(autoCompleteDepartures.getText().toString())?stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "").replace("S",""):"";
+                    String arrivalStationCode = stationMapFilteredForArrivals.containsKey(autoCompleteArrivals.getText().toString())?stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()).replace("S0", "").replace("S",""):"";
+                    if (!departureStationCode.isEmpty()&&!arrivalStationCode.isEmpty()){
+                        getTrainByStations(departureStationCode, arrivalStationCode,selectedDate!=null?selectedDate:DateUtils.formatCurrentDateForAPIService());
+                    }else{
+                        Toast.makeText(MainActivity.this, "Nome Stazione non supportato!",
+                                Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                    }
                 }
             }
         });
