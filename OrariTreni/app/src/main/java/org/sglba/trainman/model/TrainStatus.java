@@ -114,10 +114,10 @@ public class TrainStatus {
     private String destinazioneZero;
     @SerializedName("orarioPartenzaZero")
     @Expose
-    private Integer orarioPartenzaZero;
+    private String orarioPartenzaZero;
     @SerializedName("orarioArrivoZero")
     @Expose
-    private Integer orarioArrivoZero;
+    private String orarioArrivoZero;
     @SerializedName("circolante")
     @Expose
     private Boolean circolante;
@@ -174,10 +174,10 @@ public class TrainStatus {
     private Object riprogrammazione;
     @SerializedName("orarioPartenza")
     @Expose
-    private Integer orarioPartenza;
+    private String orarioPartenza;
     @SerializedName("orarioArrivo")
     @Expose
-    private Integer orarioArrivo;
+    private String orarioArrivo;
     @SerializedName("stazionePartenza")
     @Expose
     private Object stazionePartenza;
@@ -540,19 +540,19 @@ public class TrainStatus {
         this.destinazioneZero = destinazioneZero;
     }
 
-    public Integer getOrarioPartenzaZero() {
+    public String getOrarioPartenzaZero() {
         return orarioPartenzaZero;
     }
 
-    public void setOrarioPartenzaZero(Integer orarioPartenzaZero) {
+    public void setOrarioPartenzaZero(String orarioPartenzaZero) {
         this.orarioPartenzaZero = orarioPartenzaZero;
     }
 
-    public Integer getOrarioArrivoZero() {
+    public String getOrarioArrivoZero() {
         return orarioArrivoZero;
     }
 
-    public void setOrarioArrivoZero(Integer orarioArrivoZero) {
+    public void setOrarioArrivoZero(String orarioArrivoZero) {
         this.orarioArrivoZero = orarioArrivoZero;
     }
 
@@ -700,19 +700,19 @@ public class TrainStatus {
         this.riprogrammazione = riprogrammazione;
     }
 
-    public Integer getOrarioPartenza() {
+    public String getOrarioPartenza() {
         return orarioPartenza;
     }
 
-    public void setOrarioPartenza(Integer orarioPartenza) {
+    public void setOrarioPartenza(String orarioPartenza) {
         this.orarioPartenza = orarioPartenza;
     }
 
-    public Integer getOrarioArrivo() {
+    public String getOrarioArrivo() {
         return orarioArrivo;
     }
 
-    public void setOrarioArrivo(Integer orarioArrivo) {
+    public void setOrarioArrivo(String orarioArrivo) {
         this.orarioArrivo = orarioArrivo;
     }
 
