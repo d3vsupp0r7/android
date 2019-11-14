@@ -20,9 +20,18 @@ This activity contains the following examples:
 1) Reading data passed by another activity (MainActivity);
 2) Button to show a simple Popup
 
-# AsyncTaskSampleIndexActivity
+# AsyncTaskSampleIndexActivity 
 
 ## AsyncTaskExample1Activity
+
+# ArchitectureSampleIndexActivity
+
+This activity represent the index activity for basic Android Architecture code examples.
+
+## SimpleLiveDataExampleActivity
+
+## MVPEmployeeSampleActivity
+
 
 # BasicUIIndexActivity
 
@@ -31,7 +40,7 @@ This activity represent the index activity for basic Android UI examples.
 ## AutoCompleteExampleActivity
 
 This activity is based on Autocomplete example.  
-The Autcomplete is based on:  
+The Autocomplete is based on:  
 
 1) String array: String[]
 2) Custom Object List: List<EmployeeUISampleModel>
@@ -75,3 +84,5 @@ This activity represent the index activity for Dynamic Table creation.
 This activity represent the index activity for basic Retrofit library usage.
 
 ## RetrofitExample1Activity
+
+
