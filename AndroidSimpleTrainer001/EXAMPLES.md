@@ -1,3 +1,20 @@
+# Table of Contents
+
+* [SplashActivity](#splashactivity)
+* [MainActivity](#mainactivity)
+* [SecondActivity](#secondactivity)
+* [AsyncTaskSampleIndexActivity](#asynctasksampleindexactivity)
+  * [AsyncTaskExample1Activity](#asynctaskexample1activity)
+* [ArchitectureSampleIndexActivity](#architecturesampleindexactivity)
+  * [SimpleLiveDataExampleActivity](#simplelivedataexampleactivity)
+  * [MVPEmployeeSampleActivity](#mvpemployeesampleactivity)
+* [BasicUIIndexActivity](#basicuiindexactivity)
+  * [AutoCompleteExampleActivity](#autocompleteexampleactivity)
+* [Default library dependency](#default-library-dependency)
+  * [Util libraries](#util-libraries)
+  * [Test libraries](#test-libraries)
+* [Authors](#authors)
+* [Licence](#licence)
 
 # SplashActivity
 
