@@ -23,7 +23,7 @@ public class Fermate {
     private Object listaCorrispondenze;
     @SerializedName("programmata")
     @Expose
-    private Integer programmata;
+    private String programmata;
     @SerializedName("programmataZero")
     @Expose
     private Object programmataZero;
@@ -44,7 +44,7 @@ public class Fermate {
     private Object partenzaTeorica;
     @SerializedName("arrivo_teorico")
     @Expose
-    private Integer arrivoTeorico;
+    private String arrivoTeorico;
     @SerializedName("isNextChanged")
     @Expose
     private Boolean isNextChanged;
@@ -152,11 +152,11 @@ public class Fermate {
         this.listaCorrispondenze = listaCorrispondenze;
     }
 
-    public Integer getProgrammata() {
+    public String getProgrammata() {
         return programmata;
     }
 
-    public void setProgrammata(Integer programmata) {
+    public void setProgrammata(String programmata) {
         this.programmata = programmata;
     }
 
@@ -208,11 +208,11 @@ public class Fermate {
         this.partenzaTeorica = partenzaTeorica;
     }
 
-    public Integer getArrivoTeorico() {
+    public String getArrivoTeorico() {
         return arrivoTeorico;
     }
 
-    public void setArrivoTeorico(Integer arrivoTeorico) {
+    public void setArrivoTeorico(String arrivoTeorico) {
         this.arrivoTeorico = arrivoTeorico;
     }
 
