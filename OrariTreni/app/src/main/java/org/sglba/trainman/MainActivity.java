@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
     //To Add on Date Utils
     String   selectedDate;
 
+    String selectedDepartureStationCode;
+    String selectedArrivalStationCode;
+    TrainStatus selectedTrainStatus;
+
     //Popup
     ConstraintLayout mConstraintLayout;
     Context mContext;
@@ -182,7 +186,9 @@ public class MainActivity extends AppCompatActivity {
                 if (autoCompleteDepartures.getText() != null & !autoCompleteDepartures.getText().toString().isEmpty()
                         && autoCompleteArrivals.getText() != null & !autoCompleteArrivals.getText().toString().isEmpty()) {
                     String departureStationCode = stationMapFilteredForDepartures.containsKey(autoCompleteDepartures.getText().toString())?stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()).replace("S0", "").replace("S",""):"";
+                    selectedDepartureStationCode = stationMapFilteredForDepartures.containsKey(autoCompleteDepartures.getText().toString())?stationMapFilteredForDepartures.get(autoCompleteDepartures.getText().toString()):"";
                     String arrivalStationCode = stationMapFilteredForArrivals.containsKey(autoCompleteArrivals.getText().toString())?stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()).replace("S0", "").replace("S",""):"";
+                    selectedArrivalStationCode = stationMapFilteredForArrivals.containsKey(autoCompleteArrivals.getText().toString())?stationMapFilteredForArrivals.get(autoCompleteArrivals.getText().toString()):"";
                     if (!departureStationCode.isEmpty()&&!arrivalStationCode.isEmpty()){
                         getTrainByStations(departureStationCode, arrivalStationCode,selectedDate!=null?selectedDate:DateUtils.formatCurrentDateForAPIService());
                     }else{
@@ -351,6 +357,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TrainStatus> call, Response<TrainStatus> response) {
                 Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(),"TrainStatus API invoked succesfully");
+                selectedTrainStatus=response.body();
             }
 
             @Override
@@ -529,7 +536,6 @@ public class MainActivity extends AppCompatActivity {
         rowText1.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
         rowText1.setTextColor(Color.parseColor("#ffffff"));
         rowText1.setTypeface(null, Typeface.BOLD_ITALIC);
-
         //
         LinearLayout LL = new LinearLayout(this);
         LL.setOrientation(LinearLayout.HORIZONTAL);
@@ -537,7 +543,6 @@ public class MainActivity extends AppCompatActivity {
 
         tr1.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLight));
         tr1.addView(LL);
-
     }
 
     private void buildRowTrainDetailsSolutions(TableRow tr2, TrainSolution trainSolution) {
@@ -556,8 +561,13 @@ public class MainActivity extends AppCompatActivity {
             rowText1.setTextColor(Color.parseColor("#ffffff"));
             rowText1.setPadding(5, 15, 15, 15);
             //
+        if(!currentSolution.getNumeroTreno().equalsIgnoreCase("Urb")||!currentSolution.getNumeroTreno().startsWith("Auto")){
+            getTrainStatus(selectedDepartureStationCode,currentSolution.getNumeroTreno());
+                }
+            Integer delay=selectedTrainStatus!=null&&selectedTrainStatus.getRitardo()!=null?selectedTrainStatus.getRitardo():null;
             GradientDrawable gd = new GradientDrawable();
-            gd.setColor(0xFF90A4AE); // Changes this drawbale to use a single color instead of a gradient
+            delay=delay!=null?delay:0xFF90A4AE;
+            gd.setColor(delay<=0?0xFF85E085:0xFFFF6666); // Changes this drawbale to use a single color instead of a gradient
             gd.setCornerRadius(5);
             gd.setStroke(1, 0xFF90A4AE);
             rowText1.setBackground(gd);
@@ -566,6 +576,7 @@ public class MainActivity extends AppCompatActivity {
             rowText2.setPadding(5, 15, 15, 15);
             LL.addView(rowText1);
             LL.addView(rowText2);
+            selectedTrainStatus=null;
         }
 
         tr2.addView(LL);
