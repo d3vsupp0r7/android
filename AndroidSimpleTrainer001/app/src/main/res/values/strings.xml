@@ -6,6 +6,9 @@
     <string name="btnLblShowPopup">Show Popup</string>
     <string name="btnLblBackToIndex">Back to index samples</string>
     <string name="txtEditLblEnterText">Enter text here</string>
+    <string name="txtLblParam1">Param 1: </string>
+    <string name="txtLblParam2">Param 2:</string>
+    <string name="btnLblExecute">Execute</string>
 
     <!-- 1. SplashScreen config -->
     <string name="title_activity_splash">SplashActivity</string>
@@ -94,5 +97,8 @@
 
     <!-- About Activity -->
     <string name="txtLblWelcomeAboutActivity">Welcome to About Activity.</string>
+
+    <!-- Retrofit -->
+    <string name="txtLblUrl">Url:</string>
 
 </resources>

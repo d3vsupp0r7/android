@@ -22,6 +22,7 @@ public class RetrofitExample1Activity extends AppCompatActivity {
     private String TAG = RetrofitExample1Activity.class.getSimpleName();
     Button toMainActivityButton;
     Button backToIndexSampleButton;
+    Button btnExecute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +50,13 @@ public class RetrofitExample1Activity extends AppCompatActivity {
             }
         });
         /**/
+        btnExecute = (Button)findViewById(R.id.btnExecute);
+        btnExecute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(ApplicationCostraintsEnum.APP_NAME.getValue(),"** RetrofitExample1Activity - btnExecute - started **");
+
+            }
+        });
     }
 }
