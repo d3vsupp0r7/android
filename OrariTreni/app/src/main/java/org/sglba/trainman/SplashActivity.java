@@ -103,8 +103,7 @@ public class SplashActivity extends Activity {
                                         codiceStazione.replace("S0","").replace("S",""),//TODO: Strategy for station processing
                                         currentStation.getLocalita().getNomeLungo(),
                                         currentStation.getLat(),
-                                        currentStation.getLon(),
-                                        currentStation.getLocalita().getNomeBreve()
+                                        currentStation.getLon()
                                 );
 
                                 Long saveResult = appDatabase.stationDao().insert(stationToSave);

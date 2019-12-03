@@ -7,15 +7,14 @@ public class StationEntity implements Serializable {
     /*
     * First element of map represent the table name
     * */
-    public enum StationEntityFields { STATION, ID, BUSINESS_ID, FULL_STATION_NAME, LATITUDE, LONGITUDE,STATION_NAME };
+    public enum StationEntityFields { STATION, ID, BUSINESS_ID, STATION_NAME, LATITUDE, LONGITUDE, }
 
     private static final long serialVersionUID = 6679549475857037758L;
     private Long id;
     private String businessId;
-    private String fullStationName;
+    private String stationName;
     private String latitude;
     private  String longitude;
-    private String stationName;
 
     public StationEntity() {
     }
@@ -36,12 +35,12 @@ public class StationEntity implements Serializable {
         this.businessId = businessId;
     }
 
-    public String getFullStationName() {
-        return fullStationName;
+    public String getStationName() {
+        return stationName;
     }
 
-    public void setFullStationName(String fullStationName) {
-        this.fullStationName = fullStationName;
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
     }
 
     public String getLatitude() {
@@ -60,23 +59,14 @@ public class StationEntity implements Serializable {
         this.longitude = longitude;
     }
 
-    public String getStationName() {
-        return stationName;
-    }
-
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
-    }
-
     @Override
     public String toString() {
         return "StationEntity{" +
                 "id=" + id +
                 ", businessId='" + businessId + '\'' +
-                ", fullStationName='" + fullStationName + '\'' +
+                ", stationName='" + stationName + '\'' +
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
-                ", stationName='" + stationName + '\'' +
                 '}';
     }
 }

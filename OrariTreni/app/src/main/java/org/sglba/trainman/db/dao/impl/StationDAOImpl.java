@@ -41,10 +41,9 @@ public class StationDAOImpl implements StationDAO {
 
         ContentValues values = new ContentValues();
         values.put(StationEntity.StationEntityFields.BUSINESS_ID.toString(), model.getBusinessId());
-        values.put(StationEntity.StationEntityFields.FULL_STATION_NAME.toString(), model.getFullStationName());
+        values.put(StationEntity.StationEntityFields.STATION_NAME.toString(), model.getStationName());
         values.put(StationEntity.StationEntityFields.LATITUDE.toString(), model.getLatitude());
         values.put(StationEntity.StationEntityFields.LONGITUDE.toString(),model.getLongitude());
-        values.put(StationEntity.StationEntityFields.STATION_NAME.toString(),model.getStationName());
 
         // insert row
         long id = database.insert(StationEntity.StationEntityFields.STATION.toString(), null, values);
@@ -69,10 +68,9 @@ public class StationDAOImpl implements StationDAO {
                 StationEntity station = new StationEntity();
                 station.setId(c.getLong(c.getColumnIndex(StationEntity.StationEntityFields.ID.toString())));
                 station.setBusinessId(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.BUSINESS_ID.toString())));
-                station.setFullStationName(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.FULL_STATION_NAME.toString())));
+                station.setStationName(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.STATION_NAME.toString())));
                 station.setLatitude(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.LATITUDE.toString())));
                 station.setLongitude(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.LONGITUDE.toString())));
-                station.setStationName(c.getString(c.getColumnIndex(StationEntity.StationEntityFields.STATION_NAME.toString())));
                 // adding to list
                 settings.add(station);
             } while (c.moveToNext());

@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class NetworkStationClient {
 
@@ -31,6 +32,7 @@ public class NetworkStationClient {
                     .baseUrl(BASE_URL)
                     .client(client)
                     // Convertor library used to convert response into POJO
+                    .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
