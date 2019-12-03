@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
     //To Add on Date Utils
     String   selectedDate;
 
+    List<String> selectedTrainOrigin=new ArrayList<>();
+    TrainStatus selectedTrainStatus;
+
     //Popup
     ConstraintLayout mConstraintLayout;
     Context mContext;
@@ -274,9 +277,9 @@ public class MainActivity extends AppCompatActivity {
         Map<String, String> stationMapFiltered = new HashMap<>();
         List<String> stationNamesList = new ArrayList<>();
         for (StationEntityRoom singleStation:stationListApp){
-            if (singleStation.getFullStationName().toLowerCase().startsWith(charSequence.toLowerCase())){
-                stationMapFiltered.put(singleStation.getFullStationName(),singleStation.getStationId());
-                stationNamesList.add(singleStation.getFullStationName());
+            if (singleStation.getStationName().toLowerCase().startsWith(charSequence.toLowerCase())){
+                stationMapFiltered.put(singleStation.getStationName(),singleStation.getStationId());
+                stationNamesList.add(singleStation.getStationName());
             }
         }
         adapterForDeparturesAndArrival = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);
@@ -340,17 +343,39 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getTrainStatus(String departureStation,String trainBusinessID){
+    private void getTrainOriginForGetStatusAPI(String trainNumber){
         Retrofit retrofit = NetworkStationClient.getRetrofitClient();
 
         StationService stationService = retrofit.create(StationService.class);
 
-        Call call = stationService.getTrainStatus(departureStation,trainBusinessID);
+        Call<String> call = stationService.getTrainOriginForGetStatusAPI(trainNumber);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(),"TrainOrigin API invocation succesfully");
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(),"TrainOrigin API invocation failed");
+            }
+        });
+
+    }
+
+    private void getTrainStatus(String departureStation,String trainNumber){
+        Retrofit retrofit = NetworkStationClient.getRetrofitClient();
+
+        StationService stationService = retrofit.create(StationService.class);
+
+        Call call = stationService.getTrainStatus(departureStation,trainNumber);
 
         call.enqueue(new Callback<TrainStatus>() {
             @Override
             public void onResponse(Call<TrainStatus> call, Response<TrainStatus> response) {
                 Log.e(ApplicationCostraintsEnum.APP_NAME.getValue(),"TrainStatus API invoked succesfully");
+                selectedTrainStatus=response.body();
             }
 
             @Override
@@ -556,16 +581,26 @@ public class MainActivity extends AppCompatActivity {
             rowText1.setTextColor(Color.parseColor("#ffffff"));
             rowText1.setPadding(5, 15, 15, 15);
             //
+            Integer delay=selectedTrainStatus!=null&&selectedTrainStatus.getRitardo()!=null?selectedTrainStatus.getRitardo():null;
+            //
             GradientDrawable gd = new GradientDrawable();
-            gd.setColor(0xFF90A4AE); // Changes this drawbale to use a single color instead of a gradient
-            gd.setCornerRadius(5);
-            gd.setStroke(1, 0xFF90A4AE);
+            if (delay==null) {
+                gd.setColor(0xFF90A4AE); // Changes this drawbale to use a single color instead of a gradient
+                gd.setCornerRadius(5);
+                gd.setStroke(1, 0xFF90A4AE);
+            }else{
+                gd.setColor(delay<=0?0xFF85E085:0xFFFF6666); // Changes this drawbale to use a single color instead of a gradient
+                gd.setCornerRadius(5);
+                gd.setStroke(1, 0xFF90A4AE);
+            }
             rowText1.setBackground(gd);
             //
             TextView rowText2 = new TextView(this);
             rowText2.setPadding(5, 15, 15, 15);
             LL.addView(rowText1);
             LL.addView(rowText2);
+            selectedTrainStatus=null;
+            selectedTrainOrigin=null;
         }
 
         tr2.addView(LL);

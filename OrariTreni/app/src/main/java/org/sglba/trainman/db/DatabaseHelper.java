@@ -17,10 +17,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + StationEntity.StationEntityFields.STATION + "("
             + StationEntity.StationEntityFields.ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + StationEntity.StationEntityFields.BUSINESS_ID + " TEXT,"
-            + StationEntity.StationEntityFields.FULL_STATION_NAME + " TEXT,"
+            + StationEntity.StationEntityFields.STATION_NAME + " TEXT,"
             + StationEntity.StationEntityFields.LATITUDE + " TEXT,"
-            + StationEntity.StationEntityFields.LONGITUDE + " TEXT,"
-            + StationEntity.StationEntityFields.STATION_NAME + " TEXT"
+            + StationEntity.StationEntityFields.LONGITUDE + " TEXT"
             + ")";
     /**/
     private static DatabaseHelper instance;
