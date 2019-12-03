@@ -274,9 +274,9 @@ public class MainActivity extends AppCompatActivity {
         Map<String, String> stationMapFiltered = new HashMap<>();
         List<String> stationNamesList = new ArrayList<>();
         for (StationEntityRoom singleStation:stationListApp){
-            if (singleStation.getStationName().toLowerCase().startsWith(charSequence.toLowerCase())){
-                stationMapFiltered.put(singleStation.getStationName(),singleStation.getStationId());
-                stationNamesList.add(singleStation.getStationName());
+            if (singleStation.getFullStationName().toLowerCase().startsWith(charSequence.toLowerCase())){
+                stationMapFiltered.put(singleStation.getFullStationName(),singleStation.getStationId());
+                stationNamesList.add(singleStation.getFullStationName());
             }
         }
         adapterForDeparturesAndArrival = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, stationNamesList);

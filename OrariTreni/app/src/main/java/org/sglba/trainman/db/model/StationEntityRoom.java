@@ -22,8 +22,8 @@ public class StationEntityRoom implements Serializable {
     @ColumnInfo(name = "station_business_id")
     private String stationBusinessId;
 
-    @ColumnInfo(name = "station_name")
-    private String stationName;
+    @ColumnInfo(name = "full_station_name")
+    private String fullStationName;
 
     @ColumnInfo(name = "station_latitude")
     private Double latitude;
@@ -31,41 +31,27 @@ public class StationEntityRoom implements Serializable {
     @ColumnInfo(name = "station_longitude")
     private  Double longitude;
 
+    @ColumnInfo(name = "station_name")
+    private  String stationName;
+
     public StationEntityRoom() {
     }
 
     /**
      *
-     * @param id
      * @param stationId
      * @param stationBusinessId
-     * @param stationName
+     * @param fullStationName
      * @param latitude
      * @param longitude
      */
-    public StationEntityRoom(Long id, String stationId, String stationBusinessId, String stationName, Double latitude, Double longitude) {
-        this.id = id;
+    public StationEntityRoom(String stationId, String stationBusinessId, String fullStationName, Double latitude, Double longitude,String stationName) {
         this.stationId = stationId;
         this.stationBusinessId = stationBusinessId;
-        this.stationName = stationName;
+        this.fullStationName = fullStationName;
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    /**
-     *
-     * @param stationId
-     * @param stationBusinessId
-     * @param stationName
-     * @param latitude
-     * @param longitude
-     */
-    public StationEntityRoom(String stationId, String stationBusinessId, String stationName, Double latitude, Double longitude) {
-        this.stationId = stationId;
-        this.stationBusinessId = stationBusinessId;
-        this.stationName = stationName;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.stationName=stationName;
     }
 
     public Long getId() {
@@ -92,12 +78,12 @@ public class StationEntityRoom implements Serializable {
         this.stationBusinessId = stationBusinessId;
     }
 
-    public String getStationName() {
-        return stationName;
+    public String getFullStationName() {
+        return fullStationName;
     }
 
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
+    public void setFullStationName(String fullStationName) {
+        this.fullStationName = fullStationName;
     }
 
     public Double getLatitude() {
@@ -116,15 +102,24 @@ public class StationEntityRoom implements Serializable {
         this.longitude = longitude;
     }
 
+    public String getStationName() {
+        return stationName;
+    }
+
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
+    }
+
     @Override
     public String toString() {
         return "StationEntityRoom{" +
                 "id=" + id +
                 ", stationId='" + stationId + '\'' +
                 ", stationBusinessId='" + stationBusinessId + '\'' +
+                ", fullStationName='" + fullStationName + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 ", stationName='" + stationName + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
                 '}';
     }
 
@@ -133,12 +128,12 @@ public class StationEntityRoom implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StationEntityRoom station = (StationEntityRoom) o;
-        return stationName.equals(station.stationName);
+        return fullStationName.equals(station.fullStationName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(stationName);
+        return Objects.hash(fullStationName);
     }
 
 }
