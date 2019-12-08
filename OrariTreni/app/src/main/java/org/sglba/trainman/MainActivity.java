@@ -23,7 +23,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -667,8 +666,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i=
                 new Intent(Intent.ACTION_VIEW);
-        String mimeType= MimeTypeMap.getSingleton().getExtensionFromMimeType(MimeTypeMap.getFileExtensionFromUrl(getFilesDir()+"/NapoliSorrento.pdf"));
-        i.setDataAndType(Uri.fromFile(f),mimeType);
+        i.setDataAndType(Uri.fromFile(f),"application/pdf");
 
         i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
