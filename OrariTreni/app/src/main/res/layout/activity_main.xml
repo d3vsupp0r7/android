@@ -164,4 +164,21 @@
         app:layout_constraintTop_toBottomOf="@+id/autoCompleteArrivals"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/circumTimeTablesButton"
+        android:layout_width="219dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Orario CircumVesuviana"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/trainSolutionsScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarButton"
+        app:layout_constraintVertical_bias="0.0" />
+
 </android.support.constraint.ConstraintLayout>
