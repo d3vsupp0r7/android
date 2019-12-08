@@ -21,15 +21,16 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {
     //define versions
-    def apache_collections='4.4'
+    def apache_collections = '4.4'
     //L
     def lifecycle_version = "1.1.1"
     //J
-    def joda_time_version='2.10.3'
+    def joda_time_version = '2.10.3'
     // R
     def room_version = '1.1.1'
     def retrofit_version = '2.4.0'
