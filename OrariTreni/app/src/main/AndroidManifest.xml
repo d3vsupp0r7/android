@@ -43,6 +43,12 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"></activity>
+        <!-- CircumTimeTables activity -->
+        <activity
+            android:name=".CircumTimeTablesActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 
