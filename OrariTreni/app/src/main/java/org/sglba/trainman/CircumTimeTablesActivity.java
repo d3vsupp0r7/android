@@ -12,6 +12,8 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,6 +25,84 @@ public class CircumTimeTablesActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_circum_time);
+        //Trains Button
+        Button napoliSorrentoButton=findViewById(R.id.napoliSorrentoButton);
+        Button napoliBaianoButton=findViewById(R.id.napoliBaianoButton);
+        Button napoliSarnoButton=findViewById(R.id.napoliSarnoButton);
+        Button napoliPoggiomarinoButton=findViewById(R.id.napoliPoggiomarinoButton);
+        Button napoliAcerraButton=findViewById(R.id.napoliAcerraButton);
+        Button napoliSanGiorgioButton=findViewById(R.id.napoliSanGiorgioButton);
+        //Bus Button
+        Button napoliSorrentoBusButton=findViewById(R.id.napoliSorrentoBusButton);
+        Button napoliBaianoBusButton=findViewById(R.id.napoliBaianoBusButton);
+        Button napoliSarnoBusButton=findViewById(R.id.napoliSarnoBusButton);
+        Button napoliPoggiomarinoBusButton=findViewById(R.id.napoliPoggiomarinoBusButton);
+        //Trains Button OnClickListener
+        napoliSorrentoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionAndOpenPDF("NapoliSorrento");
+            }
+        });
+        napoliBaianoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionAndOpenPDF("NapoliBaiano");
+            }
+        });
+        napoliSarnoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionAndOpenPDF("NapoliSarno");
+            }
+        });
+        napoliPoggiomarinoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionAndOpenPDF("NapoliPoggiomarino");
+            }
+        });
+        napoliAcerraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionAndOpenPDF("NapoliAcerra");
+            }
+        });
+        napoliSanGiorgioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionAndOpenPDF("NapoliSanGiorgio");
+            }
+        });
+        //Bus Button OnClickListener
+        napoliSorrentoBusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionAndOpenPDF("NapoliSorrentoBus");
+            }
+        });
+        napoliBaianoBusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionAndOpenPDF("NapoliBaianoBus");
+            }
+        });
+        napoliSarnoBusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionAndOpenPDF("NapoliSarnoBus");
+            }
+        });
+        napoliPoggiomarinoBusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionAndOpenPDF("NapoliPoggiomarinoBus");
+            }
+        });
+    }
+
+    private void checkPermissionAndOpenPDF(String pdfName) {
         if(Build.VERSION.SDK_INT>=24){
             try{
                 Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
@@ -35,23 +115,24 @@ public class CircumTimeTablesActivity extends Activity {
             ActivityCompat.requestPermissions(CircumTimeTablesActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},102);
         }else {
             try {
-                openPDFFiles();
+                openPDFFiles(pdfName);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-    private void openPDFFiles() {
+
+    private void openPDFFiles(String pdfName) {
         File fPath=new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "/pdf");
         if (!fPath.exists()){
             fPath.mkdirs();
         }
-        File f = new File(fPath,"NapoliSorrento.pdf");
+        File f = new File(fPath,pdfName+".pdf");
 
         if (!f.exists()) {
             AssetManager assets=getAssets();
             try {
-                copy(assets.open("NapoliSorrento.pdf"), f);
+                copy(assets.open(pdfName+".pdf"), f);
             }
             catch (IOException e) {
                 Log.e("FileProvider", "Exception copying from assets", e);
