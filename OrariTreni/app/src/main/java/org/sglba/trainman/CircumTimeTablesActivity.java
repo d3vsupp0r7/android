@@ -14,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,17 +28,27 @@ public class CircumTimeTablesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circum_time);
         //Trains Button
-        Button napoliSorrentoButton=findViewById(R.id.napoliSorrentoButton);
-        Button napoliBaianoButton=findViewById(R.id.napoliBaianoButton);
-        Button napoliSarnoButton=findViewById(R.id.napoliSarnoButton);
-        Button napoliPoggiomarinoButton=findViewById(R.id.napoliPoggiomarinoButton);
-        Button napoliAcerraButton=findViewById(R.id.napoliAcerraButton);
-        Button napoliSanGiorgioButton=findViewById(R.id.napoliSanGiorgioButton);
+        ImageView napoliSorrentoButton=findViewById(R.id.napoliSorrentoButton);
+        napoliSorrentoButton.setImageResource(R.drawable.pdf_icon);
+        ImageView napoliBaianoButton=findViewById(R.id.napoliBaianoButton);
+        napoliBaianoButton.setImageResource(R.drawable.pdf_icon);
+        ImageView napoliSarnoButton=findViewById(R.id.napoliSarnoButton);
+        napoliSarnoButton.setImageResource(R.drawable.pdf_icon);
+        ImageView napoliPoggiomarinoButton=findViewById(R.id.napoliPoggiomarinoButton);
+        napoliPoggiomarinoButton.setImageResource(R.drawable.pdf_icon);
+        ImageView napoliAcerraButton=findViewById(R.id.napoliAcerraButton);
+        napoliAcerraButton.setImageResource(R.drawable.pdf_icon);
+        ImageView napoliSanGiorgioButton=findViewById(R.id.napoliSanGiorgioButton);
+        napoliSanGiorgioButton.setImageResource(R.drawable.pdf_icon);
         //Bus Button
-        Button napoliSorrentoBusButton=findViewById(R.id.napoliSorrentoBusButton);
-        Button napoliBaianoBusButton=findViewById(R.id.napoliBaianoBusButton);
-        Button napoliSarnoBusButton=findViewById(R.id.napoliSarnoBusButton);
-        Button napoliPoggiomarinoBusButton=findViewById(R.id.napoliPoggiomarinoBusButton);
+        ImageView napoliSorrentoBusButton=findViewById(R.id.napoliSorrentoBusButton);
+        napoliSorrentoBusButton.setImageResource(R.drawable.pdf_icon);
+        ImageView napoliBaianoBusButton=findViewById(R.id.napoliBaianoBusButton);
+        napoliBaianoBusButton.setImageResource(R.drawable.pdf_icon);
+        ImageView napoliSarnoBusButton=findViewById(R.id.napoliSarnoBusButton);
+        napoliSarnoBusButton.setImageResource(R.drawable.pdf_icon);
+        ImageView napoliPoggiomarinoBusButton=findViewById(R.id.napoliPoggiomarinoBusButton);
+        napoliPoggiomarinoBusButton.setImageResource(R.drawable.pdf_icon);
         //Trains Button OnClickListener
         napoliSorrentoButton.setOnClickListener(new View.OnClickListener() {
             @Override
